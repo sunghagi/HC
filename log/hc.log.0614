@@ -1,0 +1,1126 @@
+11:25:46.073 [INFO ] ConfigLoad :: config path : /nas/HC/lib/../config/hc.cfg
+11:25:46.154 [INFO ] get_current_check_mode :: Health Check Infomation : 1
+11:30:10.928 [INFO ] ConfigLoad :: config path : /nas/HC/lib/../config/hc.cfg
+11:30:10.950 [INFO ] get_current_check_mode :: Health Check Infomation : 1
+11:30:10.951 [INFO ] _host_info : hostname is OMP
+11:30:10.951 [INFO ] run_method :: exec_flag : Process 확인,ALL,1,1
+11:30:10.952 [INFO ] _host_info : hostname is OMP
+11:30:10.963 [ERROR] os_execute :: error return code : 127
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1038, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 573, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command '/nas/HC/DIS-PRCS.py' returned non-zero exit status 127
+11:30:10.965 [INFO ] run_method :: OMP ItemDesc : Process 확인, lib.vms_hc.process_display()
+11:30:10.965 [INFO ] run_method :: exec_flag : CORE 파일 생성 확인,ALL,1,1
+11:30:10.967 [INFO ] _host_info : hostname is OMP
+11:30:10.970 [INFO ] corefile_status :: core_file_path : /home/vms/bin
+11:30:10.974 [ERROR] corefile_status :: [Errno 2] No such file or directory: '/home/vms/bin'
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 521, in corefile_status
+    files = fnmatch.filter(os.listdir(core_file_path), "core.*")
+OSError: [Errno 2] No such file or directory: '/home/vms/bin'
+11:30:10.975 [INFO ] run_method :: OMP ItemDesc : CORE 파일 생성 확인, lib.vms_hc.corefile_status()
+11:30:10.976 [INFO ] run_method :: exec_flag : Ping 확인,ALL,1,1
+11:30:10.977 [INFO ] _host_info : hostname is OMP
+11:30:10.980 [INFO ] _host_info : hostname is OMP
+11:33:54.576 [INFO ] ConfigLoad :: config path : /nas/HC/lib/../config/hc.cfg
+11:33:54.597 [INFO ] get_current_check_mode :: Health Check Infomation : 1
+11:33:54.598 [INFO ] _host_info : hostname is OMP
+11:33:54.598 [INFO ] run_method :: exec_flag : Process 확인,ALL,1,1
+11:33:54.600 [INFO ] _host_info : hostname is OMP
+11:33:54.607 [ERROR] os_execute :: error return code : 127
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1038, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 573, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command '/nas/HC/DIS-PRCS.py' returned non-zero exit status 127
+11:33:54.610 [INFO ] run_method :: OMP ItemDesc : Process 확인, lib.vms_hc.process_display()
+11:33:54.611 [INFO ] run_method :: exec_flag : CORE 파일 생성 확인,ALL,1,1
+11:33:54.612 [INFO ] _host_info : hostname is OMP
+11:33:54.616 [INFO ] corefile_status :: core_file_path : /home/vic/bin
+11:33:54.624 [INFO ] run_method :: OMP ItemDesc : CORE 파일 생성 확인, lib.vms_hc.corefile_status()
+11:33:54.625 [INFO ] run_method :: exec_flag : Ping 확인,ALL,1,1
+11:33:54.626 [INFO ] _host_info : hostname is OMP
+11:33:54.630 [INFO ] _host_info : hostname is OMP
+11:33:57.765 [INFO ] run_method :: OMP ItemDesc : Ping 확인, lib.vms_hc.ping_status()
+11:33:57.765 [INFO ] run_method :: exec_flag : route 확인,ALL,1,1
+11:33:57.767 [INFO ] _host_info : hostname is OMP
+11:33:57.853 [INFO ] _host_info : hostname is OMP
+11:33:57.855 [INFO ] route_status :: route_config_file_path : /nas/HC/config/route/OMP.cfg
+11:33:57.857 [INFO ] run_method :: OMP ItemDesc : route 확인, lib.vms_hc.route_status()
+11:33:57.857 [INFO ] run_method :: exec_flag : crontab 확인,ALL,1,1
+11:33:57.859 [INFO ] _host_info : hostname is OMP
+11:33:57.861 [INFO ] crontab_status :: crontab_from_config  : [('dellog', '/home/vic/bin/dellog.sh')]
+11:33:57.930 [INFO ] run_method :: OMP ItemDesc : crontab 확인, lib.vms_hc.crontab_status()
+11:33:57.931 [INFO ] run_method :: exec_flag : NTP 연동 확인,ALL,1,1
+11:33:57.932 [INFO ] _host_info : hostname is OMP
+11:33:58.022 [INFO ] run_method :: OMP ItemDesc : NTP 연동 확인, lib.vms_hc.ntp_status()
+11:33:58.023 [INFO ] run_method :: exec_flag : CPU 사용률 확인,ALL,1,1
+11:33:58.024 [INFO ] _host_info : hostname is OMP
+11:33:58.028 [INFO ] run_method :: OMP ItemDesc : CPU 사용률 확인, lib.vms_hc.cpu_usage()
+11:33:58.028 [INFO ] run_method :: exec_flag : Memory 사용률 확인,ALL,1,1
+11:33:58.029 [INFO ] _host_info : hostname is OMP
+11:33:58.033 [INFO ] run_method :: OMP ItemDesc : Memory 사용률 확인, lib.vms_hc.memory_usage()
+11:33:58.034 [INFO ] run_method :: exec_flag : DISK 사용률 확인,ALL,1,1
+11:33:58.035 [INFO ] _host_info : hostname is OMP
+11:33:58.037 [INFO ] run_method :: OMP ItemDesc : DISK 사용률 확인, lib.vms_hc.disk_usage()
+11:33:58.037 [INFO ] run_method :: exec_flag : 시스템 Uptime 확인,ALL,1,1
+11:33:58.039 [INFO ] _host_info : hostname is OMP
+11:33:58.041 [INFO ] run_method :: OMP ItemDesc : 시스템 Uptime 확인, lib.vms_hc.uptime_status()
+11:33:58.041 [INFO ] run_method :: exec_flag : 디스크 이중화 상태 확인,ALL,1,1
+11:33:58.043 [INFO ] _host_info : hostname is OMP
+11:33:58.074 [INFO ] disk_mirror_status :: SYS_MANUF : Red Hat
+11:33:58.086 [ERROR] os_execute :: error return code : 1
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1038, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 573, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'sudo mpt-status -p | /bin/grep Found' returned non-zero exit status 1
+11:33:58.088 [INFO ] disk_mirror_status :: std_out : |sudo: mpt-status: command not found
+| 
+11:33:58.089 [INFO ] disk_mirror_status :: CMD : sudo mpt-status -i  | /bin/grep state 
+11:33:58.100 [ERROR] os_execute :: error return code : 1
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1038, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 573, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'sudo mpt-status -i  | /bin/grep state' returned non-zero exit status 1
+11:33:58.102 [INFO ] run_method :: OMP ItemDesc : 디스크 이중화 상태 확인, lib.vms_hc.disk_mirror_status()
+11:33:58.102 [INFO ] run_method :: exec_flag : 좀비 프로세스 확인,ALL,1,1
+11:33:58.103 [INFO ] _host_info : hostname is OMP
+11:33:58.119 [INFO ] run_method :: OMP ItemDesc : 좀비 프로세스 확인, lib.vms_hc.process_status()
+11:33:58.120 [INFO ] run_method :: exec_flag : 총 가입자수 확인,SPS,1,1
+11:33:58.121 [INFO ] _host_info : hostname is OMP
+11:33:58.121 [INFO ] run_method :: exec_flag : 월간 alarm,OMP,1,100
+11:33:58.122 [INFO ] _host_info : hostname is OMP
+11:33:58.123 [INFO ] run_method :: exec_flag : SIP 통계 확인,ALL,1,1
+11:33:58.124 [INFO ] _host_info : hostname is OMP
+11:33:58.127 [INFO ] __init__ :: DB DSN : DSN=mysql
+11:33:58.128 [INFO ] make_output :: DB Query : 
+   SELECT collectTime, SUM(totalCount) totalCount,
+   SUM(IF(endCode IN (0, 403), totalCount, 0)) successCount,
+   SUM(IF(endCode NOT IN (0, 403), totalCount, 0)) failCount,
+   ROUND(SUM(holdingTime * totalCount)/SUM(totalCount)) holdingTime
+   FROM SAM_ST_SIPRM_HOUR
+   WHERE collectTime = ?
+   GROUP BY collectTime
+   
+11:33:58.161 [ERROR] odbc_query_execute_fetchall :: error : libodbc.so.1: cannot open shared object file: No such file or directory
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 982, in odbc_query_execute_fetchall
+    from lib.odbc_conn import odbcConn
+  File "/nas/HC/lib/odbc_conn.py", line 3, in <module>
+    import pyodbc
+ImportError: libodbc.so.1: cannot open shared object file: No such file or directory
+11:37:48.117 [INFO ] ConfigLoad :: config path : /nas/HC/lib/../config/hc.cfg
+11:37:48.147 [INFO ] get_current_check_mode :: Health Check Infomation : 1
+11:37:48.149 [INFO ] _host_info : hostname is OMP
+11:37:48.149 [INFO ] run_method :: exec_flag : Process 확인,ALL,1,1
+11:37:48.150 [INFO ] _host_info : hostname is OMP
+11:37:48.160 [ERROR] os_execute :: error return code : 127
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 573, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command '/nas/HC/DIS-PRCS.py' returned non-zero exit status 127
+11:37:48.162 [INFO ] run_method :: OMP ItemDesc : Process 확인, lib.vms_hc.process_display()
+11:37:48.163 [INFO ] run_method :: exec_flag : CORE 파일 생성 확인,ALL,1,1
+11:37:48.164 [INFO ] _host_info : hostname is OMP
+11:37:48.167 [INFO ] corefile_status :: core_file_path : /home/vic/bin
+11:37:48.175 [INFO ] run_method :: OMP ItemDesc : CORE 파일 생성 확인, lib.vms_hc.corefile_status()
+11:37:48.175 [INFO ] run_method :: exec_flag : Ping 확인,ALL,1,1
+11:37:48.176 [INFO ] _host_info : hostname is OMP
+11:37:48.183 [INFO ] _host_info : hostname is OMP
+11:37:51.196 [INFO ] run_method :: OMP ItemDesc : Ping 확인, lib.vms_hc.ping_status()
+11:37:51.196 [INFO ] run_method :: exec_flag : route 확인,ALL,1,1
+11:37:51.198 [INFO ] _host_info : hostname is OMP
+11:37:51.208 [INFO ] _host_info : hostname is OMP
+11:37:51.209 [INFO ] route_status :: route_config_file_path : /nas/HC/config/route/OMP.cfg
+11:37:51.210 [INFO ] run_method :: OMP ItemDesc : route 확인, lib.vms_hc.route_status()
+11:37:51.211 [INFO ] run_method :: exec_flag : crontab 확인,ALL,1,1
+11:37:51.212 [INFO ] _host_info : hostname is OMP
+11:37:51.215 [INFO ] crontab_status :: crontab_from_config  : [('dellog', '/home/vic/bin/dellog.sh')]
+11:37:51.228 [INFO ] run_method :: OMP ItemDesc : crontab 확인, lib.vms_hc.crontab_status()
+11:37:51.229 [INFO ] run_method :: exec_flag : NTP 연동 확인,ALL,1,1
+11:37:51.230 [INFO ] _host_info : hostname is OMP
+11:37:51.253 [INFO ] run_method :: OMP ItemDesc : NTP 연동 확인, lib.vms_hc.ntp_status()
+11:37:51.253 [INFO ] run_method :: exec_flag : CPU 사용률 확인,ALL,1,1
+11:37:51.254 [INFO ] _host_info : hostname is OMP
+11:37:51.257 [INFO ] run_method :: OMP ItemDesc : CPU 사용률 확인, lib.vms_hc.cpu_usage()
+11:37:51.258 [INFO ] run_method :: exec_flag : Memory 사용률 확인,ALL,1,1
+11:37:51.259 [INFO ] _host_info : hostname is OMP
+11:37:51.261 [INFO ] run_method :: OMP ItemDesc : Memory 사용률 확인, lib.vms_hc.memory_usage()
+11:37:51.262 [INFO ] run_method :: exec_flag : DISK 사용률 확인,ALL,1,1
+11:37:51.263 [INFO ] _host_info : hostname is OMP
+11:37:51.265 [INFO ] run_method :: OMP ItemDesc : DISK 사용률 확인, lib.vms_hc.disk_usage()
+11:37:51.265 [INFO ] run_method :: exec_flag : 시스템 Uptime 확인,ALL,1,1
+11:37:51.267 [INFO ] _host_info : hostname is OMP
+11:37:51.268 [INFO ] run_method :: OMP ItemDesc : 시스템 Uptime 확인, lib.vms_hc.uptime_status()
+11:37:51.269 [INFO ] run_method :: exec_flag : 디스크 이중화 상태 확인,ALL,1,1
+11:37:51.270 [INFO ] _host_info : hostname is OMP
+11:37:51.285 [INFO ] disk_mirror_status :: SYS_MANUF : Red Hat
+11:37:51.295 [ERROR] os_execute :: error return code : 1
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 573, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'sudo mpt-status -p | /bin/grep Found' returned non-zero exit status 1
+11:37:51.297 [INFO ] disk_mirror_status :: std_out : |sudo: mpt-status: command not found
+| 
+11:37:51.299 [INFO ] disk_mirror_status :: CMD : sudo mpt-status -i  | /bin/grep state 
+11:37:51.309 [ERROR] os_execute :: error return code : 1
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 573, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'sudo mpt-status -i  | /bin/grep state' returned non-zero exit status 1
+11:37:51.310 [INFO ] run_method :: OMP ItemDesc : 디스크 이중화 상태 확인, lib.vms_hc.disk_mirror_status()
+11:37:51.311 [INFO ] run_method :: exec_flag : 좀비 프로세스 확인,ALL,1,1
+11:37:51.312 [INFO ] _host_info : hostname is OMP
+11:37:51.328 [INFO ] run_method :: OMP ItemDesc : 좀비 프로세스 확인, lib.vms_hc.process_status()
+11:37:51.329 [INFO ] run_method :: exec_flag : 총 가입자수 확인,SPS,1,1
+11:37:51.330 [INFO ] _host_info : hostname is OMP
+11:37:51.331 [INFO ] run_method :: exec_flag : 월간 alarm,OMP,1,100
+11:37:51.332 [INFO ] _host_info : hostname is OMP
+11:37:51.332 [INFO ] run_method :: exec_flag : SIP 통계 확인,ALL,1,1
+11:37:51.334 [INFO ] _host_info : hostname is OMP
+11:37:51.337 [INFO ] __init__ :: DB DSN : DSN=mysql
+11:37:51.338 [INFO ] make_output :: DB Query : 
+   SELECT collectTime, SUM(totalCount) totalCount,
+   SUM(IF(endCode IN (0, 403), totalCount, 0)) successCount,
+   SUM(IF(endCode NOT IN (0, 403), totalCount, 0)) failCount,
+   ROUND(SUM(holdingTime * totalCount)/SUM(totalCount)) holdingTime
+   FROM SAM_ST_SIPRM_HOUR
+   WHERE collectTime = ?
+   GROUP BY collectTime
+   
+11:37:51.355 [ERROR] odbc_query_execute_fetchall :: error : libodbc.so.1: cannot open shared object file: No such file or directory
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 983, in odbc_query_execute_fetchall
+    from lib.odbc_conn import odbcConn
+  File "/nas/HC/lib/odbc_conn.py", line 3, in <module>
+    import pyodbc
+ImportError: libodbc.so.1: cannot open shared object file: No such file or directory
+11:37:51.357 [INFO ] make_output :: result.reason : libodbc.so.1: cannot open shared object file: No such file or directory
+11:49:46.339 [INFO ] ConfigLoad :: config path : /nas/HC/lib/../config/hc.cfg
+11:49:46.360 [INFO ] get_current_check_mode :: Health Check Infomation : 1
+11:49:46.361 [INFO ] _host_info : hostname is OMP
+11:49:46.362 [INFO ] run_method :: exec_flag : Process 확인,ALL,1,1
+11:49:46.363 [INFO ] _host_info : hostname is OMP
+11:49:46.372 [ERROR] os_execute :: error return code : 127
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 573, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command '/nas/HC/DIS-PRCS.py' returned non-zero exit status 127
+11:49:46.374 [INFO ] run_method :: OMP ItemDesc : Process 확인, lib.vms_hc.process_display()
+11:49:46.375 [INFO ] run_method :: exec_flag : CORE 파일 생성 확인,ALL,1,1
+11:49:46.376 [INFO ] _host_info : hostname is OMP
+11:49:46.379 [INFO ] corefile_status :: core_file_path : /home/vic/bin
+11:49:46.379 [INFO ] run_method :: OMP ItemDesc : CORE 파일 생성 확인, lib.vms_hc.corefile_status()
+11:49:46.380 [INFO ] run_method :: exec_flag : Ping 확인,ALL,1,1
+11:49:46.381 [INFO ] _host_info : hostname is OMP
+11:49:46.385 [INFO ] _host_info : hostname is OMP
+11:49:49.395 [INFO ] run_method :: OMP ItemDesc : Ping 확인, lib.vms_hc.ping_status()
+11:49:49.396 [INFO ] run_method :: exec_flag : route 확인,ALL,1,1
+11:49:49.397 [INFO ] _host_info : hostname is OMP
+11:49:49.406 [INFO ] _host_info : hostname is OMP
+11:49:49.407 [INFO ] route_status :: route_config_file_path : /nas/HC/config/route/OMP.cfg
+11:49:49.409 [INFO ] run_method :: OMP ItemDesc : route 확인, lib.vms_hc.route_status()
+11:49:49.409 [INFO ] run_method :: exec_flag : crontab 확인,ALL,1,1
+11:49:49.410 [INFO ] _host_info : hostname is OMP
+11:49:49.413 [INFO ] crontab_status :: crontab_from_config  : [('dellog', '/home/vic/bin/dellog.sh')]
+11:49:49.428 [INFO ] run_method :: OMP ItemDesc : crontab 확인, lib.vms_hc.crontab_status()
+11:49:49.429 [INFO ] run_method :: exec_flag : NTP 연동 확인,ALL,1,1
+11:49:49.430 [INFO ] _host_info : hostname is OMP
+11:49:49.454 [INFO ] run_method :: OMP ItemDesc : NTP 연동 확인, lib.vms_hc.ntp_status()
+11:49:49.455 [INFO ] run_method :: exec_flag : CPU 사용률 확인,ALL,1,1
+11:49:49.456 [INFO ] _host_info : hostname is OMP
+11:49:49.460 [INFO ] run_method :: OMP ItemDesc : CPU 사용률 확인, lib.vms_hc.cpu_usage()
+11:49:49.461 [INFO ] run_method :: exec_flag : Memory 사용률 확인,ALL,1,1
+11:49:49.462 [INFO ] _host_info : hostname is OMP
+11:49:49.464 [INFO ] run_method :: OMP ItemDesc : Memory 사용률 확인, lib.vms_hc.memory_usage()
+11:49:49.464 [INFO ] run_method :: exec_flag : DISK 사용률 확인,ALL,1,1
+11:49:49.466 [INFO ] _host_info : hostname is OMP
+11:49:49.468 [INFO ] run_method :: OMP ItemDesc : DISK 사용률 확인, lib.vms_hc.disk_usage()
+11:49:49.468 [INFO ] run_method :: exec_flag : 시스템 Uptime 확인,ALL,1,1
+11:49:49.469 [INFO ] _host_info : hostname is OMP
+11:49:49.471 [INFO ] run_method :: OMP ItemDesc : 시스템 Uptime 확인, lib.vms_hc.uptime_status()
+11:49:49.472 [INFO ] run_method :: exec_flag : 디스크 이중화 상태 확인,ALL,1,1
+11:49:49.473 [INFO ] _host_info : hostname is OMP
+11:49:49.487 [INFO ] disk_mirror_status :: SYS_MANUF : Red Hat
+11:49:49.497 [ERROR] os_execute :: error return code : 1
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 573, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'sudo mpt-status -p | /bin/grep Found' returned non-zero exit status 1
+11:49:49.499 [INFO ] disk_mirror_status :: std_out : |sudo: mpt-status: command not found
+| 
+11:49:49.500 [INFO ] disk_mirror_status :: CMD : sudo mpt-status -i  | /bin/grep state 
+11:49:49.510 [ERROR] os_execute :: error return code : 1
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 573, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'sudo mpt-status -i  | /bin/grep state' returned non-zero exit status 1
+11:49:49.512 [INFO ] run_method :: OMP ItemDesc : 디스크 이중화 상태 확인, lib.vms_hc.disk_mirror_status()
+11:49:49.512 [INFO ] run_method :: exec_flag : 좀비 프로세스 확인,ALL,1,1
+11:49:49.514 [INFO ] _host_info : hostname is OMP
+11:49:49.533 [INFO ] run_method :: OMP ItemDesc : 좀비 프로세스 확인, lib.vms_hc.process_status()
+11:49:49.533 [INFO ] run_method :: exec_flag : 총 가입자수 확인,SPS,1,1
+11:49:49.535 [INFO ] _host_info : hostname is OMP
+11:49:49.536 [INFO ] run_method :: exec_flag : 월간 alarm,OMP,1,100
+11:49:49.538 [INFO ] _host_info : hostname is OMP
+11:49:49.538 [INFO ] run_method :: exec_flag : SIP 통계 확인,ALL,1,1
+11:49:49.540 [INFO ] _host_info : hostname is OMP
+11:49:49.544 [INFO ] __init__ :: DB DSN : DSN=mysql
+11:49:49.545 [INFO ] make_output :: DB Query : 
+   SELECT collectTime, SUM(totalCount) totalCount,
+   SUM(IF(endCode IN (0, 403), totalCount, 0)) successCount,
+   SUM(IF(endCode NOT IN (0, 403), totalCount, 0)) failCount,
+   ROUND(SUM(holdingTime * totalCount)/SUM(totalCount)) holdingTime
+   FROM SAM_ST_SIPRM_HOUR
+   WHERE collectTime = ?
+   GROUP BY collectTime
+   
+11:49:49.552 [ERROR] odbc_query_execute_fetchall :: error : libodbc.so.1: cannot open shared object file: No such file or directory
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 983, in odbc_query_execute_fetchall
+    from lib.odbc_conn import odbcConn
+  File "/nas/HC/lib/odbc_conn.py", line 3, in <module>
+    import pyodbc
+ImportError: libodbc.so.1: cannot open shared object file: No such file or directory
+11:49:49.554 [INFO ] make_output :: result.reason : libodbc.so.1: cannot open shared object file: No such file or directory
+13:33:17.948 [INFO ] ConfigLoad :: config path : /nas/HC/lib/../config/hc.cfg
+13:33:18.030 [INFO ] get_current_check_mode :: Health Check Infomation : 1
+13:33:18.031 [INFO ] _host_info : hostname is OMP
+13:33:18.031 [INFO ] run_method :: exec_flag : Process 확인,ALL,1,1
+13:33:18.032 [INFO ] _host_info : hostname is OMP
+13:33:18.054 [ERROR] os_execute :: error return code : 127
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command '/nas/HC/DIS-PRCS.py' returned non-zero exit status 127
+13:33:18.056 [INFO ] run_method :: OMP ItemDesc : Process 확인, lib.vms_hc.process_display()
+13:33:18.056 [INFO ] run_method :: exec_flag : CORE 파일 생성 확인,ALL,1,1
+13:33:18.058 [INFO ] _host_info : hostname is OMP
+13:33:18.060 [INFO ] corefile_status :: core_file_path : /home/vic/bin
+13:33:18.068 [INFO ] run_method :: OMP ItemDesc : CORE 파일 생성 확인, lib.vms_hc.corefile_status()
+13:33:18.069 [INFO ] run_method :: exec_flag : Ping 확인,ALL,1,1
+13:33:18.070 [INFO ] _host_info : hostname is OMP
+13:33:18.073 [INFO ] _host_info : hostname is OMP
+13:33:21.084 [INFO ] run_method :: OMP ItemDesc : Ping 확인, lib.vms_hc.ping_status()
+13:33:21.085 [INFO ] run_method :: exec_flag : route 확인,ALL,1,1
+13:33:21.086 [INFO ] _host_info : hostname is OMP
+13:33:21.095 [INFO ] _host_info : hostname is OMP
+13:33:21.096 [INFO ] route_status :: route_config_file_path : /nas/HC/config/route/OMP.cfg
+13:33:21.097 [INFO ] run_method :: OMP ItemDesc : route 확인, lib.vms_hc.route_status()
+13:33:21.098 [INFO ] run_method :: exec_flag : crontab 확인,ALL,1,1
+13:33:21.099 [INFO ] _host_info : hostname is OMP
+13:33:21.101 [INFO ] crontab_status :: crontab_from_config  : [('dellog', '/home/vic/bin/dellog.sh')]
+13:33:21.114 [INFO ] run_method :: OMP ItemDesc : crontab 확인, lib.vms_hc.crontab_status()
+13:33:21.115 [INFO ] run_method :: exec_flag : NTP 연동 확인,ALL,1,1
+13:33:21.116 [INFO ] _host_info : hostname is OMP
+13:33:21.139 [INFO ] run_method :: OMP ItemDesc : NTP 연동 확인, lib.vms_hc.ntp_status()
+13:33:21.140 [INFO ] run_method :: exec_flag : CPU 사용률 확인,ALL,1,1
+13:33:21.141 [INFO ] _host_info : hostname is OMP
+13:33:21.144 [INFO ] run_method :: OMP ItemDesc : CPU 사용률 확인, lib.vms_hc.cpu_usage()
+13:33:21.144 [INFO ] run_method :: exec_flag : Memory 사용률 확인,ALL,1,1
+13:33:21.146 [INFO ] _host_info : hostname is OMP
+13:33:21.147 [INFO ] run_method :: OMP ItemDesc : Memory 사용률 확인, lib.vms_hc.memory_usage()
+13:33:21.148 [INFO ] run_method :: exec_flag : DISK 사용률 확인,ALL,1,1
+13:33:21.149 [INFO ] _host_info : hostname is OMP
+13:33:21.151 [INFO ] run_method :: OMP ItemDesc : DISK 사용률 확인, lib.vms_hc.disk_usage()
+13:33:21.152 [INFO ] run_method :: exec_flag : 시스템 Uptime 확인,ALL,1,1
+13:33:21.153 [INFO ] _host_info : hostname is OMP
+13:33:21.154 [INFO ] run_method :: OMP ItemDesc : 시스템 Uptime 확인, lib.vms_hc.uptime_status()
+13:33:21.155 [INFO ] run_method :: exec_flag : 디스크 이중화 상태 확인,ALL,1,1
+13:33:21.156 [INFO ] _host_info : hostname is OMP
+13:33:21.169 [INFO ] disk_mirror_status :: SYS_MANUF : Red Hat
+13:33:21.179 [ERROR] os_execute :: error return code : 1
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'sudo mpt-status -p | /bin/grep Found' returned non-zero exit status 1
+13:33:21.181 [INFO ] disk_mirror_status :: std_out : |sudo: mpt-status: command not found
+| 
+13:33:21.182 [INFO ] disk_mirror_status :: CMD : sudo mpt-status -i  | /bin/grep state 
+13:33:21.191 [ERROR] os_execute :: error return code : 1
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'sudo mpt-status -i  | /bin/grep state' returned non-zero exit status 1
+13:33:21.193 [INFO ] run_method :: OMP ItemDesc : 디스크 이중화 상태 확인, lib.vms_hc.disk_mirror_status()
+13:33:21.193 [INFO ] run_method :: exec_flag : 좀비 프로세스 확인,ALL,1,1
+13:33:21.195 [INFO ] _host_info : hostname is OMP
+13:33:21.208 [INFO ] run_method :: OMP ItemDesc : 좀비 프로세스 확인, lib.vms_hc.process_status()
+13:33:21.209 [INFO ] run_method :: exec_flag : 총 가입자수 확인,SPS,1,1
+13:33:21.210 [INFO ] _host_info : hostname is OMP
+13:33:21.210 [INFO ] run_method :: exec_flag : 월간 alarm,OMP,1,100
+13:33:21.211 [INFO ] _host_info : hostname is OMP
+13:33:21.212 [INFO ] run_method :: exec_flag : SIP 통계 확인,ALL,1,1
+13:33:21.213 [INFO ] _host_info : hostname is OMP
+13:33:21.215 [INFO ] __init__ :: DB DSN : DSN=mysql
+13:33:21.216 [INFO ] make_output :: DB Query : 
+   SELECT collectTime, SUM(totalCount) totalCount,
+   SUM(IF(endCode IN (0, 403), totalCount, 0)) successCount,
+   SUM(IF(endCode NOT IN (0, 403), totalCount, 0)) failCount,
+   ROUND(SUM(holdingTime * totalCount)/SUM(totalCount)) holdingTime
+   FROM SAM_ST_SIPRM_HOUR
+   WHERE collectTime = ?
+   GROUP BY collectTime
+   
+13:33:21.261 [ERROR] odbc_query_execute_fetchall :: error : No module named pyodbc
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 983, in odbc_query_execute_fetchall
+    from lib.odbc_conn import odbcConn
+  File "/nas/HC/lib/odbc_conn.py", line 3, in <module>
+    import pyodbc
+ImportError: No module named pyodbc
+13:33:21.263 [INFO ] make_output :: result.reason : No module named pyodbc
+13:34:39.574 [INFO ] ConfigLoad :: config path : /nas/HC/lib/../config/hc.cfg
+13:34:39.597 [INFO ] get_current_check_mode :: Health Check Infomation : 1
+13:34:39.598 [INFO ] _host_info : hostname is OMP
+13:34:39.598 [INFO ] run_method :: exec_flag : Process 확인,ALL,1,1
+13:34:39.599 [INFO ] _host_info : hostname is OMP
+13:34:39.609 [ERROR] os_execute :: error return code : 127
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command '/nas/HC/DIS-PRCS.py' returned non-zero exit status 127
+13:34:39.611 [INFO ] run_method :: OMP ItemDesc : Process 확인, lib.vms_hc.process_display()
+13:34:39.612 [INFO ] run_method :: exec_flag : CORE 파일 생성 확인,ALL,1,1
+13:34:39.613 [INFO ] _host_info : hostname is OMP
+13:34:39.615 [INFO ] corefile_status :: core_file_path : /home/vic/bin
+13:34:39.623 [INFO ] run_method :: OMP ItemDesc : CORE 파일 생성 확인, lib.vms_hc.corefile_status()
+13:34:39.623 [INFO ] run_method :: exec_flag : Ping 확인,ALL,1,1
+13:34:39.625 [INFO ] _host_info : hostname is OMP
+13:34:39.628 [INFO ] _host_info : hostname is OMP
+13:34:42.638 [INFO ] run_method :: OMP ItemDesc : Ping 확인, lib.vms_hc.ping_status()
+13:34:42.639 [INFO ] run_method :: exec_flag : route 확인,ALL,1,1
+13:34:42.640 [INFO ] _host_info : hostname is OMP
+13:34:42.649 [INFO ] _host_info : hostname is OMP
+13:34:42.650 [INFO ] route_status :: route_config_file_path : /nas/HC/config/route/OMP.cfg
+13:34:42.651 [INFO ] run_method :: OMP ItemDesc : route 확인, lib.vms_hc.route_status()
+13:34:42.652 [INFO ] run_method :: exec_flag : crontab 확인,ALL,1,1
+13:34:42.653 [INFO ] _host_info : hostname is OMP
+13:34:42.655 [INFO ] crontab_status :: crontab_from_config  : [('dellog', '/home/vic/bin/dellog.sh')]
+13:34:42.668 [INFO ] run_method :: OMP ItemDesc : crontab 확인, lib.vms_hc.crontab_status()
+13:34:42.668 [INFO ] run_method :: exec_flag : NTP 연동 확인,ALL,1,1
+13:34:42.669 [INFO ] _host_info : hostname is OMP
+13:34:42.691 [INFO ] run_method :: OMP ItemDesc : NTP 연동 확인, lib.vms_hc.ntp_status()
+13:34:42.692 [INFO ] run_method :: exec_flag : CPU 사용률 확인,ALL,1,1
+13:34:42.693 [INFO ] _host_info : hostname is OMP
+13:34:42.696 [INFO ] run_method :: OMP ItemDesc : CPU 사용률 확인, lib.vms_hc.cpu_usage()
+13:34:42.696 [INFO ] run_method :: exec_flag : Memory 사용률 확인,ALL,1,1
+13:34:42.697 [INFO ] _host_info : hostname is OMP
+13:34:42.699 [INFO ] run_method :: OMP ItemDesc : Memory 사용률 확인, lib.vms_hc.memory_usage()
+13:34:42.700 [INFO ] run_method :: exec_flag : DISK 사용률 확인,ALL,1,1
+13:34:42.701 [INFO ] _host_info : hostname is OMP
+13:34:42.703 [INFO ] run_method :: OMP ItemDesc : DISK 사용률 확인, lib.vms_hc.disk_usage()
+13:34:42.703 [INFO ] run_method :: exec_flag : 시스템 Uptime 확인,ALL,1,1
+13:34:42.704 [INFO ] _host_info : hostname is OMP
+13:34:42.706 [INFO ] run_method :: OMP ItemDesc : 시스템 Uptime 확인, lib.vms_hc.uptime_status()
+13:34:42.706 [INFO ] run_method :: exec_flag : 디스크 이중화 상태 확인,ALL,1,1
+13:34:42.707 [INFO ] _host_info : hostname is OMP
+13:34:42.721 [INFO ] disk_mirror_status :: SYS_MANUF : Red Hat
+13:34:42.730 [ERROR] os_execute :: error return code : 1
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'sudo mpt-status -p | /bin/grep Found' returned non-zero exit status 1
+13:34:42.732 [INFO ] disk_mirror_status :: std_out : |sudo: mpt-status: command not found
+| 
+13:34:42.733 [INFO ] disk_mirror_status :: CMD : sudo mpt-status -i  | /bin/grep state 
+13:34:42.742 [ERROR] os_execute :: error return code : 1
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'sudo mpt-status -i  | /bin/grep state' returned non-zero exit status 1
+13:34:42.743 [INFO ] run_method :: OMP ItemDesc : 디스크 이중화 상태 확인, lib.vms_hc.disk_mirror_status()
+13:34:42.744 [INFO ] run_method :: exec_flag : 좀비 프로세스 확인,ALL,1,1
+13:34:42.745 [INFO ] _host_info : hostname is OMP
+13:34:42.759 [INFO ] run_method :: OMP ItemDesc : 좀비 프로세스 확인, lib.vms_hc.process_status()
+13:34:42.759 [INFO ] run_method :: exec_flag : 총 가입자수 확인,SPS,1,1
+13:34:42.761 [INFO ] _host_info : hostname is OMP
+13:34:42.761 [INFO ] run_method :: exec_flag : 월간 alarm,OMP,1,100
+13:34:42.762 [INFO ] _host_info : hostname is OMP
+13:34:42.763 [INFO ] run_method :: exec_flag : SIP 통계 확인,ALL,1,1
+13:34:42.764 [INFO ] _host_info : hostname is OMP
+13:34:42.766 [INFO ] __init__ :: DB DSN : DSN=mysql
+13:34:42.767 [INFO ] make_output :: DB Query : 
+   SELECT collectTime, SUM(totalCount) totalCount,
+   SUM(IF(endCode IN (0, 403), totalCount, 0)) successCount,
+   SUM(IF(endCode NOT IN (0, 403), totalCount, 0)) failCount,
+   ROUND(SUM(holdingTime * totalCount)/SUM(totalCount)) holdingTime
+   FROM SAM_ST_SIPRM_HOUR
+   WHERE collectTime = ?
+   GROUP BY collectTime
+   
+13:34:42.784 [ERROR] odbc_query_execute_fetchall :: error : libodbc.so.1: cannot open shared object file: No such file or directory
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 983, in odbc_query_execute_fetchall
+    from lib.odbc_conn import odbcConn
+  File "/nas/HC/lib/odbc_conn.py", line 3, in <module>
+    import pyodbc
+ImportError: libodbc.so.1: cannot open shared object file: No such file or directory
+13:34:42.786 [INFO ] make_output :: result.reason : libodbc.so.1: cannot open shared object file: No such file or directory
+14:10:19.907 [INFO ] ConfigLoad :: config path : /nas/HC/lib/../config/hc.cfg
+14:10:19.929 [INFO ] get_current_check_mode :: Health Check Infomation : 1
+14:10:19.930 [INFO ] _host_info : hostname is OMP
+14:10:19.930 [INFO ] run_method :: exec_flag : Process 확인,ALL,1,1
+14:10:19.932 [INFO ] _host_info : hostname is OMP
+14:10:19.941 [ERROR] os_execute :: error return code : 127
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command '/nas/HC/DIS-PRCS.py' returned non-zero exit status 127
+14:10:19.944 [INFO ] run_method :: OMP ItemDesc : Process 확인, lib.vms_hc.process_display()
+14:10:19.944 [INFO ] run_method :: exec_flag : CORE 파일 생성 확인,ALL,1,1
+14:10:19.945 [INFO ] _host_info : hostname is OMP
+14:10:19.948 [INFO ] corefile_status :: core_file_path : /home/vic/bin
+14:10:19.948 [INFO ] run_method :: OMP ItemDesc : CORE 파일 생성 확인, lib.vms_hc.corefile_status()
+14:10:19.949 [INFO ] run_method :: exec_flag : Ping 확인,ALL,1,1
+14:10:19.950 [INFO ] _host_info : hostname is OMP
+14:10:19.953 [INFO ] _host_info : hostname is OMP
+14:10:22.964 [INFO ] run_method :: OMP ItemDesc : Ping 확인, lib.vms_hc.ping_status()
+14:10:22.965 [INFO ] run_method :: exec_flag : route 확인,ALL,1,1
+14:10:22.966 [INFO ] _host_info : hostname is OMP
+14:10:22.976 [INFO ] _host_info : hostname is OMP
+14:10:22.977 [INFO ] route_status :: route_config_file_path : /nas/HC/config/route/OMP.cfg
+14:10:22.978 [INFO ] run_method :: OMP ItemDesc : route 확인, lib.vms_hc.route_status()
+14:10:22.979 [INFO ] run_method :: exec_flag : crontab 확인,ALL,1,1
+14:10:22.980 [INFO ] _host_info : hostname is OMP
+14:10:22.982 [INFO ] crontab_status :: crontab_from_config  : [('dellog', '/home/vic/bin/dellog.sh')]
+14:10:22.996 [INFO ] run_method :: OMP ItemDesc : crontab 확인, lib.vms_hc.crontab_status()
+14:10:22.997 [INFO ] run_method :: exec_flag : NTP 연동 확인,ALL,1,1
+14:10:22.998 [INFO ] _host_info : hostname is OMP
+14:10:23.025 [INFO ] run_method :: OMP ItemDesc : NTP 연동 확인, lib.vms_hc.ntp_status()
+14:10:23.025 [INFO ] run_method :: exec_flag : CPU 사용률 확인,ALL,1,1
+14:10:23.027 [INFO ] _host_info : hostname is OMP
+14:10:23.029 [INFO ] run_method :: OMP ItemDesc : CPU 사용률 확인, lib.vms_hc.cpu_usage()
+14:10:23.030 [INFO ] run_method :: exec_flag : Memory 사용률 확인,ALL,1,1
+14:10:23.031 [INFO ] _host_info : hostname is OMP
+14:10:23.033 [INFO ] run_method :: OMP ItemDesc : Memory 사용률 확인, lib.vms_hc.memory_usage()
+14:10:23.034 [INFO ] run_method :: exec_flag : DISK 사용률 확인,ALL,1,1
+14:10:23.035 [INFO ] _host_info : hostname is OMP
+14:10:23.036 [INFO ] run_method :: OMP ItemDesc : DISK 사용률 확인, lib.vms_hc.disk_usage()
+14:10:23.037 [INFO ] run_method :: exec_flag : 시스템 Uptime 확인,ALL,1,1
+14:10:23.038 [INFO ] _host_info : hostname is OMP
+14:10:23.040 [INFO ] run_method :: OMP ItemDesc : 시스템 Uptime 확인, lib.vms_hc.uptime_status()
+14:10:23.041 [INFO ] run_method :: exec_flag : 디스크 이중화 상태 확인,ALL,1,1
+14:10:23.042 [INFO ] _host_info : hostname is OMP
+14:10:23.056 [INFO ] disk_mirror_status :: SYS_MANUF : Red Hat
+14:10:23.066 [ERROR] os_execute :: error return code : 1
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'sudo mpt-status -p | /bin/grep Found' returned non-zero exit status 1
+14:10:23.068 [INFO ] disk_mirror_status :: std_out : |sudo: mpt-status: command not found
+| 
+14:10:23.069 [INFO ] disk_mirror_status :: CMD : sudo mpt-status -i  | /bin/grep state 
+14:10:23.079 [ERROR] os_execute :: error return code : 1
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'sudo mpt-status -i  | /bin/grep state' returned non-zero exit status 1
+14:10:23.081 [INFO ] run_method :: OMP ItemDesc : 디스크 이중화 상태 확인, lib.vms_hc.disk_mirror_status()
+14:10:23.081 [INFO ] run_method :: exec_flag : 좀비 프로세스 확인,ALL,1,1
+14:10:23.082 [INFO ] _host_info : hostname is OMP
+14:10:23.097 [INFO ] run_method :: OMP ItemDesc : 좀비 프로세스 확인, lib.vms_hc.process_status()
+14:10:23.097 [INFO ] run_method :: exec_flag : 총 가입자수 확인,SPS,1,1
+14:10:23.098 [INFO ] _host_info : hostname is OMP
+14:10:23.099 [INFO ] run_method :: exec_flag : 월간 alarm,OMP,1,100
+14:10:23.100 [INFO ] _host_info : hostname is OMP
+14:10:23.100 [INFO ] run_method :: exec_flag : SIP 통계 확인,ALL,1,1
+14:10:23.101 [INFO ] _host_info : hostname is OMP
+14:10:23.104 [INFO ] __init__ :: DB DSN : DSN=mysql
+14:10:23.105 [INFO ] make_output :: DB Query : 
+   SELECT collectTime, SUM(totalCount) totalCount,
+   SUM(IF(endCode IN (0, 403), totalCount, 0)) successCount,
+   SUM(IF(endCode NOT IN (0, 403), totalCount, 0)) failCount,
+   ROUND(SUM(holdingTime * totalCount)/SUM(totalCount)) holdingTime
+   FROM SAM_ST_SIPRM_HOUR
+   WHERE collectTime = ?
+   GROUP BY collectTime
+   
+14:10:23.112 [ERROR] odbc_query_execute_fetchall :: error : libodbc.so.1: cannot open shared object file: No such file or directory
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 983, in odbc_query_execute_fetchall
+    from lib.odbc_conn import odbcConn
+  File "/nas/HC/lib/odbc_conn.py", line 3, in <module>
+    import pyodbc
+ImportError: libodbc.so.1: cannot open shared object file: No such file or directory
+14:10:23.113 [INFO ] make_output :: result.reason : libodbc.so.1: cannot open shared object file: No such file or directory
+14:44:55.335 [INFO ] ConfigLoad :: config path : /nas/HC/lib/../config/hc.cfg
+14:44:55.421 [INFO ] get_current_check_mode :: Health Check Infomation : 1
+14:44:55.422 [INFO ] _host_info : hostname is OMP
+14:44:55.423 [INFO ] run_method :: exec_flag : Process 확인,ALL,1,1
+14:44:55.424 [INFO ] _host_info : hostname is OMP
+14:44:55.457 [ERROR] os_execute :: error return code : 127
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command '/nas/HC/DIS-PRCS.py' returned non-zero exit status 127
+14:44:55.464 [INFO ] run_method :: OMP ItemDesc : Process 확인, lib.vms_hc.process_display()
+14:44:55.464 [INFO ] run_method :: exec_flag : CORE 파일 생성 확인,ALL,1,1
+14:44:55.466 [INFO ] _host_info : hostname is OMP
+14:44:55.468 [INFO ] corefile_status :: core_file_path : /home/vic/bin
+14:44:55.469 [INFO ] run_method :: OMP ItemDesc : CORE 파일 생성 확인, lib.vms_hc.corefile_status()
+14:44:55.469 [INFO ] run_method :: exec_flag : Ping 확인,ALL,1,1
+14:44:55.470 [INFO ] _host_info : hostname is OMP
+14:44:55.473 [INFO ] _host_info : hostname is OMP
+14:44:58.484 [INFO ] run_method :: OMP ItemDesc : Ping 확인, lib.vms_hc.ping_status()
+14:44:58.484 [INFO ] run_method :: exec_flag : route 확인,ALL,1,1
+14:44:58.485 [INFO ] _host_info : hostname is OMP
+14:44:58.495 [INFO ] _host_info : hostname is OMP
+14:44:58.495 [INFO ] route_status :: route_config_file_path : /nas/HC/config/route/OMP.cfg
+14:44:58.497 [INFO ] run_method :: OMP ItemDesc : route 확인, lib.vms_hc.route_status()
+14:44:58.497 [INFO ] run_method :: exec_flag : crontab 확인,ALL,1,1
+14:44:58.498 [INFO ] _host_info : hostname is OMP
+14:44:58.501 [INFO ] crontab_status :: crontab_from_config  : [('dellog', '/home/vic/bin/dellog.sh')]
+14:44:58.515 [INFO ] run_method :: OMP ItemDesc : crontab 확인, lib.vms_hc.crontab_status()
+14:44:58.516 [INFO ] run_method :: exec_flag : NTP 연동 확인,ALL,1,1
+14:44:58.517 [INFO ] _host_info : hostname is OMP
+14:44:58.541 [INFO ] run_method :: OMP ItemDesc : NTP 연동 확인, lib.vms_hc.ntp_status()
+14:44:58.541 [INFO ] run_method :: exec_flag : CPU 사용률 확인,ALL,1,1
+14:44:58.543 [INFO ] _host_info : hostname is OMP
+14:44:58.546 [INFO ] run_method :: OMP ItemDesc : CPU 사용률 확인, lib.vms_hc.cpu_usage()
+14:44:58.546 [INFO ] run_method :: exec_flag : Memory 사용률 확인,ALL,1,1
+14:44:58.547 [INFO ] _host_info : hostname is OMP
+14:44:58.549 [INFO ] run_method :: OMP ItemDesc : Memory 사용률 확인, lib.vms_hc.memory_usage()
+14:44:58.550 [INFO ] run_method :: exec_flag : DISK 사용률 확인,ALL,1,1
+14:44:58.551 [INFO ] _host_info : hostname is OMP
+14:44:58.553 [INFO ] run_method :: OMP ItemDesc : DISK 사용률 확인, lib.vms_hc.disk_usage()
+14:44:58.554 [INFO ] run_method :: exec_flag : 시스템 Uptime 확인,ALL,1,1
+14:44:58.555 [INFO ] _host_info : hostname is OMP
+14:44:58.556 [INFO ] run_method :: OMP ItemDesc : 시스템 Uptime 확인, lib.vms_hc.uptime_status()
+14:44:58.557 [INFO ] run_method :: exec_flag : 디스크 이중화 상태 확인,ALL,1,1
+14:44:58.558 [INFO ] _host_info : hostname is OMP
+14:44:58.572 [INFO ] disk_mirror_status :: SYS_MANUF : Red Hat
+14:44:58.581 [ERROR] os_execute :: error return code : 1
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'sudo mpt-status -p | /bin/grep Found' returned non-zero exit status 1
+14:44:58.583 [INFO ] disk_mirror_status :: std_out : |sudo: mpt-status: command not found
+| 
+14:44:58.584 [INFO ] disk_mirror_status :: CMD : sudo mpt-status -i  | /bin/grep state 
+14:44:58.593 [ERROR] os_execute :: error return code : 1
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'sudo mpt-status -i  | /bin/grep state' returned non-zero exit status 1
+14:44:58.594 [INFO ] run_method :: OMP ItemDesc : 디스크 이중화 상태 확인, lib.vms_hc.disk_mirror_status()
+14:44:58.595 [INFO ] run_method :: exec_flag : 좀비 프로세스 확인,ALL,1,1
+14:44:58.596 [INFO ] _host_info : hostname is OMP
+14:44:58.610 [INFO ] run_method :: OMP ItemDesc : 좀비 프로세스 확인, lib.vms_hc.process_status()
+14:44:58.610 [INFO ] run_method :: exec_flag : 총 가입자수 확인,SPS,1,1
+14:44:58.611 [INFO ] _host_info : hostname is OMP
+14:44:58.612 [INFO ] run_method :: exec_flag : 월간 alarm,OMP,1,100
+14:44:58.613 [INFO ] _host_info : hostname is OMP
+14:44:58.613 [INFO ] run_method :: exec_flag : SIP 통계 확인,ALL,1,1
+14:44:58.614 [INFO ] _host_info : hostname is OMP
+14:44:58.616 [INFO ] __init__ :: DB DSN : DSN=mysql
+14:44:58.617 [INFO ] make_output :: DB Query : 
+   SELECT collectTime, SUM(totalCount) totalCount,
+   SUM(IF(endCode IN (0, 403), totalCount, 0)) successCount,
+   SUM(IF(endCode NOT IN (0, 403), totalCount, 0)) failCount,
+   ROUND(SUM(holdingTime * totalCount)/SUM(totalCount)) holdingTime
+   FROM SAM_ST_SIPRM_HOUR
+   WHERE collectTime = ?
+   GROUP BY collectTime
+   
+14:44:58.653 [ERROR] odbc_query_execute_fetchall :: error : No module named pyodbc
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 983, in odbc_query_execute_fetchall
+    from lib.odbc_conn import odbcConn
+  File "/nas/HC/lib/odbc_conn.py", line 3, in <module>
+    import pyodbc
+ImportError: No module named pyodbc
+14:44:58.655 [INFO ] make_output :: result.reason : No module named pyodbc
+15:10:57.601 [INFO ] ConfigLoad :: config path : /nas/HC/lib/../config/hc.cfg
+15:10:57.662 [INFO ] get_current_check_mode :: Health Check Infomation : 1
+15:10:57.664 [INFO ] _host_info : hostname is OMP
+15:10:57.664 [INFO ] run_method :: exec_flag : Process 확인,ALL,1,1
+15:10:57.665 [INFO ] _host_info : hostname is OMP
+15:10:57.688 [ERROR] os_execute :: error return code : 127
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command '/nas/HC/DIS-PRCS.py' returned non-zero exit status 127
+15:10:57.691 [INFO ] run_method :: OMP ItemDesc : Process 확인, lib.vms_hc.process_display()
+15:10:57.691 [INFO ] run_method :: exec_flag : CORE 파일 생성 확인,ALL,1,1
+15:10:57.692 [INFO ] _host_info : hostname is OMP
+15:10:57.695 [INFO ] corefile_status :: core_file_path : /home/vic/bin
+15:10:57.696 [INFO ] run_method :: OMP ItemDesc : CORE 파일 생성 확인, lib.vms_hc.corefile_status()
+15:10:57.696 [INFO ] run_method :: exec_flag : Ping 확인,ALL,1,1
+15:10:57.698 [INFO ] _host_info : hostname is OMP
+15:10:57.701 [INFO ] _host_info : hostname is OMP
+15:11:00.713 [INFO ] run_method :: OMP ItemDesc : Ping 확인, lib.vms_hc.ping_status()
+15:11:00.713 [INFO ] run_method :: exec_flag : route 확인,ALL,1,1
+15:11:00.714 [INFO ] _host_info : hostname is OMP
+15:11:00.724 [INFO ] _host_info : hostname is OMP
+15:11:00.725 [INFO ] route_status :: route_config_file_path : /nas/HC/config/route/OMP.cfg
+15:11:00.726 [INFO ] run_method :: OMP ItemDesc : route 확인, lib.vms_hc.route_status()
+15:11:00.726 [INFO ] run_method :: exec_flag : crontab 확인,ALL,1,1
+15:11:00.728 [INFO ] _host_info : hostname is OMP
+15:11:00.730 [INFO ] crontab_status :: crontab_from_config  : [('dellog', '/home/vic/bin/dellog.sh')]
+15:11:00.748 [INFO ] run_method :: OMP ItemDesc : crontab 확인, lib.vms_hc.crontab_status()
+15:11:00.749 [INFO ] run_method :: exec_flag : NTP 연동 확인,ALL,1,1
+15:11:00.750 [INFO ] _host_info : hostname is OMP
+15:11:00.777 [INFO ] run_method :: OMP ItemDesc : NTP 연동 확인, lib.vms_hc.ntp_status()
+15:11:00.777 [INFO ] run_method :: exec_flag : CPU 사용률 확인,ALL,1,1
+15:11:00.778 [INFO ] _host_info : hostname is OMP
+15:11:00.781 [INFO ] run_method :: OMP ItemDesc : CPU 사용률 확인, lib.vms_hc.cpu_usage()
+15:11:00.782 [INFO ] run_method :: exec_flag : Memory 사용률 확인,ALL,1,1
+15:11:00.783 [INFO ] _host_info : hostname is OMP
+15:11:00.785 [INFO ] run_method :: OMP ItemDesc : Memory 사용률 확인, lib.vms_hc.memory_usage()
+15:11:00.786 [INFO ] run_method :: exec_flag : DISK 사용률 확인,ALL,1,1
+15:11:00.787 [INFO ] _host_info : hostname is OMP
+15:11:00.789 [INFO ] run_method :: OMP ItemDesc : DISK 사용률 확인, lib.vms_hc.disk_usage()
+15:11:00.789 [INFO ] run_method :: exec_flag : 시스템 Uptime 확인,ALL,1,1
+15:11:00.790 [INFO ] _host_info : hostname is OMP
+15:11:00.792 [INFO ] run_method :: OMP ItemDesc : 시스템 Uptime 확인, lib.vms_hc.uptime_status()
+15:11:00.792 [INFO ] run_method :: exec_flag : 디스크 이중화 상태 확인,ALL,1,1
+15:11:00.794 [INFO ] _host_info : hostname is OMP
+15:11:00.807 [INFO ] disk_mirror_status :: SYS_MANUF : Red Hat
+15:11:00.816 [ERROR] os_execute :: error return code : 1
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'sudo mpt-status -p | /bin/grep Found' returned non-zero exit status 1
+15:11:00.820 [INFO ] disk_mirror_status :: std_out : |sudo: mpt-status: command not found
+| 
+15:11:00.821 [INFO ] disk_mirror_status :: CMD : sudo mpt-status -i  | /bin/grep state 
+15:11:00.830 [ERROR] os_execute :: error return code : 1
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'sudo mpt-status -i  | /bin/grep state' returned non-zero exit status 1
+15:11:00.832 [INFO ] run_method :: OMP ItemDesc : 디스크 이중화 상태 확인, lib.vms_hc.disk_mirror_status()
+15:11:00.832 [INFO ] run_method :: exec_flag : 좀비 프로세스 확인,ALL,1,1
+15:11:00.833 [INFO ] _host_info : hostname is OMP
+15:11:00.847 [INFO ] run_method :: OMP ItemDesc : 좀비 프로세스 확인, lib.vms_hc.process_status()
+15:11:00.848 [INFO ] run_method :: exec_flag : 총 가입자수 확인,SPS,1,1
+15:11:00.849 [INFO ] _host_info : hostname is OMP
+15:11:00.849 [INFO ] run_method :: exec_flag : 월간 alarm,OMP,1,100
+15:11:00.850 [INFO ] _host_info : hostname is OMP
+15:11:00.851 [INFO ] run_method :: exec_flag : SIP 통계 확인,ALL,1,1
+15:11:00.852 [INFO ] _host_info : hostname is OMP
+15:11:00.854 [INFO ] __init__ :: DB DSN : DSN=mysql
+15:11:00.855 [INFO ] make_output :: DB Query : 
+   SELECT collectTime, SUM(totalCount) totalCount,
+   SUM(IF(endCode IN (0, 403), totalCount, 0)) successCount,
+   SUM(IF(endCode NOT IN (0, 403), totalCount, 0)) failCount,
+   ROUND(SUM(holdingTime * totalCount)/SUM(totalCount)) holdingTime
+   FROM SAM_ST_SIPRM_HOUR
+   WHERE collectTime = ?
+   GROUP BY collectTime
+   
+15:11:00.891 [ERROR] odbc_query_execute_fetchall :: error : libodbc.so.1: cannot open shared object file: No such file or directory
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 983, in odbc_query_execute_fetchall
+    from lib.odbc_conn import odbcConn
+  File "/nas/HC/lib/odbc_conn.py", line 3, in <module>
+    import pyodbc
+ImportError: libodbc.so.1: cannot open shared object file: No such file or directory
+15:11:00.893 [INFO ] make_output :: result.reason : libodbc.so.1: cannot open shared object file: No such file or directory
+15:33:40.614 [INFO ] ConfigLoad :: config path : /nas/HC/lib/../config/hc.cfg
+15:33:40.666 [INFO ] get_current_check_mode :: Health Check Infomation : 1
+15:33:40.667 [INFO ] _host_info : hostname is OMP
+15:33:40.667 [INFO ] run_method :: exec_flag : Process 확인,ALL,1,1
+15:33:40.668 [INFO ] _host_info : hostname is OMP
+15:33:40.686 [ERROR] os_execute :: error return code : 127
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command '/nas/HC/DIS-PRCS.py' returned non-zero exit status 127
+15:33:40.688 [INFO ] run_method :: OMP ItemDesc : Process 확인, lib.vms_hc.process_display()
+15:33:40.689 [INFO ] run_method :: exec_flag : CORE 파일 생성 확인,ALL,1,1
+15:33:40.690 [INFO ] _host_info : hostname is OMP
+15:33:40.692 [INFO ] corefile_status :: core_file_path : /home/vic/bin
+15:33:40.692 [INFO ] run_method :: OMP ItemDesc : CORE 파일 생성 확인, lib.vms_hc.corefile_status()
+15:33:40.693 [INFO ] run_method :: exec_flag : Ping 확인,ALL,1,1
+15:33:40.694 [INFO ] _host_info : hostname is OMP
+15:33:40.697 [INFO ] _host_info : hostname is OMP
+15:33:43.707 [INFO ] run_method :: OMP ItemDesc : Ping 확인, lib.vms_hc.ping_status()
+15:33:43.707 [INFO ] run_method :: exec_flag : route 확인,ALL,1,1
+15:33:43.709 [INFO ] _host_info : hostname is OMP
+15:33:43.718 [INFO ] _host_info : hostname is OMP
+15:33:43.719 [INFO ] route_status :: route_config_file_path : /nas/HC/config/route/OMP.cfg
+15:33:43.720 [INFO ] run_method :: OMP ItemDesc : route 확인, lib.vms_hc.route_status()
+15:33:43.721 [INFO ] run_method :: exec_flag : crontab 확인,ALL,1,1
+15:33:43.722 [INFO ] _host_info : hostname is OMP
+15:33:43.724 [INFO ] crontab_status :: crontab_from_config  : [('dellog', '/home/vic/bin/dellog.sh')]
+15:33:43.737 [INFO ] run_method :: OMP ItemDesc : crontab 확인, lib.vms_hc.crontab_status()
+15:33:43.737 [INFO ] run_method :: exec_flag : NTP 연동 확인,ALL,1,1
+15:33:43.738 [INFO ] _host_info : hostname is OMP
+15:33:43.762 [INFO ] run_method :: OMP ItemDesc : NTP 연동 확인, lib.vms_hc.ntp_status()
+15:33:43.762 [INFO ] run_method :: exec_flag : CPU 사용률 확인,ALL,1,1
+15:33:43.763 [INFO ] _host_info : hostname is OMP
+15:33:43.766 [INFO ] run_method :: OMP ItemDesc : CPU 사용률 확인, lib.vms_hc.cpu_usage()
+15:33:43.766 [INFO ] run_method :: exec_flag : Memory 사용률 확인,ALL,1,1
+15:33:43.768 [INFO ] _host_info : hostname is OMP
+15:33:43.770 [INFO ] run_method :: OMP ItemDesc : Memory 사용률 확인, lib.vms_hc.memory_usage()
+15:33:43.770 [INFO ] run_method :: exec_flag : DISK 사용률 확인,ALL,1,1
+15:33:43.772 [INFO ] _host_info : hostname is OMP
+15:33:43.773 [INFO ] run_method :: OMP ItemDesc : DISK 사용률 확인, lib.vms_hc.disk_usage()
+15:33:43.774 [INFO ] run_method :: exec_flag : 시스템 Uptime 확인,ALL,1,1
+15:33:43.775 [INFO ] _host_info : hostname is OMP
+15:33:43.777 [INFO ] run_method :: OMP ItemDesc : 시스템 Uptime 확인, lib.vms_hc.uptime_status()
+15:33:43.777 [INFO ] run_method :: exec_flag : 디스크 이중화 상태 확인,ALL,1,1
+15:33:43.778 [INFO ] _host_info : hostname is OMP
+15:33:43.793 [INFO ] disk_mirror_status :: SYS_MANUF : Red Hat
+15:33:43.803 [ERROR] os_execute :: error return code : 1
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'sudo mpt-status -p | /bin/grep Found' returned non-zero exit status 1
+15:33:43.805 [INFO ] disk_mirror_status :: std_out : |sudo: mpt-status: command not found
+| 
+15:33:43.806 [INFO ] disk_mirror_status :: CMD : sudo mpt-status -i  | /bin/grep state 
+15:33:43.815 [ERROR] os_execute :: error return code : 1
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'sudo mpt-status -i  | /bin/grep state' returned non-zero exit status 1
+15:33:43.817 [INFO ] run_method :: OMP ItemDesc : 디스크 이중화 상태 확인, lib.vms_hc.disk_mirror_status()
+15:33:43.817 [INFO ] run_method :: exec_flag : 좀비 프로세스 확인,ALL,1,1
+15:33:43.819 [INFO ] _host_info : hostname is OMP
+15:33:43.834 [INFO ] run_method :: OMP ItemDesc : 좀비 프로세스 확인, lib.vms_hc.process_status()
+15:33:43.834 [INFO ] run_method :: exec_flag : 총 가입자수 확인,SPS,1,1
+15:33:43.836 [INFO ] _host_info : hostname is OMP
+15:33:43.836 [INFO ] run_method :: exec_flag : 월간 alarm,OMP,1,100
+15:33:43.837 [INFO ] _host_info : hostname is OMP
+15:33:43.837 [INFO ] run_method :: exec_flag : SIP 통계 확인,ALL,1,1
+15:33:43.839 [INFO ] _host_info : hostname is OMP
+15:33:43.841 [INFO ] __init__ :: DB DSN : DSN=mysql
+15:33:43.842 [INFO ] make_output :: DB Query : 
+   SELECT collectTime, SUM(totalCount) totalCount,
+   SUM(IF(endCode IN (0, 403), totalCount, 0)) successCount,
+   SUM(IF(endCode NOT IN (0, 403), totalCount, 0)) failCount,
+   ROUND(SUM(holdingTime * totalCount)/SUM(totalCount)) holdingTime
+   FROM SAM_ST_SIPRM_HOUR
+   WHERE collectTime = ?
+   GROUP BY collectTime
+   
+15:33:43.875 [ERROR] odbc_query_execute_fetchall :: error : 
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 993, in odbc_query_execute_fetchall
+    db._GetConnect()
+  File "/nas/HC/lib/odbc_conn.py", line 16, in _GetConnect
+    raise(NameError,"DB Connected failed!!")
+NameError
+15:33:43.877 [INFO ] make_output :: result.reason : [IM002] [unixODBC][Driver Manager]Data source name not found, and no default driver specified (0) (SQLDriverConnect)
+15:33:43.877 [INFO ] run_method :: OMP ItemDesc : SIP 통계 확인, lib.vms_hc.tars_sip_stat()
+15:33:43.878 [INFO ] _host_info : hostname is OMP
+15:33:43.880 [INFO ] csv_save :: CsvFileName : /nas/HC/20170614_VIC01.csv
+15:33:43.883 [INFO ] SaveResultCsv :: ResultList : CSV Write success.
+15:34:31.981 [INFO ] ConfigLoad :: config path : /nas/HC/lib/../config/hc.cfg
+15:34:32.035 [INFO ] get_current_check_mode :: Health Check Infomation : 1
+15:34:32.036 [INFO ] _host_info : hostname is OMP
+15:34:32.037 [INFO ] run_method :: exec_flag : Process 확인,ALL,1,1
+15:34:32.038 [INFO ] _host_info : hostname is OMP
+15:34:32.049 [ERROR] os_execute :: error return code : 127
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command '/nas/HC/DIS-PRCS.py' returned non-zero exit status 127
+15:34:32.051 [INFO ] run_method :: OMP ItemDesc : Process 확인, lib.vms_hc.process_display()
+15:34:32.052 [INFO ] run_method :: exec_flag : CORE 파일 생성 확인,ALL,1,1
+15:34:32.053 [INFO ] _host_info : hostname is OMP
+15:34:32.055 [INFO ] corefile_status :: core_file_path : /home/vic/bin
+15:34:32.056 [INFO ] run_method :: OMP ItemDesc : CORE 파일 생성 확인, lib.vms_hc.corefile_status()
+15:34:32.056 [INFO ] run_method :: exec_flag : Ping 확인,ALL,1,1
+15:34:32.057 [INFO ] _host_info : hostname is OMP
+15:34:32.061 [INFO ] _host_info : hostname is OMP
+15:34:35.069 [INFO ] run_method :: OMP ItemDesc : Ping 확인, lib.vms_hc.ping_status()
+15:34:35.070 [INFO ] run_method :: exec_flag : route 확인,ALL,1,1
+15:34:35.072 [INFO ] _host_info : hostname is OMP
+15:34:35.081 [INFO ] _host_info : hostname is OMP
+15:34:35.082 [INFO ] route_status :: route_config_file_path : /nas/HC/config/route/OMP.cfg
+15:34:35.082 [INFO ] run_method :: OMP ItemDesc : route 확인, lib.vms_hc.route_status()
+15:34:35.082 [INFO ] run_method :: exec_flag : crontab 확인,ALL,1,1
+15:34:35.084 [INFO ] _host_info : hostname is OMP
+15:34:35.086 [INFO ] crontab_status :: crontab_from_config  : [('dellog', '/home/vic/bin/dellog.sh')]
+15:34:35.098 [INFO ] run_method :: OMP ItemDesc : crontab 확인, lib.vms_hc.crontab_status()
+15:34:35.099 [INFO ] run_method :: exec_flag : NTP 연동 확인,ALL,1,1
+15:34:35.100 [INFO ] _host_info : hostname is OMP
+15:34:35.123 [INFO ] run_method :: OMP ItemDesc : NTP 연동 확인, lib.vms_hc.ntp_status()
+15:34:35.123 [INFO ] run_method :: exec_flag : CPU 사용률 확인,ALL,1,1
+15:34:35.124 [INFO ] _host_info : hostname is OMP
+15:34:35.127 [INFO ] run_method :: OMP ItemDesc : CPU 사용률 확인, lib.vms_hc.cpu_usage()
+15:34:35.127 [INFO ] run_method :: exec_flag : Memory 사용률 확인,ALL,1,1
+15:34:35.129 [INFO ] _host_info : hostname is OMP
+15:34:35.131 [INFO ] run_method :: OMP ItemDesc : Memory 사용률 확인, lib.vms_hc.memory_usage()
+15:34:35.131 [INFO ] run_method :: exec_flag : DISK 사용률 확인,ALL,1,1
+15:34:35.132 [INFO ] _host_info : hostname is OMP
+15:34:35.134 [INFO ] run_method :: OMP ItemDesc : DISK 사용률 확인, lib.vms_hc.disk_usage()
+15:34:35.135 [INFO ] run_method :: exec_flag : 시스템 Uptime 확인,ALL,1,1
+15:34:35.136 [INFO ] _host_info : hostname is OMP
+15:34:35.137 [INFO ] run_method :: OMP ItemDesc : 시스템 Uptime 확인, lib.vms_hc.uptime_status()
+15:34:35.138 [INFO ] run_method :: exec_flag : 디스크 이중화 상태 확인,ALL,1,1
+15:34:35.139 [INFO ] _host_info : hostname is OMP
+15:34:35.152 [INFO ] disk_mirror_status :: SYS_MANUF : Red Hat
+15:34:35.162 [ERROR] os_execute :: error return code : 1
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'sudo mpt-status -p | /bin/grep Found' returned non-zero exit status 1
+15:34:35.164 [INFO ] disk_mirror_status :: std_out : |sudo: mpt-status: command not found
+| 
+15:34:35.165 [INFO ] disk_mirror_status :: CMD : sudo mpt-status -i  | /bin/grep state 
+15:34:35.174 [ERROR] os_execute :: error return code : 1
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'sudo mpt-status -i  | /bin/grep state' returned non-zero exit status 1
+15:34:35.176 [INFO ] run_method :: OMP ItemDesc : 디스크 이중화 상태 확인, lib.vms_hc.disk_mirror_status()
+15:34:35.176 [INFO ] run_method :: exec_flag : 좀비 프로세스 확인,ALL,1,1
+15:34:35.177 [INFO ] _host_info : hostname is OMP
+15:34:35.191 [INFO ] run_method :: OMP ItemDesc : 좀비 프로세스 확인, lib.vms_hc.process_status()
+15:34:35.192 [INFO ] run_method :: exec_flag : 총 가입자수 확인,SPS,1,1
+15:34:35.193 [INFO ] _host_info : hostname is OMP
+15:34:35.193 [INFO ] run_method :: exec_flag : 월간 alarm,OMP,1,100
+15:34:35.194 [INFO ] _host_info : hostname is OMP
+15:34:35.194 [INFO ] run_method :: exec_flag : SIP 통계 확인,ALL,1,1
+15:34:35.196 [INFO ] _host_info : hostname is OMP
+15:34:35.198 [INFO ] __init__ :: DB DSN : DSN=mysql
+15:34:35.199 [INFO ] make_output :: DB Query : 
+   SELECT collectTime, SUM(totalCount) totalCount,
+   SUM(IF(endCode IN (0, 403), totalCount, 0)) successCount,
+   SUM(IF(endCode NOT IN (0, 403), totalCount, 0)) failCount,
+   ROUND(SUM(holdingTime * totalCount)/SUM(totalCount)) holdingTime
+   FROM SAM_ST_SIPRM_HOUR
+   WHERE collectTime = ?
+   GROUP BY collectTime
+   
+15:34:35.236 [ERROR] odbc_query_execute_fetchall :: error : 
+Traceback (most recent call last):
+  File "/nas/HC/lib/vms_hc.py", line 993, in odbc_query_execute_fetchall
+    db._GetConnect()
+  File "/nas/HC/lib/odbc_conn.py", line 16, in _GetConnect
+    raise(NameError,"DB Connected failed!!")
+NameError
+15:34:35.238 [INFO ] make_output :: result.reason : [IM002] [unixODBC][Driver Manager]Data source name not found, and no default driver specified (0) (SQLDriverConnect)
+15:34:35.238 [INFO ] run_method :: OMP ItemDesc : SIP 통계 확인, lib.vms_hc.tars_sip_stat()
+15:34:35.239 [INFO ] _host_info : hostname is OMP
+15:34:35.241 [INFO ] csv_save :: CsvFileName : /nas/HC/20170614_VIC01.csv
+15:34:35.243 [INFO ] SaveResultCsv :: ResultList : CSV Write success.
+2017-06-14 15:43:12,007 [INFO ] dis_prcs : ha_status :: ip address : ['127.0.0.1', '121.134.202.59']
+2017-06-14 15:43:12,008 [INFO ] dis_prcs : host_info : hostname is OMP
+2017-06-14 15:43:12,008 [INFO ] DIS-PRCS : main :: System Infomation : host_info_tpl(system_name='VIC01', hostname='OMP', hostclass='OMP', ip_address='121.134.202.59', ha_operating_mode='STANDBY', ha_installed=0)
+2017-06-14 15:43:12,011 [INFO ] dis_prcs : pnr_process_name :: HaStatus : STANDBY
+2017-06-14 15:43:12,017 [INFO ] dis_prcs : pnr_process_name :: Process List : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD']
+2017-06-14 15:43:12,020 [INFO ] dis_prcs : omc_process_name :: omc_type : 3
+2017-06-14 15:43:12,020 [INFO ] DIS-PRCS : main :: omc_process : ['OMA', '--', 'mysqld']
+2017-06-14 15:43:12,021 [INFO ] DIS-PRCS : main :: ProcessName : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD', 'OMA', '--', 'mysqld', '--', 'DELLOG_CRON_TOMCAT']
+2017-06-14 15:43:12,037 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : REST_AGENT 
+2017-06-14 15:43:12,038 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : WEB 
+2017-06-14 15:43:12,040 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : LOGD 
+2017-06-14 15:43:12,047 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : COLLECTOR 
+2017-06-14 15:43:12,059 [INFO ] DIS-PRCS : main :: PROCESS_STATUS_RESULT : NOK
+2017-06-14 15:44:19,539 [INFO ] dis_prcs : ha_status :: ip address : ['127.0.0.1', '121.134.202.59']
+2017-06-14 15:44:19,540 [INFO ] dis_prcs : host_info : hostname is OMP
+2017-06-14 15:44:19,540 [INFO ] DIS-PRCS : main :: System Infomation : host_info_tpl(system_name='VIC01', hostname='OMP', hostclass='OMP', ip_address='121.134.202.59', ha_operating_mode='STANDBY', ha_installed=0)
+2017-06-14 15:44:19,542 [INFO ] dis_prcs : pnr_process_name :: HaStatus : STANDBY
+2017-06-14 15:44:19,547 [INFO ] dis_prcs : pnr_process_name :: Process List : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD']
+2017-06-14 15:44:19,550 [INFO ] dis_prcs : omc_process_name :: omc_type : 2
+2017-06-14 15:44:19,551 [INFO ] DIS-PRCS : main :: omc_process : []
+2017-06-14 15:44:19,552 [INFO ] DIS-PRCS : main :: ProcessName : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD', '--', 'DELLOG_CRON_TOMCAT']
+2017-06-14 15:44:19,567 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : REST_AGENT 
+2017-06-14 15:44:19,569 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : WEB 
+2017-06-14 15:44:19,570 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : LOGD 
+2017-06-14 15:44:19,577 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : COLLECTOR 
+2017-06-14 15:44:19,591 [INFO ] DIS-PRCS : main :: PROCESS_STATUS_RESULT : OK
+2017-06-14 15:53:56,770 [INFO ] dis_prcs : ha_status :: ip address : ['127.0.0.1', '121.134.202.59']
+2017-06-14 15:53:56,771 [INFO ] dis_prcs : ha_status : This host is Active
+2017-06-14 15:53:56,771 [INFO ] dis_prcs : ha_status : This OMP is HA
+2017-06-14 15:53:56,772 [INFO ] dis_prcs : host_info : hostname is OMP
+2017-06-14 15:53:56,772 [INFO ] DIS-PRCS : main :: System Infomation : host_info_tpl(system_name='VIC01', hostname='OMP', hostclass='OMP', ip_address='121.134.202.59', ha_operating_mode='ACTIVE', ha_installed=1)
+2017-06-14 15:53:56,775 [INFO ] dis_prcs : pnr_process_name :: HaStatus : ACTIVE
+2017-06-14 15:53:56,780 [INFO ] dis_prcs : pnr_process_name :: Process List : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD']
+2017-06-14 15:53:56,783 [INFO ] dis_prcs : omc_process_name :: omc_type : 2
+2017-06-14 15:53:56,784 [INFO ] DIS-PRCS : main :: omc_process : ['snmpd', '--', 'mysqld']
+2017-06-14 15:53:56,784 [INFO ] DIS-PRCS : main :: ProcessName : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD', 'snmpd', '--', 'mysqld', '--', 'DELLOG_CRON_TOMCAT', '--', 'HA', 'MONITOR']
+2017-06-14 15:53:56,801 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : REST_AGENT 
+2017-06-14 15:53:56,802 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : WEB 
+2017-06-14 15:53:56,803 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : LOGD 
+2017-06-14 15:53:56,811 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : COLLECTOR 
+2017-06-14 15:53:56,826 [INFO ] DIS-PRCS : main :: PROCESS_STATUS_RESULT : NOK
+2017-06-14 15:59:18,081 [INFO ] dis_prcs : ha_status :: ip address : ['127.0.0.1', '121.134.202.59']
+2017-06-14 15:59:18,082 [INFO ] dis_prcs : host_info : hostname is OMP
+2017-06-14 15:59:18,082 [INFO ] DIS-PRCS : main :: System Infomation : host_info_tpl(system_name='VIC01', hostname='OMP', hostclass='OMP', ip_address='121.134.202.59', ha_operating_mode='STANDBY', ha_installed=0)
+2017-06-14 15:59:18,084 [INFO ] dis_prcs : pnr_process_name :: HaStatus : STANDBY
+2017-06-14 15:59:18,090 [INFO ] dis_prcs : pnr_process_name :: Process List : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD']
+2017-06-14 15:59:18,093 [INFO ] dis_prcs : omc_process_name :: omc_type : 2
+2017-06-14 15:59:18,093 [INFO ] DIS-PRCS : main :: omc_process : []
+2017-06-14 15:59:18,094 [INFO ] DIS-PRCS : main :: ProcessName : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD', '--', 'DELLOG_CRON_TOMCAT']
+2017-06-14 15:59:18,109 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : REST_AGENT 
+2017-06-14 15:59:18,111 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : WEB 
+2017-06-14 15:59:18,112 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : LOGD 
+2017-06-14 15:59:18,119 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : COLLECTOR 
+2017-06-14 15:59:18,131 [INFO ] DIS-PRCS : main :: PROCESS_STATUS_RESULT : OK
+2017-06-14 16:00:11,883 [INFO ] dis_prcs : ha_status :: ip address : ['127.0.0.1', '121.134.202.59']
+2017-06-14 16:00:11,883 [INFO ] dis_prcs : host_info : hostname is OMP
+2017-06-14 16:00:11,883 [INFO ] DIS-PRCS : main :: System Infomation : host_info_tpl(system_name='VIC01', hostname='OMP', hostclass='OMP', ip_address='121.134.202.59', ha_operating_mode='STANDBY', ha_installed=0)
+2017-06-14 16:00:11,886 [INFO ] dis_prcs : pnr_process_name :: HaStatus : STANDBY
+2017-06-14 16:00:11,891 [INFO ] dis_prcs : pnr_process_name :: Process List : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD']
+2017-06-14 16:00:11,894 [INFO ] dis_prcs : omc_process_name :: omc_type : 1
+2017-06-14 16:00:11,895 [INFO ] DIS-PRCS : main :: omc_process : ['WEB', 'COLLECTOR', 'snmpd', '--', 'mysqld']
+2017-06-14 16:00:11,895 [INFO ] DIS-PRCS : main :: ProcessName : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD', 'WEB', 'COLLECTOR', 'snmpd', '--', 'mysqld', '--', 'DELLOG_CRON_TOMCAT']
+2017-06-14 16:00:11,910 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : REST_AGENT 
+2017-06-14 16:00:11,912 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : WEB 
+2017-06-14 16:00:11,913 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : LOGD 
+2017-06-14 16:00:11,921 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : COLLECTOR 
+2017-06-14 16:00:11,933 [INFO ] DIS-PRCS : main :: PROCESS_STATUS_RESULT : OK
+2017-06-14 16:00:55,816 [INFO ] dis_prcs : ha_status :: ip address : ['127.0.0.1', '121.134.202.59']
+2017-06-14 16:00:55,816 [INFO ] dis_prcs : host_info : hostname is OMP
+2017-06-14 16:00:55,817 [INFO ] DIS-PRCS : main :: System Infomation : host_info_tpl(system_name='VIC01', hostname='OMP', hostclass='OMP', ip_address='121.134.202.59', ha_operating_mode='STANDBY', ha_installed=0)
+2017-06-14 16:00:55,819 [INFO ] dis_prcs : pnr_process_name :: HaStatus : STANDBY
+2017-06-14 16:00:55,825 [INFO ] dis_prcs : pnr_process_name :: Process List : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD']
+2017-06-14 16:00:55,828 [INFO ] dis_prcs : omc_process_name :: omc_type : 1
+2017-06-14 16:00:55,828 [INFO ] DIS-PRCS : main :: omc_process : ['WEB', 'COLLECTOR', 'snmpd', '--', 'mysqld']
+2017-06-14 16:00:55,829 [INFO ] DIS-PRCS : main :: ProcessName : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD', 'WEB', 'COLLECTOR', 'snmpd', '--', 'mysqld', '--', 'DELLOG_CRON_TOMCAT']
+2017-06-14 16:00:55,845 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : REST_AGENT 
+2017-06-14 16:00:55,846 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : WEB 
+2017-06-14 16:00:55,847 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : LOGD 
+2017-06-14 16:00:55,855 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : COLLECTOR 
+2017-06-14 16:00:55,867 [INFO ] DIS-PRCS : main :: PROCESS_STATUS_RESULT : OK
+2017-06-14 16:01:34,514 [INFO ] dis_prcs : ha_status :: ip address : ['127.0.0.1', '121.134.202.59']
+2017-06-14 16:01:34,514 [INFO ] dis_prcs : host_info : hostname is OMP
+2017-06-14 16:01:34,514 [INFO ] DIS-PRCS : main :: System Infomation : host_info_tpl(system_name='VIC01', hostname='OMP', hostclass='OMP', ip_address='121.134.202.59', ha_operating_mode='STANDBY', ha_installed=0)
+2017-06-14 16:01:34,517 [INFO ] dis_prcs : pnr_process_name :: HaStatus : STANDBY
+2017-06-14 16:01:34,522 [INFO ] dis_prcs : pnr_process_name :: Process List : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD']
+2017-06-14 16:01:34,526 [INFO ] dis_prcs : omc_process_name :: omc_type : 1
+2017-06-14 16:01:34,527 [INFO ] DIS-PRCS : main :: omc_process : ['WEB', 'COLLECTOR', 'snmpd', '--', 'mysqld']
+2017-06-14 16:01:34,527 [INFO ] DIS-PRCS : main :: ProcessName : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD', 'WEB', 'COLLECTOR', 'snmpd', '--', 'mysqld', '--', 'DELLOG_CRON_TOMCAT']
+2017-06-14 16:01:34,544 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : REST_AGENT 
+2017-06-14 16:01:34,545 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : WEB 
+2017-06-14 16:01:34,547 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : LOGD 
+2017-06-14 16:01:34,555 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : COLLECTOR 
+2017-06-14 16:01:34,568 [INFO ] DIS-PRCS : main :: PROCESS_STATUS_RESULT : OK
+2017-06-14 16:02:55,351 [INFO ] dis_prcs : ha_status :: ip address : ['127.0.0.1', '121.134.202.59']
+2017-06-14 16:02:55,352 [INFO ] dis_prcs : host_info : hostname is OMP
+2017-06-14 16:02:55,352 [INFO ] DIS-PRCS : main :: System Infomation : host_info_tpl(system_name='VIC01', hostname='OMP', hostclass='OMP', ip_address='121.134.202.59', ha_operating_mode='STANDBY', ha_installed=0)
+2017-06-14 16:02:55,354 [INFO ] dis_prcs : pnr_process_name :: HaStatus : STANDBY
+2017-06-14 16:02:55,359 [INFO ] dis_prcs : pnr_process_name :: Process List : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD']
+2017-06-14 16:02:55,363 [INFO ] dis_prcs : omc_process_name :: omc_type : 1
+2017-06-14 16:02:55,363 [INFO ] DIS-PRCS : main :: omc_process : ['WEB', 'COLLECTOR', 'snmpd', '--', 'mysqld']
+2017-06-14 16:02:55,363 [INFO ] DIS-PRCS : main :: ProcessName : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD', 'WEB', 'COLLECTOR', 'snmpd', '--', 'mysqld', '--', 'DELLOG_CRON_TOMCAT']
+2017-06-14 16:02:55,379 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : REST_AGENT 
+2017-06-14 16:02:55,381 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : WEB 
+2017-06-14 16:02:55,382 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : LOGD 
+2017-06-14 16:02:55,390 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : COLLECTOR 
+2017-06-14 16:02:55,403 [INFO ] DIS-PRCS : main :: PROCESS_STATUS_RESULT : OK
+2017-06-14 16:04:11,004 [INFO ] dis_prcs : ha_status :: ip address : ['127.0.0.1', '121.134.202.59']
+2017-06-14 16:04:11,004 [INFO ] dis_prcs : host_info : hostname is OMP
+2017-06-14 16:04:11,004 [INFO ] DIS-PRCS : main :: System Infomation : host_info_tpl(system_name='VIC01', hostname='OMP', hostclass='OMP', ip_address='121.134.202.59', ha_operating_mode='STANDBY', ha_installed=0)
+2017-06-14 16:04:11,007 [INFO ] dis_prcs : pnr_process_name :: HaStatus : STANDBY
+2017-06-14 16:04:11,012 [INFO ] dis_prcs : pnr_process_name :: Process List : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD']
+2017-06-14 16:04:11,015 [INFO ] dis_prcs : omc_process_name :: omc_type : 2
+2017-06-14 16:04:11,016 [INFO ] DIS-PRCS : main :: omc_process : ['snmpd', '--', 'mysqld']
+2017-06-14 16:04:11,016 [INFO ] DIS-PRCS : main :: ProcessName : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD', 'snmpd', '--', 'mysqld', '--', 'DELLOG_CRON_TOMCAT']
+2017-06-14 16:04:11,032 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : REST_AGENT 
+2017-06-14 16:04:11,033 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : WEB 
+2017-06-14 16:04:11,035 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : LOGD 
+2017-06-14 16:04:11,043 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : COLLECTOR 
+2017-06-14 16:04:11,055 [INFO ] DIS-PRCS : main :: PROCESS_STATUS_RESULT : OK
+2017-06-14 16:06:20,729 [INFO ] dis_prcs : ha_status :: ip address : ['127.0.0.1', '121.134.202.51', '10.0.0.1', '121.134.202.55']
+2017-06-14 16:06:20,729 [INFO ] dis_prcs : ha_status : This host is Active
+2017-06-14 16:06:20,730 [INFO ] dis_prcs : ha_status : This SIPAS is HA
+2017-06-14 16:06:20,730 [INFO ] dis_prcs : host_info : hostname is SIPAS01
+2017-06-14 16:06:20,731 [INFO ] DIS-PRCS : main :: System Infomation : host_info_tpl(system_name='VIC01', hostname='SIPAS01', hostclass='SIPAS', ip_address='121.134.202.51', ha_operating_mode='ACTIVE', ha_installed=1)
+2017-06-14 16:06:20,733 [INFO ] dis_prcs : pnr_process_name :: HaStatus : ACTIVE
+2017-06-14 16:06:20,743 [INFO ] dis_prcs : pnr_process_name :: Process List : ['PNR', 'CCM', 'VLM', 'AS_MMC', 'AS_114', 'AS_3636', 'EMRM 1', 'REST_AGENT']
+2017-06-14 16:06:20,747 [INFO ] dis_prcs : omc_process_name :: omc_type : 2
+2017-06-14 16:06:20,748 [INFO ] DIS-PRCS : main :: omc_process : ['snmpd']
+2017-06-14 16:06:20,748 [INFO ] DIS-PRCS : main :: ProcessName : ['PNR', 'CCM', 'VLM', 'AS_MMC', 'AS_114', 'AS_3636', 'EMRM 1', 'REST_AGENT', 'snmpd', '--', 'HA', 'MONITOR']
+2017-06-14 16:06:20,768 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : AS_3636 
+2017-06-14 16:06:20,769 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : REST_AGENT 
+2017-06-14 16:06:20,780 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : AS_MMC 
+2017-06-14 16:06:20,788 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : AS_114 
+2017-06-14 16:06:20,791 [INFO ] DIS-PRCS : main :: PROCESS_STATUS_RESULT : NOK
+2017-06-14 16:07:24,929 [INFO ] dis_prcs : ha_status :: ip address : ['127.0.0.1', '121.134.202.51', '10.0.0.1', '121.134.202.55']
+2017-06-14 16:07:24,930 [INFO ] dis_prcs : ha_status : This host is Active
+2017-06-14 16:07:24,930 [INFO ] dis_prcs : ha_status : This SIPAS is HA
+2017-06-14 16:07:24,931 [INFO ] dis_prcs : host_info : hostname is SIPAS01
+2017-06-14 16:07:24,931 [INFO ] DIS-PRCS : main :: System Infomation : host_info_tpl(system_name='VIC01', hostname='SIPAS01', hostclass='SIPAS', ip_address='121.134.202.51', ha_operating_mode='ACTIVE', ha_installed=1)
+2017-06-14 16:07:24,934 [INFO ] dis_prcs : pnr_process_name :: HaStatus : ACTIVE
+2017-06-14 16:07:24,944 [INFO ] dis_prcs : pnr_process_name :: Process List : ['PNR', 'CCM', 'VLM', 'AS_MMC', 'AS_114', 'AS_3636', 'EMRM 1', 'REST_AGENT']
+2017-06-14 16:07:24,947 [INFO ] dis_prcs : omc_process_name :: omc_type : 2
+2017-06-14 16:07:24,947 [INFO ] DIS-PRCS : main :: omc_process : ['snmpd']
+2017-06-14 16:07:24,948 [INFO ] DIS-PRCS : main :: ProcessName : ['PNR', 'CCM', 'VLM', 'AS_MMC', 'AS_114', 'AS_3636', 'EMRM 1', 'REST_AGENT', 'snmpd', '--', 'HA', 'MONITOR']
+2017-06-14 16:07:24,969 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : AS_3636 
+2017-06-14 16:07:24,970 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : REST_AGENT 
+2017-06-14 16:07:24,982 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : AS_MMC 
+2017-06-14 16:07:24,989 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : AS_114 
+2017-06-14 16:07:24,992 [INFO ] DIS-PRCS : main :: PROCESS_STATUS_RESULT : NOK
+2017-06-14 18:08:03,824 [INFO ] dis_prcs : ha_status :: ip address : ['127.0.0.1', '121.134.202.59']
+2017-06-14 18:08:03,824 [INFO ] dis_prcs : host_info : hostname is OMP
+2017-06-14 18:08:03,824 [INFO ] DIS-PRCS : main :: System Infomation : host_info_tpl(system_name='VIC01', hostname='OMP', hostclass='OMP', ip_address='121.134.202.59', ha_operating_mode='STANDBY', ha_installed=0)
+2017-06-14 18:08:03,827 [INFO ] dis_prcs : pnr_process_name :: HaStatus : STANDBY
+2017-06-14 18:08:03,832 [INFO ] dis_prcs : pnr_process_name :: Process List : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD']
+2017-06-14 18:08:03,835 [INFO ] dis_prcs : omc_process_name :: omc_type : 2
+2017-06-14 18:08:03,835 [INFO ] DIS-PRCS : main :: omc_process : ['snmpd', '--', 'mysqld']
+2017-06-14 18:08:03,836 [INFO ] DIS-PRCS : main :: ProcessName : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD', 'snmpd', '--', 'mysqld', '--', 'DELLOG_CRON_TOMCAT']
+2017-06-14 18:08:03,851 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : REST_AGENT 
+2017-06-14 18:08:03,853 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : WEB 
+2017-06-14 18:08:03,854 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : LOGD 
+2017-06-14 18:08:03,862 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : COLLECTOR 
+2017-06-14 18:08:03,875 [INFO ] DIS-PRCS : main :: PROCESS_STATUS_RESULT : OK

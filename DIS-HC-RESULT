@@ -1,0 +1,67 @@
+#!/nas/HC/PYTHON2.7/bin/python -tt
+# -*- coding: utf-8 -*-
+import os
+import sys
+import datetime
+import argparse
+import csv
+
+#ResultList = [index, CheckDate, TodayCheckPeriod, SystemNumber, HostName, ItemDesc, CmdResult, ReturnString]
+
+
+class Bunch:
+	def __init__(self, **kwds):
+		self.__dict__.update(kwds)
+
+def PrintReport(*args):
+	CsvFileName = args[0]
+	if len(args) == 2:
+		HostName = args[1]
+	print ""
+	print "=" * 87
+	print "           점검항목                                            :                 결과  "
+	print "-" * 87
+	templ = " %2s. %s %-5s %-40s : %20s"
+	try:
+		with open(CsvFileName, 'rt') as f:
+			reader = csv.reader(f, delimiter=',')
+			for row in reader:
+				print templ % (row[0], row[1], row[4], row[5], row[6])
+	except IOError,e:
+		print '점검결과가 없습니다. 조회할 날짜,시스템명을 정확히 입력해 주세요'
+		print ''
+		print 'ex) DIS-HC-RES.py -d=20140609 -s=ivms01'
+		print ''
+		sys.exit()
+	print "-" * 87
+	print ''
+	with open(CsvFileName, 'rt') as f:
+		reader = csv.reader(f, delimiter=',')
+		for row in reader:
+			if 'HostName' in locals():
+				if row[3] == HostName:
+					print row[0]+'. '+row[4],
+					print row[6]
+			if row[6] == 'NOK':
+				print row[0]+'. '+row[3]+' '+row[4]+' '+row[5],
+				print row[7]
+
+def main():
+	Today = datetime.date.today().strftime("%Y%m%d")
+
+	parser = argparse.ArgumentParser(description="POINT-I Health Check Tool. This tool perform a health check.")
+	parser.add_argument('-d', '--date', help='YYYYMMDD', default=Today)
+	parser.add_argument('-s', '--system', required=True)
+	parser.add_argument('-n', '--hostname')
+	args = parser.parse_args()
+
+	CsvFilePath = '/nas/HC/'
+	CsvFileName = CsvFilePath+args.date+'_'+args.system.upper()+'.csv'
+
+	if args.hostname:
+		PrintReport(CsvFileName, args.hostname.upper())
+	else:
+		PrintReport(CsvFileName)
+
+if __name__ == "__main__":
+	sys.exit(main())

@@ -1,0 +1,96 @@
+17:47:01.444 [INFO ] ConfigLoad :: config path : /home/vms/HC/lib/../config/hc.cfg
+17:47:01.466 [INFO ] get_current_check_mode :: Health Check Infomation : 1
+17:47:01.468 [INFO ] _host_info : hostname is SPS01
+17:47:01.468 [INFO ] run_method :: exec_flag : Process 확인,ALL,1,1
+17:47:01.470 [INFO ] _host_info : hostname is SPS01
+17:47:01.477 [ERROR] os_execute :: error return code : 127
+Traceback (most recent call last):
+  File "/home/vms/HC/lib/vms_hc.py", line 1038, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 573, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command '/nas/HC/DIS-PRCS.py' returned non-zero exit status 127
+17:47:01.480 [INFO ] run_method :: SPS01 ItemDesc : Process 확인, lib.vms_hc.process_display()
+17:47:01.480 [INFO ] run_method :: exec_flag : CORE 파일 생성 확인,ALL,1,1
+17:47:01.482 [INFO ] _host_info : hostname is SPS01
+17:47:01.484 [INFO ] corefile_status :: core_file_path : /home/vms/bin
+17:47:01.485 [INFO ] run_method :: SPS01 ItemDesc : CORE 파일 생성 확인, lib.vms_hc.corefile_status()
+17:47:01.486 [INFO ] run_method :: exec_flag : Ping 확인,ALL,1,1
+17:47:01.487 [INFO ] _host_info : hostname is SPS01
+17:47:01.491 [INFO ] _host_info : hostname is SPS01
+17:47:04.498 [INFO ] run_method :: SPS01 ItemDesc : Ping 확인, lib.vms_hc.ping_status()
+17:47:04.499 [INFO ] run_method :: exec_flag : route 확인,ALL,1,1
+17:47:04.501 [INFO ] _host_info : hostname is SPS01
+17:47:04.511 [INFO ] _host_info : hostname is SPS01
+17:47:04.512 [INFO ] route_status :: route_config_file_path : /nas/HC/config/route/SPS01.cfg
+17:47:04.514 [INFO ] route_status :: network_scripts_file : /etc/sysconfig/network-scripts/route-eth2
+17:47:04.515 [INFO ] route_status :: network_scripts_file : /etc/sysconfig/network-scripts/route-eth0
+17:47:04.516 [INFO ] run_method :: SPS01 ItemDesc : route 확인, lib.vms_hc.route_status()
+17:47:04.516 [INFO ] run_method :: exec_flag : crontab 확인,ALL,1,1
+17:47:04.517 [INFO ] _host_info : hostname is SPS01
+17:47:04.520 [INFO ] crontab_status :: crontab_from_config  : [('delttslog', '/home/tmr/vt/ttssrv/delttslog'), ('dellog', '/home/vms/bin/dellog.sh')]
+17:47:04.532 [INFO ] run_method :: SPS01 ItemDesc : crontab 확인, lib.vms_hc.crontab_status()
+17:47:04.532 [INFO ] run_method :: exec_flag : NTP 연동 확인,ALL,1,1
+17:47:04.534 [INFO ] _host_info : hostname is SPS01
+17:47:04.552 [INFO ] run_method :: SPS01 ItemDesc : NTP 연동 확인, lib.vms_hc.ntp_status()
+17:47:04.553 [INFO ] run_method :: exec_flag : CPU 사용률 확인,ALL,1,1
+17:47:04.554 [INFO ] _host_info : hostname is SPS01
+17:47:04.557 [INFO ] run_method :: SPS01 ItemDesc : CPU 사용률 확인, lib.vms_hc.cpu_usage()
+17:47:04.558 [INFO ] run_method :: exec_flag : Memory 사용률 확인,ALL,1,1
+17:47:04.559 [INFO ] _host_info : hostname is SPS01
+17:47:04.561 [INFO ] run_method :: SPS01 ItemDesc : Memory 사용률 확인, lib.vms_hc.memory_usage()
+17:47:04.562 [INFO ] run_method :: exec_flag : DISK 사용률 확인,ALL,1,1
+17:47:04.563 [INFO ] _host_info : hostname is SPS01
+17:47:04.565 [INFO ] run_method :: SPS01 ItemDesc : DISK 사용률 확인, lib.vms_hc.disk_usage()
+17:47:04.565 [INFO ] run_method :: exec_flag : 시스템 Uptime 확인,ALL,1,1
+17:47:04.567 [INFO ] _host_info : hostname is SPS01
+17:47:04.568 [INFO ] run_method :: SPS01 ItemDesc : 시스템 Uptime 확인, lib.vms_hc.uptime_status()
+17:47:04.569 [INFO ] run_method :: exec_flag : 디스크 이중화 상태 확인,ALL,1,1
+17:47:04.570 [INFO ] _host_info : hostname is SPS01
+17:47:04.585 [INFO ] disk_mirror_status :: SYS_MANUF : HP
+17:47:04.604 [ERROR] os_execute :: error return code : 1
+Traceback (most recent call last):
+  File "/home/vms/HC/lib/vms_hc.py", line 1038, in os_execute
+    std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+  File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 573, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+CalledProcessError: Command 'ps -ef | /bin/grep hpacucli | /bin/grep -v grep' returned non-zero exit status 1
+17:47:04.607 [INFO ] disk_mirror_status :: CheckAnotherInstanceOfHpacucliResult : 
+
+17:47:05.786 [INFO ] disk_mirror_status :: hpacucli ctrl slot=0 show config result : 
+      logicaldrive 1 (136.7 GB, RAID 1, OK)
+
+17:47:05.787 [INFO ] run_method :: SPS01 ItemDesc : 디스크 이중화 상태 확인, lib.vms_hc.disk_mirror_status()
+17:47:05.787 [INFO ] run_method :: exec_flag : 좀비 프로세스 확인,ALL,1,1
+17:47:05.789 [INFO ] _host_info : hostname is SPS01
+17:47:05.822 [INFO ] run_method :: SPS01 ItemDesc : 좀비 프로세스 확인, lib.vms_hc.process_status()
+17:47:05.822 [INFO ] run_method :: exec_flag : 총 가입자수 확인,SPS,1,1
+17:47:05.824 [INFO ] _host_info : hostname is SPS01
+17:47:05.826 [INFO ] vms_subscribers :: DB DSN : DSN=odbc_local
+17:47:05.865 [INFO ] odbc_query_execute_fetchone :: DB connection success 
+17:47:05.867 [INFO ] run_method :: SPS01 ItemDesc : 총 가입자수 확인, lib.vms_hc.vms_subscribers()
+17:47:05.867 [INFO ] run_method :: exec_flag : 월간 alarm,OMP,1,100
+17:47:05.869 [INFO ] _host_info : hostname is SPS01
+17:47:05.869 [INFO ] run_method :: exec_flag : SIP 통계 확인,ALL,1,1
+17:47:05.871 [INFO ] _host_info : hostname is SPS01
+17:47:05.873 [INFO ] __init__ :: DB DSN : DSN=mysql
+17:47:05.874 [INFO ] make_output :: DB Query : 
+   SELECT collectTime, SUM(totalCount) totalCount,
+   SUM(IF(endCode IN (0, 403), totalCount, 0)) successCount,
+   SUM(IF(endCode NOT IN (0, 403), totalCount, 0)) failCount,
+   ROUND(SUM(holdingTime * totalCount)/SUM(totalCount)) holdingTime
+   FROM SAM_ST_SIPRM_HOUR
+   WHERE collectTime = ?
+   GROUP BY collectTime
+   
+17:47:05.876 [ERROR] odbc_query_execute_fetchall :: error : 
+Traceback (most recent call last):
+  File "/home/vms/HC/lib/vms_hc.py", line 992, in odbc_query_execute_fetchall
+    db._GetConnect()
+  File "/home/vms/HC/lib/odbc_conn.py", line 16, in _GetConnect
+    raise(NameError,"DB Connected failed!!")
+NameError
+17:47:05.877 [INFO ] run_method :: SPS01 ItemDesc : SIP 통계 확인, lib.vms_hc.tars_sip_stat()
+17:47:05.878 [INFO ] _host_info : hostname is SPS01
+17:47:05.880 [INFO ] csv_save :: CsvFileName : /nas/HC/20170610_IVMS03.csv
+17:47:05.880 [INFO ] SaveResultCsv :: ResultList : CSV Write success.

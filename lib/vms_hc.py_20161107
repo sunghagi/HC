@@ -1,0 +1,761 @@
+#!/nas/HC/PYTHON2.7/bin/python -tt
+# -*- coding: utf-8 -*-
+import psutil
+import lib.hostconf
+import csv
+import subprocess
+import re
+import datetime
+import time
+import socket
+import os.path
+from lib.log import *
+
+logger = hcLogger('root')
+
+class HcCmdResultTalbe(object):
+   ''' Health check contents
+
+   Attributes:
+      column_name: the column name as a string
+      column_width: the column width as a string
+      output: command execute result  as a string
+      status_end: the health check result end as a string
+	'''
+   def __init__(self, column_name, column_width):
+      self.column_name = column_name
+      self.column_width = column_width
+
+      output_single_line  = "-" * abs(self.column_width) + '\n'
+
+      output_header = '\n' + output_single_line
+      output_header += '  %-*s' % (self.column_width, self.column_name) + '\n'
+      output_header += output_single_line
+
+      self.hc_header = output_header
+      self.hc_content = ""
+      self.output = ""
+
+   def _insert_tail(self):
+      if self.output.endswith('\n'):
+         status_end = '=' * self.column_width + '\n'
+      else:
+         status_end = '\n' + '=' * self.column_width + '\n'
+      self.output = string_concate(self.output, status_end)
+
+   def _concate(self, content):
+      self.hc_content = content
+      self.output = string_concate(self.hc_header, self.hc_content)
+      self._insert_tail()
+
+
+class HcResult(object):
+   ''' Health check status
+
+   Attributes:
+      result: the health check result as a string
+      output: the health check running status as a string
+	'''
+
+   def __init__(self):
+      self.result = 'OK'
+      self.outout = ""
+#      self.width = width
+#   ResultList = [index, CheckDate, TodayCheckPeriod, SystemNumber, HostName, ItemDesc, CmdResult, ReturnString]
+
+   def _insert_status_endline(self, column_width):
+      if self.output.endswith('\n'):
+         status_end = '=' * column_width + '\n'
+      else:
+         status_end = '\n' + '=' * column_width + '\n'
+      self.output = string_concate(self.output, status_end)
+
+
+class HostInfo(object):
+   ''' Health check HA
+
+   Attributes:
+      system_name hostname hostclass ip_address ha_operating_mode ha_installed
+	'''
+
+   def __init__(self):
+      ips_list = ip_address_List()
+      logger.debug('%s :: ip address : %s', GetCurFunc(), ips_list )
+
+      for ip in ips_list:
+         for hostlist in lib.hostconf.HostConf:
+            if ip in hostlist:
+               host_class = hostlist[2]
+               if hostlist[1] == 'VIP':
+                  self.ha_operating_mode = 'ACTIVE'
+                  break
+               else:
+                  self.ha_operating_mode = 'STANDBY'
+      for hostlist in lib.hostconf.HostConf:
+         if host_class in hostlist:
+            if hostlist[1] == 'VIP':
+               self.ha_installed = 1
+               break
+            else:
+               self.ha_installed = 0
+
+   def _host_info(self):
+      ips_list = ip_address_List()
+
+      for ip in ips_list:
+         for hostlist in lib.hostconf.HostConf:
+            if ip in hostlist:
+               if hostlist[1] == 'VIP':
+                  continue
+               self.system_name = hostlist[0]
+               self.hostname = hostlist[1]
+               self.hostclass = hostlist[2]
+               self.ip_address = hostlist[3]
+               logger.info('%s : hostname is %s', GetCurFunc(), self.hostname)
+
+#      logger.info('%s :: unknown IP address, check HostConf List', GetCurFunc())
+#      sys.exit()
+
+def GetCurFunc():
+   return inspect.stack()[1][3]
+
+def string_concate(a, b):
+   if not isinstance(b, str):
+      b = str(b)
+
+   string_list = []
+   string_list.append(a)
+   string_list.append(b)
+
+   try:
+      return ''.join(string_list)
+   except Exception as e:
+      logger.exception('%s :: error : %s', GetCurFunc(), e)
+
+def SaveResultCsv(CsvFileName, ResultList):
+   try :
+      with open(CsvFileName, 'a') as f:
+         writer = csv.writer(f)
+         writer.writerows(ResultList)
+         logger.info('%s :: ResultList : CSV Write success.', GetCurFunc())
+   except Exception as e:
+      logger.exception('%s :: CSV file handle error : %s', GetCurFunc(), e)
+
+def bytes2human(n): 
+   # http://code.activestate.com/recipes/578019 
+   # >>> bytes2human(10000) 
+   # '9.8K' 
+   # >>> bytes2human(100001221) 
+   # '95.4M' 
+   symbols = ('K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y') 
+   prefix = {} 
+   for i, s in enumerate(symbols): 
+      prefix[s] = 1 << (i + 1) * 10 
+   for s in reversed(symbols): 
+      if n >= prefix[s]: 
+         value = float(n) / prefix[s] 
+         return '%.1f%s' % (value, s) 
+   return "%sB" % n 
+
+def pprint_ntuple(nt): 
+   for name in nt._fields: 
+      value = getattr(nt, name) 
+      if name != 'percent': 
+         value = bytes2human(value) 
+      print('%-10s : %7s' % (name.capitalize(), value)) 
+
+def cpu_usage(CPU_THRESHOLD):
+   cpu_usage_result = HcResult()
+
+   cpu_percent = psutil.cpu_percent(interval=1)
+   if (cpu_percent > CPU_THRESHOLD):
+      cpu_usage_result.result = "NOK"
+
+   hc_result_table = HcCmdResultTalbe('CPU 사용률(%)',25)
+   hc_result_table._concate(cpu_percent)
+   cpu_usage_result.output = hc_result_table.output
+   logger.debug('%s :: hc_result_table.output : %s', GetCurFunc(), hc_result_table.output)
+
+   return cpu_usage_result
+
+
+def memory_usage(THRESHOLD):
+   memory_usage_result = HcResult()
+
+   mem = psutil.virtual_memory()
+   total_mem = bytes2human(mem.total)
+   avail_mem = bytes2human(mem.available)
+   percent_mem = mem.percent
+
+   templ = "%10s      %10s   %10s%%"
+   buf = '     Total           Available     Use(%)\n'
+   buf += "-" * 55 + '\n'
+   buf += templ % (total_mem, avail_mem, percent_mem) + '\n'
+
+   if (percent_mem > THRESHOLD):
+      memory_usage_result.result = "NOK"
+
+   hc_result_table = HcCmdResultTalbe('MEMORY 사용률(%)',55)
+   hc_result_table._concate(buf)
+   memory_usage_result.output = hc_result_table.output
+
+   return memory_usage_result
+
+
+def disk_usage(THRESHOLD):
+   disk_usage_result = HcResult()
+
+   list_partitions = psutil.disk_partitions()
+   buf = ' Filesystem                Use%      Mounted on\n'
+   templ = "% -20s %10s      %-20s"
+   for part in list_partitions:
+      fs = part.device
+      usage = psutil.disk_usage(part.mountpoint).percent
+      if (usage > THRESHOLD):
+         disk_usage_result.result = "NOK"
+      mounton = part.mountpoint
+      buf = buf + templ % (fs, usage, mounton) + '\n'
+
+   hc_result_table = HcCmdResultTalbe('DISK 사용률 확인',55)
+   hc_result_table._concate(buf)
+   disk_usage_result.output = hc_result_table.output
+
+   return disk_usage_result
+
+
+def uptime_status(THRESHOLD):
+   uptime_status_result = HcResult()
+   hc_result_table = HcCmdResultTalbe('시스템 Uptime 확인',55)
+
+   float_boot_time = psutil.boot_time()
+   BootTime = datetime.datetime.fromtimestamp(float_boot_time).strftime("%Y-%m-%d %H:%M:%S")
+   t = time.localtime()
+   current_time = time.mktime(t)
+   uptime = current_time - float_boot_time
+   day = uptime / 60 / 60 / 24
+ 
+   templ = " %20s        %3s days "
+
+   buf = '      Booting 일자          Uptime 일자\n'
+   buf += "-" * hc_result_table.column_width + '\n'
+   buf += templ % (BootTime, int(day)) + '\n'
+
+   if (day > THRESHOLD):
+      uptime_status_result.result = "NOK"
+
+   hc_result_table._concate(buf)
+   uptime_status_result.output = hc_result_table.output
+
+   return uptime_status_result
+
+def etc_backup():
+   backup_result = HcResult()
+   hc_result_table = HcCmdResultTalbe('/etc Backup',78)
+
+   backup_shell='sudo /nas/HC/etc_backup.sh'
+   backup_status = os_execute(backup_shell)
+
+   BackupDate = datetime.date.today().strftime("%Y%m%d")
+   BackupHost = socket.gethostname()
+
+   BackupFileName = '/nas/HC/etc_bkup_'+BackupHost+'_'+BackupDate+'.tar.gz'
+   logger.info('%s :: BackupFileName : %s', GetCurFunc(), BackupFileName)
+
+   CMD = '/usr/bin/file '+BackupFileName
+   backup_status = os_execute(CMD)
+
+   if os.path.exists(BackupFileName):
+      backup_result.result = "OK"
+   else:
+      backup_result.result = "NOK"
+
+   hc_result_table._concate(backup_status)
+   backup_result.output = hc_result_table.output
+
+   return backup_result
+
+
+def ping_status(GW_IP):
+   ping_status_result = HcResult()
+   hc_result_table = HcCmdResultTalbe('Ping 확인',78)
+
+   ping_command='ping -c 4 -w 4 ' + GW_IP
+   ping_status = os_execute(ping_command)
+
+   buf = ping_status.split('\n')
+   for line in buf:
+      if 'packet loss' in line:
+         PingResult = line.split(',')
+   PacketLoss = re.findall(r'\d', PingResult[2])
+
+   if int(PacketLoss[0]) < 20:
+      ping_status_result.result = "OK"
+   else:
+      ping_status_result.result = "NOK"
+
+#   print ' Packet Loss : %2s %% ' % (PacketLoss[0])
+
+   hc_result_table._concate(ping_status)
+   ping_status_result.output = hc_result_table.output
+
+   return ping_status_result
+
+
+def ntp_status():
+   ntp_status_result = HcResult()
+   hc_result_table = HcCmdResultTalbe('NTP 연동 확인',78)
+
+   ntp_status = os_execute("/usr/sbin/ntpq -p")
+
+   sync_char = re.findall("\*.*", ntp_status)
+
+   if sync_char:
+      ntp_status_result.result = "OK"
+   else:
+      ntp_status_result.result = "NOK"
+
+   hc_result_table._concate(ntp_status)
+   ntp_status_result.output = hc_result_table.output
+
+   return ntp_status_result
+
+
+def process_status():
+   process_status_result = HcResult()
+   hc_result_table = HcCmdResultTalbe('좀비프로세스 확인',78)
+
+   buf = 'Process Name     PID   PPID   USER  %MEM    PATH                      CREATE TIME\n'
+   buf += "-" * hc_result_table.column_width + '\n'
+
+   pid_list = psutil.pids()
+
+   RunningProcessList = []
+
+   for pl in pid_list:
+      try:
+         p = psutil.Process(pl)
+      except:
+         pass
+      else:
+         if p.status() == psutil.STATUS_ZOMBIE:
+            if p.name() == "Xsession":
+               pass
+            else :
+               process_status_result.result = "NOK"
+               cmdline = '['+p.name()+'] <defunct>'
+               create_time=datetime.datetime.fromtimestamp(p.create_time()).strftime("%Y-%m-%d %H:%M:%S")
+               templ = "%-13s %6s %6s   %-5s %-4s %-25s %-s\n"
+               buf += templ % (p.name(), p.pid, p.ppid(), p.username(), round(p.memory_percent(),1), cmdline, create_time)
+
+   hc_result_table._concate(buf)
+   process_status_result.output = hc_result_table.output
+
+   return process_status_result
+
+def corefile_status(core_file_path):
+   corefile_status_result = HcResult()
+   hc_result_table = HcCmdResultTalbe('CORE 파일 생성 확인',78)
+
+   import fnmatch, os
+   try:
+      files = fnmatch.filter(os.listdir(core_file_path), "core.*")
+   except Exception as e:
+      logger.exception('%s :: %s', GetCurFunc(), e)
+      corefile_status_result.reason = e
+      corefile_status_result.result = "NOK"
+      buf = e
+   else:
+      buf = ''
+      for CoreFileName in files:
+         CMD = '/usr/bin/file '+core_file_path+'/'+CoreFileName
+         output = os_execute(CMD)
+         buf += output
+      if files:
+         corefile_status_result.result = "NOK"
+
+   hc_result_table._concate(buf)
+   corefile_status_result.output = hc_result_table.output
+
+   return corefile_status_result
+
+def disk_mirror_status(HostName):
+   disk_mirror_status_result = HcResult()
+   hc_result_table = HcCmdResultTalbe('디스크 이중화 상태 확인',78)
+
+   SYS_MANUF = GetSystemManufacturer()
+   logger.info('%s :: SYS_MANUF : %s', GetCurFunc(), SYS_MANUF)
+
+   if SYS_MANUF == 'HP':
+      CheckAnotherInstanceOfHpacucli='ps -ef | /bin/grep hpacucli | /bin/grep -v grep'
+      CheckAnotherInstanceOfHpacucliResult = os_execute(CheckAnotherInstanceOfHpacucli)
+      logger.info('%s :: CheckAnotherInstanceOfHpacucliResult : \n%s', GetCurFunc(), CheckAnotherInstanceOfHpacucliResult)
+      CMD='sudo /usr/sbin/hpacucli ctrl slot=0 show config | /bin/grep logicaldrive'
+      if CheckAnotherInstanceOfHpacucliResult:
+         logger.info('%s :: Another instance of hpacucli is running! waiting 3 seconds', GetCurFunc())
+         time.sleep(3)
+         std_out = os_execute(CMD)
+      else:
+         std_out = os_execute(CMD)
+      logger.info('%s :: hpacucli ctrl slot=0 show config result : \n%s', GetCurFunc(), std_out)
+
+      OK = re.findall("OK", std_out)
+   else:
+      std_out = os_execute("sudo mpt-status -p | /bin/grep Found")
+      logger.info('%s :: std_out : |%s| ', self.GetCurFunc(), std_out)
+      if std_out is None: # SCSI_ID is grater than 15, ATCA 6150
+         if HostName == 'TC01':
+            SCSI_ID = '20'
+         elif HostName == 'SIP02':
+            SCSI_ID = '18'
+         else:
+            SCSI_ID = '0'
+      else :
+         Buf = re.sub(",.*",'', std_out)
+         SCSI_ID = re.sub("\D",'', Buf)
+
+      CMD='sudo mpt-status -i '+SCSI_ID+' | /bin/grep state'
+      logger.info('%s :: CMD : %s ', GetCurFunc(), CMD)
+      std_out = os_execute(CMD)
+      OK = re.findall("OPTIMAL", std_out)
+
+   if OK:
+      disk_mirror_status_result.result = "OK"
+   else:
+      disk_mirror_status_result.result = "NOK"
+
+   hc_result_table._concate(std_out)
+   disk_mirror_status_result.output = hc_result_table.output
+
+   return disk_mirror_status_result
+
+def vms_subscribers(HOST_INFO, DSN):
+   vms_subscribers_result = HcResult()
+
+   SystemNumber = HOST_INFO.system_name
+   HostName = HOST_INFO.hostname
+   HostClass = HOST_INFO.hostclass
+   HaStatus = HOST_INFO.ha_operating_mode
+
+   db_query = """
+   select count(*) from subscribers
+   """
+   db_param = ''
+
+   vms_subscribers = odbc_query_execute_fetchone(DSN, db_query, db_param, hc_result_table.column_width)
+
+   if vms_subscribers:
+      vms_subscribers_result.result = "OK"
+   else:
+      vms_subscribers_result.result = "NOK"
+
+   column_name = '소리샘 총가입자'
+   column_width = 25
+   hc_result_table = HcCmdResultTalbe(column_name, column_width)
+   hc_result_table._concate(vms_subscribers)
+   vms_subscribers_result.output = hc_result_table.output
+
+   return vms_subscribers_result
+
+
+def altibase_tablespace(HOST_INFO, DSN):
+   altibase_tablespace_result = HcResult()
+
+   SystemNumber = HOST_INFO.system_name
+   HostName = HOST_INFO.hostname
+   HostClass = HOST_INFO.hostclass
+   HaStatus = HOST_INFO.ha_operating_mode
+
+   db_column_name=['MAX(M)','TOTAL(M)','ALLOC(M)','USED(M)','USAGE(%)']
+   db_column_width=['-15','-15','-15','-15','-15']
+#   if HaStatus == 'STANDBY':
+   if HaStatus == 'ACTIVE':
+      db_query = """
+      SELECT mem_max_db_size/1024/1024 'MAX(M)',
+         round(mem_alloc_page_count*32/1024, 2) 'TOTAL(M)',
+         trunc((mem_alloc_page_count-mem_free_page_count)*32/1024, 2) 'ALLOC(M)',
+         (SELECT round(sum((fixed_used_mem + var_used_mem))/(1024*1024),3) FROM v$memtbl_info) 'USED(M)',
+         trunc(((mem_alloc_page_count-mem_free_page_count)*32*1024)/mem_max_db_size, 4)*100 'USAGE(%)'
+      FROM v$database ;
+      """
+      db_param = ''
+
+      db_column_name = print_column_name(db_column_name, db_column_width)
+      output_buf = string_concate(hc_result_table.hc_content, db_column_name)
+
+      tablespace = odbc_query_execute_fetchone(DSN, db_query, db_param, db_column_width)
+
+      buf = string_concate(output_buf, tablespace)
+   else:
+      buf = " This system is " + HostClass + " ACTIVE Side"
+      buf += " Altibase Memory Table Space Usage is available in STANDBY Side "
+
+   column_name = '알티베이스 메모리 사용률'
+   column_width = 78
+   hc_result_table = HcCmdResultTalbe(column_name, column_width)
+   hc_result_table._concate(buf)
+   altibase_tablespace_result.output = hc_result_table.output
+
+   return altibase_tablespace_result
+
+def print_column_name(column_name, column_width):
+   total_width = sum(int(CW) for CW in column_width)
+   
+   buf = "\n"
+   buf += "-" * abs(total_width) + '\n'
+   for name, width in zip(column_name, column_width):
+      buf += '%*s' % (int(width), name)
+   buf += "\n"
+   buf += "-" * abs(total_width) + '\n'
+
+   return buf
+
+
+def odbc_query_execute_fetchone(DSN,db_query,db_param, column_width):
+   from lib.odbc_conn import odbcConn
+   db = odbcConn(DSN)
+   db._GetConnect()
+   logger.info('%s :: Altibase connection success ', GetCurFunc())
+
+   if db_param == '':
+      db.cursor.execute(db_query)
+   else :
+      db.cursor.execute(db_query, db_param)
+
+   output_buf = ""
+   total_width = sum(int(CW) for CW in column_width)
+   while 1:
+      row = db.cursor.fetchone()
+      if not row:
+         output_buf += "=" * abs(total_width) + '\n'
+         break 
+      for value, width in zip(row, column_width): 
+         output_buf += '%*s' % (int(width), value)
+      output_buf += "\n"
+
+   return output_buf
+
+def GetSystemManufacturer():
+   output = os_execute('sudo /usr/sbin/dmidecode -s system-manufacturer | tail -2')
+   logger.info('%s :: Type output : %s', GetCurFunc(), type(output))
+   SystemManufacturer = re.sub('\n','',output)
+   return SystemManufacturer
+
+def os_execute(OsCommand):
+   try:
+      std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+   except subprocess.CalledProcessError as e:
+#      logger.exception('%s :: error return code : %s', GetCurFunc(), e.returncode)
+      std_out = e.output
+   logger.debug('%s :: std_out : \n%s', GetCurFunc(), std_out)
+
+   return std_out
+
+def ip_address_List():
+   ''' return IP address list
+   '''
+   retlist = []
+   for nic, addrs in psutil.net_if_addrs().items():
+      for addr in addrs:
+         if addr.family == 2 :
+            retlist.append(addr.address)
+#              print(" address   : %s" % addr.address)
+#              print(" family :  : %s" % addr.family)
+   return retlist
+
+def net_io_counters():
+   ''' Check Net io counters 
+   '''
+   net_io_counters_result = HcResult()
+   hc_result_table = HcCmdResultTalbe('NET IO 확인',78)
+
+   buf = ""
+   net_io_counters_result.result = "OK"
+   for nic, netio_counters in psutil.net_io_counters(pernic=True).items():
+      if nic == 'lo' or nic == 'sit0':
+         continue
+
+      buf += " NIC : %5s, errin : %3s, errout : %3s" % (nic, netio_counters.errin, netio_counters.errout)  + '\n'
+      if netio_counters.errin >= 100 or netio_counters.errout >= 100:
+         net_io_counters_result.result = "NOK"
+
+   hc_result_table._concate(buf)
+   net_io_counters_result.output = hc_result_table.output
+
+   return net_io_counters_result
+
+def net_if_stats():
+   ''' Check Net if stats 
+   '''
+   duplex_map = {
+      psutil.NIC_DUPLEX_FULL: "full",
+      psutil.NIC_DUPLEX_HALF: "half",
+      psutil.NIC_DUPLEX_UNKNOWN: "?",
+   }
+
+   net_if_stats_result = HcResult()
+   hc_result_table = HcCmdResultTalbe('NET interface 확인',78)
+
+   buf = ""
+   net_if_stats_result.result = "OK"
+   for nic, nic_stats in psutil.net_if_stats().items():
+      if nic == 'lo' or nic == 'sit0':
+         continue
+
+      buf += " NIC : %4s, isup : %5s, duplex : %3s, speed : %4s" % (nic, nic_stats.isup, duplex_map[nic_stats.duplex], nic_stats.speed)  + '\n'
+      if nic_stats.isup != True or nic_stats.duplex != 2:
+         net_if_stats_result.result = "NOK"
+
+   hc_result_table._concate(buf)
+   net_if_stats_result.output = hc_result_table.output
+
+   return net_if_stats_result
+
+def net_if_address(net_if_addrs_from_config):
+   ''' Check Net if address 
+   '''
+   net_if_addrs_result = HcResult()
+   hc_result_table = HcCmdResultTalbe('Net interface address 확인',78)
+
+   ipa_dic = {}
+   for nic_name, nic_value_list in psutil.net_if_addrs().items():
+      if nic_name == 'lo' or nic_name == 'sit0':
+         continue
+      for nic_value in nic_value_list: 
+         if nic_value.family == socket.AF_INET:
+            ip_addrs = nic_value.address
+         else:
+            continue
+      ipa_dic[nic_name] = ip_addrs
+
+   buf = ""
+   net_if_addrs_result.result = "OK"
+   for nic_name_conf, ip_addrs_conf in net_if_addrs_from_config:
+      search_result = "OK"
+      ip_addrs_sys = ipa_dic.get(nic_name_conf)
+      if ip_addrs_sys != ip_addrs_conf:
+         net_if_addrs_result.result = "NOK"
+         search_result = "NOK"
+
+      buf += "  %4s : %15s                                 [ %3s ]" \
+		   % (nic_name_conf, ip_addrs_conf, search_result  )  + '\n'
+
+   hc_result_table._concate(buf)
+   net_if_addrs_result.output = hc_result_table.output
+
+   return net_if_addrs_result
+
+def route_status(route_dest_from_config):
+   route_status_result = HcResult()
+   hc_result_table = HcCmdResultTalbe('route 확인',78)
+
+   route_command='/sbin/route'
+   route_command_result = os_execute(route_command)
+   route_command_result_list = route_command_result.split('\n')
+
+   route_result = ''
+   route_result += "              Kernel IP routing table\n"
+   route_result += "              Destination     Gateway         Genmask         Flags Metric Ref    Use Iface\n"
+
+   route_status_result.result = "OK"
+   for routing_entry,route_destnation in route_dest_from_config:
+      search_result = "NOK"
+      for route_command_result_line in route_command_result_list:
+         if route_destnation in route_command_result_line:
+            route_result += " %-10s : " % ( routing_entry )
+            route_result += route_command_result_line + '\n'
+            search_result = "OK"			
+            break
+      if search_result != "OK":
+         route_result += " %-10s : %-s " % ( routing_entry, route_destnation)
+         route_result += ' routing table에 없음'
+         route_status_result.result = "NOK"
+
+   hc_result_table._concate(route_result)
+   route_status_result.output = hc_result_table.output
+
+   return route_status_result
+
+
+def crontab_status(crontab_from_config):
+   crontab_status_result = HcResult()
+   hc_result_table = HcCmdResultTalbe('crontab 확인',78)
+
+   crontab_command='sudo crontab -l'
+   crontab_command_result = os_execute(crontab_command)
+   crontab_command_result_list = crontab_command_result.split('\n')
+
+   crontab_result = ''
+   crontab_status_result.result = "OK"
+   for crontab_entry,crontab_command in crontab_from_config:
+      search_result = "NOK"
+      for crontab_command_result_line in crontab_command_result_list:
+         if crontab_command in crontab_command_result_line:
+            crontab_result += " %-10s : " % ( crontab_entry )
+            crontab_result += crontab_command_result_line + '\n'
+            search_result = "OK"			
+            break
+      if search_result != "OK":
+         crontab_result += crontab_entry + ' : ' + crontab_command
+         crontab_result += ' crontab 목록에 없음'
+         crontab_status_result.result = "NOK"
+
+   hc_result_table._concate(crontab_result)
+   crontab_status_result.output = hc_result_table.output
+
+   return crontab_status_result
+
+def swap_mem_status(SWAP_THRESHOLD):
+   ''' Check swap memory
+   '''
+   swap_mem_status_result = HcResult()
+   hc_result_table = HcCmdResultTalbe('swap memory 확인',78)
+
+   swap_mem_status_result.result = "OK"
+   swap_mem = psutil.swap_memory()
+
+   buf = ""
+   buf += " Total : %4s, Used : %5s, Free : %3s, Percent : %4s" % \
+	    (bytes2human(swap_mem.total), bytes2human(swap_mem.used), bytes2human(swap_mem.free), swap_mem.percent)  + '\n'
+   if swap_mem.percent > SWAP_THRESHOLD:
+      swap_mem_status_result.result = "NOK"
+
+   hc_result_table._concate(buf)
+   swap_mem_status_result.output = hc_result_table.output
+
+   return swap_mem_status_result
+
+def sshd_status():
+   ''' Check sshd status
+   '''
+   sshd_status_result = HcResult()
+   hc_result_table = HcCmdResultTalbe('sshd running 확인',78)
+
+   sshd_status_result.result = "OK"
+
+   SSHD_PID = "/var/run/sshd.pid"
+   try:
+      f = open(SSHD_PID, 'r')
+   except IOError as e:
+      sshd_status_result.result = "NOK"
+      hc_result_table._concate(e)
+      sshd_status_result.output = hc_result_table.output
+      return sshd_status_result
+      
+   pid = int(f.read())
+
+   buf = 'Process Name     PID   PPID   USER  %MEM  PATH                 CREATE TIME\n'
+   buf += "-" * hc_result_table.column_width + '\n'
+
+   p = psutil.Process(pid)
+
+   create_time=datetime.datetime.fromtimestamp(p.create_time()).strftime("%Y-%m-%d %H:%M:%S")
+   templ = "%-13s %6s %6s   %-5s %-5s %-20s %-s\n"
+   buf += templ % (p.name(), p.pid, p.ppid(), p.username(), round(p.memory_percent(),1),"".join(p.cmdline()), create_time)
+
+   if p.name() == 'sshd':
+      sshd_status_result.result = "OK"
+
+   hc_result_table._concate(buf)
+   sshd_status_result.output = hc_result_table.output
+
+   return sshd_status_result

@@ -1,0 +1,4061 @@
+[11:21:47.289] [Recv] Packet <----
+INVITE sip:ivr@bizring.sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=7d81cc184363b
+To: <sip:01048472204@sktims.net>
+Call-ID: d2A519CD-83D7eE-368277fA88-5C5734dC--b-d19d-a71-2202c302@211.188.227.184
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%0%b5f8887057ee75da_43684
+Max-Forwards: 70
+Supported: timer
+Route: <sip:192.168.152.104:5060;lr>;orig
+P-Asserted-Identity: <sip:tas.sktims.net>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+P-SKT-O-TCI: C0
+User-Agent: 3G324M
+P-SKT-MRF-SVC: play
+P-SKT-MRF-CRBT: 00
+P-SKT-MRF-SDP: 00
+P-Charging-Vector: icid-value="icscf5.sktims.net-120340166";orig-ioi="sktims.net"
+Session-Expires: 3600;refresher=uas
+Contact: <sip:MSIPX0@192.168.55.144:5071;tu=0;mrf>
+Content-Type: application/sdp
+Content-Length: 447
+
+v=0
+o=SAMSUNG-MGW 1441246907 1441246907 IN IP4 192.168.131.149
+s=phone-call
+c=IN IP4 192.168.131.149
+t=0 0
+m=audio 23976 RTP/AVP 100 98 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:98 AMR/8000
+a=fmtp:98 octet-align=1; mode-set=7; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[11:21:47.289] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=7d81cc184363b
+To: <sip:01048472204@sktims.net>
+Call-ID: d2A519CD-83D7eE-368277fA88-5C5734dC--b-d19d-a71-2202c302@211.188.227.184
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%0%b5f8887057ee75da_43684
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[11:21:47.304] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=7d81cc184363b
+To: <sip:01048472204@sktims.net>;tag=86405868-6898a8c0-13c4-45026-d6ad3f9-250d4a-ed7f5eac-4d2
+Call-ID: d2A519CD-83D7eE-368277fA88-5C5734dC--b-d19d-a71-2202c302@211.188.227.184
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%0%b5f8887057ee75da_43684
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Session-Expires: 480;refresher=uas
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441246908 1441246907 IN IP4 192.168.152.103
+s=-
+c=IN IP4 192.168.152.103
+t=0 0
+m=audio 50048 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:20
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[11:21:47.318] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=7d81cc184363b
+To: <sip:01048472204@sktims.net>;tag=86405868-6898a8c0-13c4-45026-d6ad3f9-250d4a-ed7f5eac-4d2
+Call-ID: d2A519CD-83D7eE-368277fA88-5C5734dC--b-d19d-a71-2202c302@211.188.227.184
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%0%d80e7f80184f9743_4ab77
+Max-Forwards: 70
+Contact: <sip:MSIPX0@192.168.55.144:5071;tu=0>
+Content-Length: 0
+
+
+[11:21:48.560] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=7d81cc184363b
+To: <sip:01048472204@sktims.net>;tag=86405868-6898a8c0-13c4-45026-d6ad3f9-250d4a-ed7f5eac-4d2
+Call-ID: d2A519CD-83D7eE-368277fA88-5C5734dC--b-d19d-a71-2202c302@211.188.227.184
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%0%b6bde60070111966_85a41
+Max-Forwards: 70
+Session-Expires: 3600
+Contact: <sip:MSIPX0@192.168.55.144:5071;tu=0>
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 119
+
+<?xml version="1.0" encoding="UTF-8"?>
+<MediaServerControl>
+  <request>
+    <play/>
+  </request>
+</MediaServerControl>
+
+[11:21:48.560] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=7d81cc184363b
+To: <sip:01048472204@sktims.net>;tag=86405868-6898a8c0-13c4-45026-d6ad3f9-250d4a-ed7f5eac-4d2
+Call-ID: d2A519CD-83D7eE-368277fA88-5C5734dC--b-d19d-a71-2202c302@211.188.227.184
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%0%b6bde60070111966_85a41
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[11:21:51.379] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=7d81cc184363b
+To: <sip:01048472204@sktims.net>;tag=86405868-6898a8c0-13c4-45026-d6ad3f9-250d4a-ed7f5eac-4d2
+Call-ID: d2A519CD-83D7eE-368277fA88-5C5734dC--b-d19d-a71-2202c302@211.188.227.184
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%0%f8eacec022752b86_59a78
+
+
+[11:21:51.380] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=7d81cc184363b
+To: <sip:01048472204@sktims.net>;tag=86405868-6898a8c0-13c4-45026-d6ad3f9-250d4a-ed7f5eac-4d2
+Call-ID: d2A519CD-83D7eE-368277fA88-5C5734dC--b-d19d-a71-2202c302@211.188.227.184
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%0%f8eacec022752b86_59a78
+Content-Length: 0
+
+
+[11:42:11.601] [Recv] Packet <----
+INVITE sip:ivr@bizring.sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=17962e78eff9
+To: <sip:01048472204@sktims.net>
+Call-ID: 3748BdA1-f28ada-37F56543B7-387659A5-506a0e32-db96c302@211.188.227.184
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%2%15d70f90cca1fb1_8f03d
+Max-Forwards: 70
+Supported: timer
+Route: <sip:192.168.152.104:5060;lr>;orig
+P-Asserted-Identity: <sip:tas.sktims.net>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+P-SKT-O-TCI: C0
+User-Agent: 3G324M
+P-SKT-MRF-SVC: play
+P-SKT-MRF-CRBT: 00
+P-SKT-MRF-SDP: 00
+P-Charging-Vector: icid-value="icscf13.sktims.net-145918192";orig-ioi="sktims.net"
+Session-Expires: 3600;refresher=uas
+Contact: <sip:MSIPX0@192.168.55.144:5071;tu=2;mrf>
+Content-Type: application/sdp
+Content-Length: 447
+
+v=0
+o=SAMSUNG-MGW 1441248131 1441248131 IN IP4 192.168.131.149
+s=phone-call
+c=IN IP4 192.168.131.149
+t=0 0
+m=audio 56662 RTP/AVP 100 98 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:98 AMR/8000
+a=fmtp:98 octet-align=1; mode-set=7; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[11:42:11.601] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=17962e78eff9
+To: <sip:01048472204@sktims.net>
+Call-ID: 3748BdA1-f28ada-37F56543B7-387659A5-506a0e32-db96c302@211.188.227.184
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%2%15d70f90cca1fb1_8f03d
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[11:42:11.616] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=17962e78eff9
+To: <sip:01048472204@sktims.net>;tag=865d2c28-6898a8c0-13c4-45026-39647b1d-2522c0-edafbeac-4d2
+Call-ID: 3748BdA1-f28ada-37F56543B7-387659A5-506a0e32-db96c302@211.188.227.184
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%2%15d70f90cca1fb1_8f03d
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Session-Expires: 480;refresher=uas
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441248132 1441248131 IN IP4 192.168.152.103
+s=-
+c=IN IP4 192.168.152.103
+t=0 0
+m=audio 10052 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:20
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[11:42:11.631] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=17962e78eff9
+To: <sip:01048472204@sktims.net>;tag=865d2c28-6898a8c0-13c4-45026-39647b1d-2522c0-edafbeac-4d2
+Call-ID: 3748BdA1-f28ada-37F56543B7-387659A5-506a0e32-db96c302@211.188.227.184
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%2%15b812c063eb42e7_96546
+Max-Forwards: 70
+Contact: <sip:MSIPX0@192.168.55.144:5071;tu=2>
+Content-Length: 0
+
+
+[11:42:12.851] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=17962e78eff9
+To: <sip:01048472204@sktims.net>;tag=865d2c28-6898a8c0-13c4-45026-39647b1d-2522c0-edafbeac-4d2
+Call-ID: 3748BdA1-f28ada-37F56543B7-387659A5-506a0e32-db96c302@211.188.227.184
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%2%ec482d20be16db5_cc0e8
+Max-Forwards: 70
+Session-Expires: 3600
+Contact: <sip:MSIPX0@192.168.55.144:5071;tu=2>
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 119
+
+<?xml version="1.0" encoding="UTF-8"?>
+<MediaServerControl>
+  <request>
+    <play/>
+  </request>
+</MediaServerControl>
+
+[11:42:12.851] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=17962e78eff9
+To: <sip:01048472204@sktims.net>;tag=865d2c28-6898a8c0-13c4-45026-39647b1d-2522c0-edafbeac-4d2
+Call-ID: 3748BdA1-f28ada-37F56543B7-387659A5-506a0e32-db96c302@211.188.227.184
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%2%ec482d20be16db5_cc0e8
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[11:42:20.421] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=17962e78eff9
+To: <sip:01048472204@sktims.net>;tag=865d2c28-6898a8c0-13c4-45026-39647b1d-2522c0-edafbeac-4d2
+Call-ID: 3748BdA1-f28ada-37F56543B7-387659A5-506a0e32-db96c302@211.188.227.184
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%2%d8b5bf3029ac89ef_635de
+
+
+[11:42:20.422] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=17962e78eff9
+To: <sip:01048472204@sktims.net>;tag=865d2c28-6898a8c0-13c4-45026-39647b1d-2522c0-edafbeac-4d2
+Call-ID: 3748BdA1-f28ada-37F56543B7-387659A5-506a0e32-db96c302@211.188.227.184
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%2%d8b5bf3029ac89ef_635de
+Content-Length: 0
+
+
+[11:42:28.613] [Recv] Packet <----
+INVITE sip:1578291853000104517@sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3619205
+To: <sip:1578291853000104517@sktims.net>
+Call-ID: 3619205@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK36192051_36.19205.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.156:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:36.19205.1@192.168.131.156:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01091983031@sktims.net>
+P-SKT-O-SFI: 1000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: C0
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441248148 1441248148 IN IP4 192.168.131.147
+s=phone-call
+c=IN IP4 192.168.131.147
+t=0 0
+m=audio 48654 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[11:42:28.613] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=3619205
+To: <sip:1578291853000104517@sktims.net>
+Call-ID: 3619205@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK36192051_36.19205.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[11:42:28.625] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3619205
+To: <sip:1578291853000104517@sktims.net>;tag=865ee8a8-6898a8c0-13c4-45026-792da360-2522f9-ed774eac-4d2
+Call-ID: 3619205@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK36192051_36.19205.1
+Record-Route: <sip:36.19205.1@192.168.131.156:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441248149 1441248148 IN IP4 192.168.152.102
+s=-
+c=IN IP4 192.168.152.102
+t=0 0
+m=audio 20052 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:80
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[11:42:28.630] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3619205
+To: <sip:1578291853000104517@sktims.net>;tag=865ee8a8-6898a8c0-13c4-45026-792da360-2522f9-ed774eac-4d2
+Call-ID: 3619205@192.168.131.156
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3619205201_36.19205.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[11:42:29.869] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3619205
+To: <sip:1578291853000104517@sktims.net>;tag=865ee8a8-6898a8c0-13c4-45026-792da360-2522f9-ed774eac-4d2
+Call-ID: 3619205@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_36.19205.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[11:42:29.869] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3619205
+To: <sip:1578291853000104517@sktims.net>;tag=865ee8a8-6898a8c0-13c4-45026-792da360-2522f9-ed774eac-4d2
+Call-ID: 3619205@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_36.19205.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[11:43:09.502] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3619205
+To: <sip:1578291853000104517@sktims.net>;tag=865ee8a8-6898a8c0-13c4-45026-792da360-2522f9-ed774eac-4d2
+Call-ID: 3619205@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK36192053_36.19205.1
+Max-Forwards: 70
+P-SKT-BYE-CAUSE: normal
+Content-Length: 0
+
+
+[11:43:09.502] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3619205
+To: <sip:1578291853000104517@sktims.net>;tag=865ee8a8-6898a8c0-13c4-45026-792da360-2522f9-ed774eac-4d2
+Call-ID: 3619205@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK36192053_36.19205.1
+Content-Length: 0
+
+
+[11:50:59.008] [Recv] Packet <----
+INVITE sip:ivr@bizring.sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=6597fd6cf298d
+To: <sip:01048472204@sktims.net>
+Call-ID: dEB71EE9-65B931-771433ABB5-47c21767--9-7f75a54-66d5c301@211.188.227.184
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%1%e64b96b02e0e8e2e_f29cd
+Max-Forwards: 70
+Supported: timer
+Route: <sip:192.168.152.104:5060;lr>;orig
+P-Asserted-Identity: <sip:tas.sktims.net>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+P-SKT-O-TCI: C0
+User-Agent: 3G324M
+P-SKT-MRF-SVC: play
+P-SKT-MRF-CRBT: 00
+P-SKT-MRF-SDP: 00
+P-Charging-Vector: icid-value="icscf5.sktims.net-120367394";orig-ioi="sktims.net"
+Session-Expires: 3600;refresher=uas
+Contact: <sip:MSIPX0@192.168.55.144:5071;tu=1;mrf>
+Content-Type: application/sdp
+Content-Length: 447
+
+v=0
+o=SAMSUNG-MGW 1441248658 1441248658 IN IP4 192.168.131.149
+s=phone-call
+c=IN IP4 192.168.131.149
+t=0 0
+m=audio 44222 RTP/AVP 100 98 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:98 AMR/8000
+a=fmtp:98 octet-align=1; mode-set=7; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[11:50:59.008] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=6597fd6cf298d
+To: <sip:01048472204@sktims.net>
+Call-ID: dEB71EE9-65B931-771433ABB5-47c21767--9-7f75a54-66d5c301@211.188.227.184
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%1%e64b96b02e0e8e2e_f29cd
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[11:50:59.021] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=6597fd6cf298d
+To: <sip:01048472204@sktims.net>;tag=866b98a8-6898a8c0-13c4-45026-849aa98-252bed-ed6f3eac-4d2
+Call-ID: dEB71EE9-65B931-771433ABB5-47c21767--9-7f75a54-66d5c301@211.188.227.184
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%1%e64b96b02e0e8e2e_f29cd
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Session-Expires: 480;refresher=uas
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441248659 1441248659 IN IP4 192.168.152.103
+s=-
+c=IN IP4 192.168.152.103
+t=0 0
+m=audio 20052 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:20
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[11:50:59.037] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=6597fd6cf298d
+To: <sip:01048472204@sktims.net>;tag=866b98a8-6898a8c0-13c4-45026-849aa98-252bed-ed6f3eac-4d2
+Call-ID: dEB71EE9-65B931-771433ABB5-47c21767--9-7f75a54-66d5c301@211.188.227.184
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%1%e73ea8c05af7c574_5c7a
+Max-Forwards: 70
+Contact: <sip:MSIPX0@192.168.55.144:5071;tu=1>
+Content-Length: 0
+
+
+[11:51:00.358] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=6597fd6cf298d
+To: <sip:01048472204@sktims.net>;tag=866b98a8-6898a8c0-13c4-45026-849aa98-252bed-ed6f3eac-4d2
+Call-ID: dEB71EE9-65B931-771433ABB5-47c21767--9-7f75a54-66d5c301@211.188.227.184
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%1%bdcd80e02f9aae61_54012
+Max-Forwards: 70
+Session-Expires: 3600
+Contact: <sip:MSIPX0@192.168.55.144:5071;tu=1>
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 119
+
+<?xml version="1.0" encoding="UTF-8"?>
+<MediaServerControl>
+  <request>
+    <play/>
+  </request>
+</MediaServerControl>
+
+[11:51:00.358] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=6597fd6cf298d
+To: <sip:01048472204@sktims.net>;tag=866b98a8-6898a8c0-13c4-45026-849aa98-252bed-ed6f3eac-4d2
+Call-ID: dEB71EE9-65B931-771433ABB5-47c21767--9-7f75a54-66d5c301@211.188.227.184
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%1%bdcd80e02f9aae61_54012
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[11:51:01.577] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=6597fd6cf298d
+To: <sip:01048472204@sktims.net>;tag=866b98a8-6898a8c0-13c4-45026-849aa98-252bed-ed6f3eac-4d2
+Call-ID: dEB71EE9-65B931-771433ABB5-47c21767--9-7f75a54-66d5c301@211.188.227.184
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%1%de245130409724b1_89a54
+
+
+[11:51:01.578] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=6597fd6cf298d
+To: <sip:01048472204@sktims.net>;tag=866b98a8-6898a8c0-13c4-45026-849aa98-252bed-ed6f3eac-4d2
+Call-ID: dEB71EE9-65B931-771433ABB5-47c21767--9-7f75a54-66d5c301@211.188.227.184
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%1%de245130409724b1_89a54
+Content-Length: 0
+
+
+[11:51:53.094] [Recv] Packet <----
+INVITE sip:1578291853000104517@sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3319466
+To: <sip:1578291853000104517@sktims.net>
+Call-ID: 3319466@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK33194661_33.19466.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.156:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:33.19466.1@192.168.131.156:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01091983031@sktims.net>
+P-SKT-O-SFI: 1000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: C0
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441248713 1441248713 IN IP4 192.168.131.144
+s=phone-call
+c=IN IP4 192.168.131.144
+t=0 0
+m=audio 47602 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[11:51:53.094] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=3319466
+To: <sip:1578291853000104517@sktims.net>
+Call-ID: 3319466@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK33194661_33.19466.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[11:51:53.108] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3319466
+To: <sip:1578291853000104517@sktims.net>;tag=866c7c28-6898a8c0-13c4-45026-479b52a2-252ce6-eda7aeac-4d2
+Call-ID: 3319466@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK33194661_33.19466.1
+Record-Route: <sip:33.19466.1@192.168.131.156:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441248714 1441248713 IN IP4 192.168.152.102
+s=-
+c=IN IP4 192.168.152.102
+t=0 0
+m=audio 30052 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:80
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[11:51:53.113] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3319466
+To: <sip:1578291853000104517@sktims.net>;tag=866c7c28-6898a8c0-13c4-45026-479b52a2-252ce6-eda7aeac-4d2
+Call-ID: 3319466@192.168.131.156
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3319466201_33.19466.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[11:51:54.325] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3319466
+To: <sip:1578291853000104517@sktims.net>;tag=866c7c28-6898a8c0-13c4-45026-479b52a2-252ce6-eda7aeac-4d2
+Call-ID: 3319466@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_33.19466.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[11:51:54.325] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3319466
+To: <sip:1578291853000104517@sktims.net>;tag=866c7c28-6898a8c0-13c4-45026-479b52a2-252ce6-eda7aeac-4d2
+Call-ID: 3319466@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_33.19466.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[11:52:16.941] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3319466
+To: <sip:1578291853000104517@sktims.net>;tag=866c7c28-6898a8c0-13c4-45026-479b52a2-252ce6-eda7aeac-4d2
+Call-ID: 3319466@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK33194663_33.19466.1
+Max-Forwards: 70
+P-SKT-BYE-CAUSE: normal
+Content-Length: 0
+
+
+[11:52:16.941] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3319466
+To: <sip:1578291853000104517@sktims.net>;tag=866c7c28-6898a8c0-13c4-45026-479b52a2-252ce6-eda7aeac-4d2
+Call-ID: 3319466@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK33194663_33.19466.1
+Content-Length: 0
+
+
+[12:05:05.775] [Recv] Packet <----
+INVITE sip:ivr@bizring.sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=2c20d0b8ba210
+To: <sip:01048472204@sktims.net>
+Call-ID: Bf5eF71e-Ef9c40-dee2e08093-3c4cF394-7-4c-1f-d57-9634c402@211.188.227.184
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%2%b5e610904e038553_ba257
+Max-Forwards: 70
+Supported: timer
+Route: <sip:192.168.152.104:5060;lr>;orig
+P-Asserted-Identity: <sip:tas.sktims.net>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+P-SKT-O-TCI: C0
+User-Agent: 3G324M
+P-SKT-MRF-SVC: play
+P-SKT-MRF-CRBT: 00
+P-SKT-MRF-SDP: 00
+P-Charging-Vector: icid-value="icscf52.sktims.net-23-225009-1441249505-24cc3095";orig-ioi="sktims.net"
+Session-Expires: 3600;refresher=uas
+Contact: <sip:MSIPX0@192.168.55.144:5071;tu=2;mrf>
+Content-Type: application/sdp
+Content-Length: 447
+
+v=0
+o=SAMSUNG-MGW 1441249505 1441249505 IN IP4 192.168.131.151
+s=phone-call
+c=IN IP4 192.168.131.151
+t=0 0
+m=audio 32984 RTP/AVP 100 98 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:98 AMR/8000
+a=fmtp:98 octet-align=1; mode-set=7; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[12:05:05.775] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=2c20d0b8ba210
+To: <sip:01048472204@sktims.net>
+Call-ID: Bf5eF71e-Ef9c40-dee2e08093-3c4cF394-7-4c-1f-d57-9634c402@211.188.227.184
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%2%b5e610904e038553_ba257
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[12:05:05.789] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=2c20d0b8ba210
+To: <sip:01048472204@sktims.net>;tag=867ff7a8-6898a8c0-13c4-45026-189241ef-253aa8-ed9f9eac-4d2
+Call-ID: Bf5eF71e-Ef9c40-dee2e08093-3c4cF394-7-4c-1f-d57-9634c402@211.188.227.184
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%2%b5e610904e038553_ba257
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Session-Expires: 480;refresher=uas
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441249506 1441249505 IN IP4 192.168.152.103
+s=-
+c=IN IP4 192.168.152.103
+t=0 0
+m=audio 30052 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:20
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[12:05:05.804] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=2c20d0b8ba210
+To: <sip:01048472204@sktims.net>;tag=867ff7a8-6898a8c0-13c4-45026-189241ef-253aa8-ed9f9eac-4d2
+Call-ID: Bf5eF71e-Ef9c40-dee2e08093-3c4cF394-7-4c-1f-d57-9634c402@211.188.227.184
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%2%da7afd2076a85ed9_c16b9
+Max-Forwards: 70
+Contact: <sip:MSIPX0@192.168.55.144:5071;tu=2>
+Content-Length: 0
+
+
+[12:05:07.064] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=2c20d0b8ba210
+To: <sip:01048472204@sktims.net>;tag=867ff7a8-6898a8c0-13c4-45026-189241ef-253aa8-ed9f9eac-4d2
+Call-ID: Bf5eF71e-Ef9c40-dee2e08093-3c4cF394-7-4c-1f-d57-9634c402@211.188.227.184
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%2%8c7ce4071b9bd31_cc70
+Max-Forwards: 70
+Session-Expires: 3600
+Contact: <sip:MSIPX0@192.168.55.144:5071;tu=2>
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 119
+
+<?xml version="1.0" encoding="UTF-8"?>
+<MediaServerControl>
+  <request>
+    <play/>
+  </request>
+</MediaServerControl>
+
+[12:05:07.064] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=2c20d0b8ba210
+To: <sip:01048472204@sktims.net>;tag=867ff7a8-6898a8c0-13c4-45026-189241ef-253aa8-ed9f9eac-4d2
+Call-ID: Bf5eF71e-Ef9c40-dee2e08093-3c4cF394-7-4c-1f-d57-9634c402@211.188.227.184
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%2%8c7ce4071b9bd31_cc70
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[12:05:11.014] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=2c20d0b8ba210
+To: <sip:01048472204@sktims.net>;tag=867ff7a8-6898a8c0-13c4-45026-189241ef-253aa8-ed9f9eac-4d2
+Call-ID: Bf5eF71e-Ef9c40-dee2e08093-3c4cF394-7-4c-1f-d57-9634c402@211.188.227.184
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%2%132fdf7048c5d2e4_b62
+
+
+[12:05:11.015] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=2c20d0b8ba210
+To: <sip:01048472204@sktims.net>;tag=867ff7a8-6898a8c0-13c4-45026-189241ef-253aa8-ed9f9eac-4d2
+Call-ID: Bf5eF71e-Ef9c40-dee2e08093-3c4cF394-7-4c-1f-d57-9634c402@211.188.227.184
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%2%132fdf7048c5d2e4_b62
+Content-Length: 0
+
+
+[12:06:34.352] [Recv] Packet <----
+INVITE sip:1578291853000104517@sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=399286
+To: <sip:1578291853000104517@sktims.net>
+Call-ID: 399286@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK3992861_39.9286.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.164:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:39.9286.1@192.168.131.164:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01091983031@sktims.net>
+P-SKT-O-SFI: 1000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: C0
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441249594 1441249594 IN IP4 192.168.131.149
+s=phone-call
+c=IN IP4 192.168.131.149
+t=0 0
+m=audio 50914 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[12:06:34.353] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=399286
+To: <sip:1578291853000104517@sktims.net>
+Call-ID: 399286@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK3992861_39.9286.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[12:06:34.366] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=399286
+To: <sip:1578291853000104517@sktims.net>;tag=8684a828-6898a8c0-13c4-45026-1cd2a9fa-253c48-edb7ceac-4d2
+Call-ID: 399286@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK3992861_39.9286.1
+Record-Route: <sip:39.9286.1@192.168.131.164:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441249595 1441249594 IN IP4 192.168.152.102
+s=-
+c=IN IP4 192.168.152.102
+t=0 0
+m=audio 40052 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:80
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[12:06:34.370] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=399286
+To: <sip:1578291853000104517@sktims.net>;tag=8684a828-6898a8c0-13c4-45026-1cd2a9fa-253c48-edb7ceac-4d2
+Call-ID: 399286@192.168.131.164
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK399286201_39.9286.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[12:06:35.594] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=399286
+To: <sip:1578291853000104517@sktims.net>;tag=8684a828-6898a8c0-13c4-45026-1cd2a9fa-253c48-edb7ceac-4d2
+Call-ID: 399286@192.168.131.164
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK74bf92_39.9286.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[12:06:35.594] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=399286
+To: <sip:1578291853000104517@sktims.net>;tag=8684a828-6898a8c0-13c4-45026-1cd2a9fa-253c48-edb7ceac-4d2
+Call-ID: 399286@192.168.131.164
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK74bf92_39.9286.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[12:06:49.967] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=399286
+To: <sip:1578291853000104517@sktims.net>;tag=8684a828-6898a8c0-13c4-45026-1cd2a9fa-253c48-edb7ceac-4d2
+Call-ID: 399286@192.168.131.164
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK3992863_39.9286.1
+Max-Forwards: 70
+P-SKT-BYE-CAUSE: normal
+Content-Length: 0
+
+
+[12:06:49.968] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=399286
+To: <sip:1578291853000104517@sktims.net>;tag=8684a828-6898a8c0-13c4-45026-1cd2a9fa-253c48-edb7ceac-4d2
+Call-ID: 399286@192.168.131.164
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK3992863_39.9286.1
+Content-Length: 0
+
+
+[12:20:15.033] [Recv] Packet <----
+INVITE sip:1578291853000104517@sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3722818
+To: <sip:1578291853000104517@sktims.net>
+Call-ID: 3722818@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK37228181_37.22818.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.164:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:37.22818.1@192.168.131.164:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01091983031@sktims.net>
+P-SKT-O-SFI: 1000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: C0
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441250415 1441250415 IN IP4 192.168.131.150
+s=phone-call
+c=IN IP4 192.168.131.150
+t=0 0
+m=audio 43272 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[12:20:15.034] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=3722818
+To: <sip:1578291853000104517@sktims.net>
+Call-ID: 3722818@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK37228181_37.22818.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[12:20:15.088] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3722818
+To: <sip:1578291853000104517@sktims.net>;tag=878b5068-6898a8c0-13c4-45026-2e7a3468-257bc5-edafbeac-4d2
+Call-ID: 3722818@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK37228181_37.22818.1
+Record-Route: <sip:37.22818.1@192.168.131.164:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441250416 1441250415 IN IP4 192.168.152.102
+s=-
+c=IN IP4 192.168.152.102
+t=0 0
+m=audio 50248 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:80
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[12:20:15.092] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3722818
+To: <sip:1578291853000104517@sktims.net>;tag=878b5068-6898a8c0-13c4-45026-2e7a3468-257bc5-edafbeac-4d2
+Call-ID: 3722818@192.168.131.164
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK3722818201_37.22818.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[12:20:16.285] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3722818
+To: <sip:1578291853000104517@sktims.net>;tag=878b5068-6898a8c0-13c4-45026-2e7a3468-257bc5-edafbeac-4d2
+Call-ID: 3722818@192.168.131.164
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK74bf92_37.22818.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[12:20:16.286] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3722818
+To: <sip:1578291853000104517@sktims.net>;tag=878b5068-6898a8c0-13c4-45026-2e7a3468-257bc5-edafbeac-4d2
+Call-ID: 3722818@192.168.131.164
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK74bf92_37.22818.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[12:20:16.472] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3722818
+To: <sip:1578291853000104517@sktims.net>;tag=878b5068-6898a8c0-13c4-45026-2e7a3468-257bc5-edafbeac-4d2
+Call-ID: 3722818@192.168.131.164
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK37228183_37.22818.1
+Max-Forwards: 70
+P-SKT-BYE-CAUSE: normal
+Content-Length: 0
+
+
+[12:20:16.472] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3722818
+To: <sip:1578291853000104517@sktims.net>;tag=878b5068-6898a8c0-13c4-45026-2e7a3468-257bc5-edafbeac-4d2
+Call-ID: 3722818@192.168.131.164
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK37228183_37.22818.1
+Content-Length: 0
+
+
+[12:20:38.701] [Recv] Packet <----
+INVITE sip:157829001020801180@sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=354422
+To: <sip:157829001020801180@sktims.net>
+Call-ID: 354422@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3544221_35.4422.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.156:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:35.4422.1@192.168.131.156:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01091983031@sktims.net>
+P-SKT-O-SFI: 1000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: C0
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441250438 1441250438 IN IP4 192.168.131.147
+s=phone-call
+c=IN IP4 192.168.131.147
+t=0 0
+m=audio 42894 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[12:20:38.701] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=354422
+To: <sip:157829001020801180@sktims.net>
+Call-ID: 354422@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3544221_35.4422.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[12:20:38.750] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=354422
+To: <sip:157829001020801180@sktims.net>;tag=87bed7e8-6898a8c0-13c4-45026-5e85e543-25856c-eda7aeac-4d2
+Call-ID: 354422@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3544221_35.4422.1
+Record-Route: <sip:35.4422.1@192.168.131.156:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441250439 1441250438 IN IP4 192.168.152.102
+s=-
+c=IN IP4 192.168.152.102
+t=0 0
+m=audio 11040 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:20
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[12:20:38.755] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=354422
+To: <sip:157829001020801180@sktims.net>;tag=87bed7e8-6898a8c0-13c4-45026-5e85e543-25856c-eda7aeac-4d2
+Call-ID: 354422@192.168.131.156
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK354422201_35.4422.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[12:20:39.950] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=354422
+To: <sip:157829001020801180@sktims.net>;tag=87bed7e8-6898a8c0-13c4-45026-5e85e543-25856c-eda7aeac-4d2
+Call-ID: 354422@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_35.4422.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[12:20:39.951] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=354422
+To: <sip:157829001020801180@sktims.net>;tag=87bed7e8-6898a8c0-13c4-45026-5e85e543-25856c-eda7aeac-4d2
+Call-ID: 354422@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_35.4422.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[12:21:46.509] [Send] Packet ---->
+INFO sip:IMG_CS1@192.168.131.156:5060 SIP/2.0
+From: <sip:157829001020801180@sktims.net>;tag=87bed7e8-6898a8c0-13c4-45026-5e85e543-25856c-eda7aeac-4d2
+To: <sip:01091983031@sktims.net>;tag=354422
+Call-ID: 354422@192.168.131.156
+CSeq: 1 INFO
+Via: SIP/2.0/UDP 192.168.152.104:5060;branch=z9hG4bK-41929e2e-6b2db-eda7ae0c-4d2
+Content-Type: application/mediaservercontrol+xml
+Max-Forwards: 70
+Route: <sip:35.4422.1@192.168.131.156:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 179
+
+<?xml version="1.0" encoding="utf-8"?>
+<MediaServerControl version="1.0">
+<response request="play" code="200" text="OK" reason="EOF" playduration="188000"/>
+</MediaServerControl>
+
+[12:21:51.509] [Send] Packet ---->
+BYE sip:IMG_CS1@192.168.131.156:5060 SIP/2.0
+From: <sip:157829001020801180@sktims.net>;tag=87bed7e8-6898a8c0-13c4-45026-5e85e543-25856c-eda7aeac-4d2
+To: <sip:01091983031@sktims.net>;tag=354422
+Call-ID: 354422@192.168.131.156
+CSeq: 2 BYE
+Via: SIP/2.0/UDP 192.168.152.104:5060;branch=z9hG4bK-3aa2138e-6b6d4-eda7ae4c-4d2
+Max-Forwards: 70
+Route: <sip:35.4422.1@192.168.131.156:5060;lr>
+Content-Length: 0
+
+
+[12:21:51.515] [Recv] Packet <----
+SIP/2.0 200 OK
+From: <sip:157829001020801180@sktims.net>;tag=87bed7e8-6898a8c0-13c4-45026-5e85e543-25856c-eda7aeac-4d2
+To: <sip:01091983031@sktims.net>;tag=354422
+Call-ID: 354422@192.168.131.156
+CSeq: 2 BYE
+Via: SIP/2.0/UDP 192.168.152.104:5060;branch=z9hG4bK-3aa2138e-6b6d4-eda7ae4c-4d2
+Content-Length: 0
+
+
+[13:43:12.517] [Recv] Packet <----
+INVITE sip:ivr@bizring.sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=242b1dcc7ff48
+To: <sip:01048472204@sktims.net>
+Call-ID: e0A79125-432B91-0BDFF55B5B-F5674228--25a-4af10-2f8ec601@211.188.227.184
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%0%d10eaa40344f9e22_7ff8c
+Max-Forwards: 70
+Supported: timer
+Route: <sip:192.168.152.104:5060;lr>;orig
+P-Asserted-Identity: <sip:tas.sktims.net>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+P-SKT-O-TCI: C0
+User-Agent: 3G324M
+P-SKT-MRF-SVC: play
+P-SKT-MRF-CRBT: 00
+P-SKT-MRF-SDP: 00
+P-Charging-Vector: icid-value="icscf5.sktims.net-122800037";orig-ioi="sktims.net"
+Session-Expires: 3600;refresher=uas
+Contact: <sip:MSIPX0@192.168.55.144:5071;tu=0;mrf>
+Content-Type: application/sdp
+Content-Length: 447
+
+v=0
+o=SAMSUNG-MGW 1441255392 1441255392 IN IP4 192.168.131.150
+s=phone-call
+c=IN IP4 192.168.131.150
+t=0 0
+m=audio 29410 RTP/AVP 100 98 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:98 AMR/8000
+a=fmtp:98 octet-align=1; mode-set=7; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[13:43:12.517] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=242b1dcc7ff48
+To: <sip:01048472204@sktims.net>
+Call-ID: e0A79125-432B91-0BDFF55B5B-F5674228--25a-4af10-2f8ec601@211.188.227.184
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%0%d10eaa40344f9e22_7ff8c
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[13:43:12.533] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=242b1dcc7ff48
+To: <sip:01048472204@sktims.net>;tag=84b8ae28-6898a8c0-13c4-45026-7ef99136-25fc25-ed774eac-4d2
+Call-ID: e0A79125-432B91-0BDFF55B5B-F5674228--25a-4af10-2f8ec601@211.188.227.184
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%0%d10eaa40344f9e22_7ff8c
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Session-Expires: 480;refresher=uas
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441255393 1441255392 IN IP4 192.168.152.102
+s=-
+c=IN IP4 192.168.152.102
+t=0 0
+m=audio 21796 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:80
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[13:43:12.546] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=242b1dcc7ff48
+To: <sip:01048472204@sktims.net>;tag=84b8ae28-6898a8c0-13c4-45026-7ef99136-25fc25-ed774eac-4d2
+Call-ID: e0A79125-432B91-0BDFF55B5B-F5674228--25a-4af10-2f8ec601@211.188.227.184
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%0%f93125a03fc627ab_873c7
+Max-Forwards: 70
+Contact: <sip:MSIPX0@192.168.55.144:5071;tu=0>
+Content-Length: 0
+
+
+[13:43:13.826] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=242b1dcc7ff48
+To: <sip:01048472204@sktims.net>;tag=84b8ae28-6898a8c0-13c4-45026-7ef99136-25fc25-ed774eac-4d2
+Call-ID: e0A79125-432B91-0BDFF55B5B-F5674228--25a-4af10-2f8ec601@211.188.227.184
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%0%d65e3502c8833c1_cb981
+Max-Forwards: 70
+Session-Expires: 3600
+Contact: <sip:MSIPX0@192.168.55.144:5071;tu=0>
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 119
+
+<?xml version="1.0" encoding="UTF-8"?>
+<MediaServerControl>
+  <request>
+    <play/>
+  </request>
+</MediaServerControl>
+
+[13:43:13.826] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=242b1dcc7ff48
+To: <sip:01048472204@sktims.net>;tag=84b8ae28-6898a8c0-13c4-45026-7ef99136-25fc25-ed774eac-4d2
+Call-ID: e0A79125-432B91-0BDFF55B5B-F5674228--25a-4af10-2f8ec601@211.188.227.184
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%0%d65e3502c8833c1_cb981
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[13:43:17.992] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=242b1dcc7ff48
+To: <sip:01048472204@sktims.net>;tag=84b8ae28-6898a8c0-13c4-45026-7ef99136-25fc25-ed774eac-4d2
+Call-ID: e0A79125-432B91-0BDFF55B5B-F5674228--25a-4af10-2f8ec601@211.188.227.184
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%0%ed616001364a89c_5d
+
+
+[13:43:17.992] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=242b1dcc7ff48
+To: <sip:01048472204@sktims.net>;tag=84b8ae28-6898a8c0-13c4-45026-7ef99136-25fc25-ed774eac-4d2
+Call-ID: e0A79125-432B91-0BDFF55B5B-F5674228--25a-4af10-2f8ec601@211.188.227.184
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%0%ed616001364a89c_5d
+Content-Length: 0
+
+
+[14:15:03.126] [Recv] Packet <----
+INVITE sip:15782918530001045173032@sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3421039
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3421039@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK34210391_34.21039.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.164:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:34.21039.1@192.168.131.164:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01091983031@sktims.net>
+P-SKT-O-SFI: 1000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: C0
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441257303 1441257303 IN IP4 192.168.131.151
+s=phone-call
+c=IN IP4 192.168.131.151
+t=0 0
+m=audio 35420 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[14:15:03.126] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=3421039
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3421039@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK34210391_34.21039.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[14:15:03.141] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3421039
+To: <sip:15782918530001045173032@sktims.net>;tag=84e92ae8-6898a8c0-13c4-45026-734b31e8-261d6f-ed9f9eac-4d2
+Call-ID: 3421039@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK34210391_34.21039.1
+Record-Route: <sip:34.21039.1@192.168.131.164:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441257304 1441257303 IN IP4 192.168.152.103
+s=-
+c=IN IP4 192.168.152.103
+t=0 0
+m=audio 31796 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:20
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[14:15:03.147] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3421039
+To: <sip:15782918530001045173032@sktims.net>;tag=84e92ae8-6898a8c0-13c4-45026-734b31e8-261d6f-ed9f9eac-4d2
+Call-ID: 3421039@192.168.131.164
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK3421039201_34.21039.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[14:15:04.331] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3421039
+To: <sip:15782918530001045173032@sktims.net>;tag=84e92ae8-6898a8c0-13c4-45026-734b31e8-261d6f-ed9f9eac-4d2
+Call-ID: 3421039@192.168.131.164
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK74bf92_34.21039.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[14:15:04.331] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3421039
+To: <sip:15782918530001045173032@sktims.net>;tag=84e92ae8-6898a8c0-13c4-45026-734b31e8-261d6f-ed9f9eac-4d2
+Call-ID: 3421039@192.168.131.164
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK74bf92_34.21039.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[14:15:23.955] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3421039
+To: <sip:15782918530001045173032@sktims.net>;tag=84e92ae8-6898a8c0-13c4-45026-734b31e8-261d6f-ed9f9eac-4d2
+Call-ID: 3421039@192.168.131.164
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK34210393_34.21039.1
+Max-Forwards: 70
+P-SKT-BYE-CAUSE: normal
+Content-Length: 0
+
+
+[14:15:23.955] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3421039
+To: <sip:15782918530001045173032@sktims.net>;tag=84e92ae8-6898a8c0-13c4-45026-734b31e8-261d6f-ed9f9eac-4d2
+Call-ID: 3421039@192.168.131.164
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK34210393_34.21039.1
+Content-Length: 0
+
+
+[14:21:23.922] [Recv] Packet <----
+INVITE sip:15782918530001045173032@sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3714762
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3714762@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK37147621_37.14762.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.164:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:37.14762.1@192.168.131.164:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01091983031@sktims.net>
+P-SKT-O-SFI: 1000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: C0
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441257683 1441257683 IN IP4 192.168.131.151
+s=phone-call
+c=IN IP4 192.168.131.151
+t=0 0
+m=audio 47172 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[14:21:23.922] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=3714762
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3714762@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK37147621_37.14762.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[14:21:23.940] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3714762
+To: <sip:15782918530001045173032@sktims.net>;tag=84f23b68-6898a8c0-13c4-45026-61ce65ec-262415-ed774eac-4d2
+Call-ID: 3714762@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK37147621_37.14762.1
+Record-Route: <sip:37.14762.1@192.168.131.164:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441257684 1441257683 IN IP4 192.168.152.102
+s=-
+c=IN IP4 192.168.152.102
+t=0 0
+m=audio 51796 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:80
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[14:21:23.945] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3714762
+To: <sip:15782918530001045173032@sktims.net>;tag=84f23b68-6898a8c0-13c4-45026-61ce65ec-262415-ed774eac-4d2
+Call-ID: 3714762@192.168.131.164
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK3714762201_37.14762.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[14:21:25.151] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3714762
+To: <sip:15782918530001045173032@sktims.net>;tag=84f23b68-6898a8c0-13c4-45026-61ce65ec-262415-ed774eac-4d2
+Call-ID: 3714762@192.168.131.164
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK74bf92_37.14762.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[14:21:25.151] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3714762
+To: <sip:15782918530001045173032@sktims.net>;tag=84f23b68-6898a8c0-13c4-45026-61ce65ec-262415-ed774eac-4d2
+Call-ID: 3714762@192.168.131.164
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK74bf92_37.14762.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[14:21:28.241] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3714762
+To: <sip:15782918530001045173032@sktims.net>;tag=84f23b68-6898a8c0-13c4-45026-61ce65ec-262415-ed774eac-4d2
+Call-ID: 3714762@192.168.131.164
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK37147623_37.14762.1
+Max-Forwards: 70
+P-SKT-BYE-CAUSE: normal
+Content-Length: 0
+
+
+[14:21:28.241] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3714762
+To: <sip:15782918530001045173032@sktims.net>;tag=84f23b68-6898a8c0-13c4-45026-61ce65ec-262415-ed774eac-4d2
+Call-ID: 3714762@192.168.131.164
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK37147623_37.14762.1
+Content-Length: 0
+
+
+[14:29:09.846] [Recv] Packet <----
+INVITE sip:15782918530001045173032@sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3211703
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3211703@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK32117031_32.11703.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.156:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:32.11703.1@192.168.131.156:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01091983031@sktims.net>
+P-SKT-O-SFI: 1000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: C0
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441258149 1441258149 IN IP4 192.168.131.145
+s=phone-call
+c=IN IP4 192.168.131.145
+t=0 0
+m=audio 50744 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[14:29:09.846] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=3211703
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3211703@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK32117031_32.11703.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[14:29:09.864] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3211703
+To: <sip:15782918530001045173032@sktims.net>;tag=84fda968-6898a8c0-13c4-45026-6b47306-262c33-edb7ceac-4d2
+Call-ID: 3211703@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK32117031_32.11703.1
+Record-Route: <sip:32.11703.1@192.168.131.156:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441258150 1441258149 IN IP4 192.168.152.102
+s=-
+c=IN IP4 192.168.152.102
+t=0 0
+m=audio 11800 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:80
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[14:29:09.868] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3211703
+To: <sip:15782918530001045173032@sktims.net>;tag=84fda968-6898a8c0-13c4-45026-6b47306-262c33-edb7ceac-4d2
+Call-ID: 3211703@192.168.131.156
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3211703201_32.11703.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[14:29:11.092] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3211703
+To: <sip:15782918530001045173032@sktims.net>;tag=84fda968-6898a8c0-13c4-45026-6b47306-262c33-edb7ceac-4d2
+Call-ID: 3211703@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_32.11703.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[14:29:11.092] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3211703
+To: <sip:15782918530001045173032@sktims.net>;tag=84fda968-6898a8c0-13c4-45026-6b47306-262c33-edb7ceac-4d2
+Call-ID: 3211703@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_32.11703.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[14:29:15.104] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3211703
+To: <sip:15782918530001045173032@sktims.net>;tag=84fda968-6898a8c0-13c4-45026-6b47306-262c33-edb7ceac-4d2
+Call-ID: 3211703@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK32117033_32.11703.1
+Max-Forwards: 70
+P-SKT-BYE-CAUSE: normal
+Content-Length: 0
+
+
+[14:29:15.104] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3211703
+To: <sip:15782918530001045173032@sktims.net>;tag=84fda968-6898a8c0-13c4-45026-6b47306-262c33-edb7ceac-4d2
+Call-ID: 3211703@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK32117033_32.11703.1
+Content-Length: 0
+
+
+[14:33:00.945] [Recv] Packet <----
+INVITE sip:15782918530001045173032@sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3218996
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3218996@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK32189961_32.18996.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.164:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:32.18996.1@192.168.131.164:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01091983031@sktims.net>
+P-SKT-O-SFI: 1000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: C0
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441258380 1441258380 IN IP4 192.168.131.148
+s=phone-call
+c=IN IP4 192.168.131.148
+t=0 0
+m=audio 62638 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[14:33:00.946] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=3218996
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3218996@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK32189961_32.18996.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[14:33:00.965] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3218996
+To: <sip:15782918530001045173032@sktims.net>;tag=8503a2e8-6898a8c0-13c4-45026-41855881-263044-edafbeac-4d2
+Call-ID: 3218996@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK32189961_32.18996.1
+Record-Route: <sip:32.18996.1@192.168.131.164:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441258381 1441258380 IN IP4 192.168.152.103
+s=-
+c=IN IP4 192.168.152.103
+t=0 0
+m=audio 11800 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:20
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[14:33:00.969] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3218996
+To: <sip:15782918530001045173032@sktims.net>;tag=8503a2e8-6898a8c0-13c4-45026-41855881-263044-edafbeac-4d2
+Call-ID: 3218996@192.168.131.164
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK3218996201_32.18996.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[14:33:02.168] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3218996
+To: <sip:15782918530001045173032@sktims.net>;tag=8503a2e8-6898a8c0-13c4-45026-41855881-263044-edafbeac-4d2
+Call-ID: 3218996@192.168.131.164
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK74bf92_32.18996.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[14:33:02.168] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3218996
+To: <sip:15782918530001045173032@sktims.net>;tag=8503a2e8-6898a8c0-13c4-45026-41855881-263044-edafbeac-4d2
+Call-ID: 3218996@192.168.131.164
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK74bf92_32.18996.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[14:33:15.037] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3218996
+To: <sip:15782918530001045173032@sktims.net>;tag=8503a2e8-6898a8c0-13c4-45026-41855881-263044-edafbeac-4d2
+Call-ID: 3218996@192.168.131.164
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK32189963_32.18996.1
+Max-Forwards: 70
+P-SKT-BYE-CAUSE: normal
+Content-Length: 0
+
+
+[14:33:15.037] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3218996
+To: <sip:15782918530001045173032@sktims.net>;tag=8503a2e8-6898a8c0-13c4-45026-41855881-263044-edafbeac-4d2
+Call-ID: 3218996@192.168.131.164
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK32189963_32.18996.1
+Content-Length: 0
+
+
+[14:39:47.860] [Recv] Packet <----
+INVITE sip:ivr@bizring.sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=2eec9d32d33d7
+To: <sip:01048472204@sktims.net>
+Call-ID: a2380B54-fAe6f6-1F2254aEbE-c8721125-c4024-e01-033ac803@211.188.227.184
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%3%d37e3e05025261d_d341b
+Max-Forwards: 70
+Supported: timer
+Route: <sip:192.168.152.104:5060;lr>;orig
+P-Asserted-Identity: <sip:tas.sktims.net>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+P-SKT-O-TCI: C0
+User-Agent: 3G324M
+P-SKT-MRF-SVC: play
+P-SKT-MRF-CRBT: 00
+P-SKT-MRF-SDP: 00
+P-Charging-Vector: icid-value="icscf8.sktims.net-165766518";orig-ioi="sktims.net"
+Session-Expires: 3600;refresher=uas
+Contact: <sip:MSIPX0@192.168.55.144:5071;tu=3;mrf>
+Content-Type: application/sdp
+Content-Length: 447
+
+v=0
+o=SAMSUNG-MGW 1441258787 1441258787 IN IP4 192.168.131.151
+s=phone-call
+c=IN IP4 192.168.131.151
+t=0 0
+m=audio 49940 RTP/AVP 100 98 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:98 AMR/8000
+a=fmtp:98 octet-align=1; mode-set=7; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[14:39:47.860] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=2eec9d32d33d7
+To: <sip:01048472204@sktims.net>
+Call-ID: a2380B54-fAe6f6-1F2254aEbE-c8721125-c4024-e01-033ac803@211.188.227.184
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%3%d37e3e05025261d_d341b
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[14:39:47.876] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=2eec9d32d33d7
+To: <sip:01048472204@sktims.net>;tag=850e5068-6898a8c0-13c4-45026-52fa6b50-263757-ed774eac-4d2
+Call-ID: a2380B54-fAe6f6-1F2254aEbE-c8721125-c4024-e01-033ac803@211.188.227.184
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%3%d37e3e05025261d_d341b
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Session-Expires: 480;refresher=uas
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441258788 1441258787 IN IP4 192.168.152.102
+s=-
+c=IN IP4 192.168.152.102
+t=0 0
+m=audio 21800 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:80
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[14:39:47.889] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=2eec9d32d33d7
+To: <sip:01048472204@sktims.net>;tag=850e5068-6898a8c0-13c4-45026-52fa6b50-263757-ed774eac-4d2
+Call-ID: a2380B54-fAe6f6-1F2254aEbE-c8721125-c4024-e01-033ac803@211.188.227.184
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%3%d37e3e0140c39fa_da8d1
+Max-Forwards: 70
+Contact: <sip:MSIPX0@192.168.55.144:5071;tu=3>
+Content-Length: 0
+
+
+[14:39:49.141] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=2eec9d32d33d7
+To: <sip:01048472204@sktims.net>;tag=850e5068-6898a8c0-13c4-45026-52fa6b50-263757-ed774eac-4d2
+Call-ID: a2380B54-fAe6f6-1F2254aEbE-c8721125-c4024-e01-033ac803@211.188.227.184
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%3%12a5e6203c8417a_23d90
+Max-Forwards: 70
+Session-Expires: 3600
+Contact: <sip:MSIPX0@192.168.55.144:5071;tu=3>
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 119
+
+<?xml version="1.0" encoding="UTF-8"?>
+<MediaServerControl>
+  <request>
+    <play/>
+  </request>
+</MediaServerControl>
+
+[14:39:49.142] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=2eec9d32d33d7
+To: <sip:01048472204@sktims.net>;tag=850e5068-6898a8c0-13c4-45026-52fa6b50-263757-ed774eac-4d2
+Call-ID: a2380B54-fAe6f6-1F2254aEbE-c8721125-c4024-e01-033ac803@211.188.227.184
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%3%12a5e6203c8417a_23d90
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[14:39:50.851] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=2eec9d32d33d7
+To: <sip:01048472204@sktims.net>;tag=850e5068-6898a8c0-13c4-45026-52fa6b50-263757-ed774eac-4d2
+Call-ID: a2380B54-fAe6f6-1F2254aEbE-c8721125-c4024-e01-033ac803@211.188.227.184
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%3%de3d9690b3e2d17_d11ef
+
+
+[14:39:50.851] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=2eec9d32d33d7
+To: <sip:01048472204@sktims.net>;tag=850e5068-6898a8c0-13c4-45026-52fa6b50-263757-ed774eac-4d2
+Call-ID: a2380B54-fAe6f6-1F2254aEbE-c8721125-c4024-e01-033ac803@211.188.227.184
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.55.144:5071;branch=z9hG4bK%3%de3d9690b3e2d17_d11ef
+Content-Length: 0
+
+
+[14:58:35.212] [Recv] Packet <----
+INVITE sip:15782918530001045173032@sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3917075
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3917075@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK39170751_39.17075.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.156:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:39.17075.1@192.168.131.156:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01091983031@sktims.net>
+P-SKT-O-SFI: 1000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: C0
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441259915 1441259915 IN IP4 192.168.131.145
+s=phone-call
+c=IN IP4 192.168.131.145
+t=0 0
+m=audio 13880 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[14:58:35.212] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=3917075
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3917075@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK39170751_39.17075.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[14:58:35.233] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3917075
+To: <sip:15782918530001045173032@sktims.net>;tag=852a1168-6898a8c0-13c4-45026-13d5a511-264b12-ed6f3eac-4d2
+Call-ID: 3917075@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK39170751_39.17075.1
+Record-Route: <sip:39.17075.1@192.168.131.156:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441259916 1441259915 IN IP4 192.168.152.103
+s=-
+c=IN IP4 192.168.152.103
+t=0 0
+m=audio 21800 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:20
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[14:58:35.237] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3917075
+To: <sip:15782918530001045173032@sktims.net>;tag=852a1168-6898a8c0-13c4-45026-13d5a511-264b12-ed6f3eac-4d2
+Call-ID: 3917075@192.168.131.156
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3917075201_39.17075.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[14:58:36.476] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3917075
+To: <sip:15782918530001045173032@sktims.net>;tag=852a1168-6898a8c0-13c4-45026-13d5a511-264b12-ed6f3eac-4d2
+Call-ID: 3917075@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_39.17075.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[14:58:36.476] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3917075
+To: <sip:15782918530001045173032@sktims.net>;tag=852a1168-6898a8c0-13c4-45026-13d5a511-264b12-ed6f3eac-4d2
+Call-ID: 3917075@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_39.17075.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[14:58:59.922] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3917075
+To: <sip:15782918530001045173032@sktims.net>;tag=852a1168-6898a8c0-13c4-45026-13d5a511-264b12-ed6f3eac-4d2
+Call-ID: 3917075@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK39170753_39.17075.1
+Max-Forwards: 70
+P-SKT-BYE-CAUSE: normal
+Content-Length: 0
+
+
+[14:58:59.923] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3917075
+To: <sip:15782918530001045173032@sktims.net>;tag=852a1168-6898a8c0-13c4-45026-13d5a511-264b12-ed6f3eac-4d2
+Call-ID: 3917075@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK39170753_39.17075.1
+Content-Length: 0
+
+
+[15:01:04.762] [Recv] Packet <----
+INVITE sip:15782918530001045173032@sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=32858
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 32858@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK328581_32.858.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.156:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:32.858.1@192.168.131.156:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01091983031@sktims.net>
+P-SKT-O-SFI: 1000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: C0
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441260064 1441260064 IN IP4 192.168.131.145
+s=phone-call
+c=IN IP4 192.168.131.145
+t=0 0
+m=audio 22080 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[15:01:04.762] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=32858
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 32858@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK328581_32.858.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:01:04.773] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=32858
+To: <sip:15782918530001045173032@sktims.net>;tag=852f5328-6898a8c0-13c4-45026-1fbf654c-264da2-ed978eac-4d2
+Call-ID: 32858@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK328581_32.858.1
+Record-Route: <sip:32.858.1@192.168.131.156:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441260065 1441260064 IN IP4 192.168.152.102
+s=-
+c=IN IP4 192.168.152.102
+t=0 0
+m=audio 41800 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:80
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[15:01:04.778] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=32858
+To: <sip:15782918530001045173032@sktims.net>;tag=852f5328-6898a8c0-13c4-45026-1fbf654c-264da2-ed978eac-4d2
+Call-ID: 32858@192.168.131.156
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK32858201_32.858.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[15:01:06.011] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=32858
+To: <sip:15782918530001045173032@sktims.net>;tag=852f5328-6898a8c0-13c4-45026-1fbf654c-264da2-ed978eac-4d2
+Call-ID: 32858@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_32.858.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[15:01:06.012] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=32858
+To: <sip:15782918530001045173032@sktims.net>;tag=852f5328-6898a8c0-13c4-45026-1fbf654c-264da2-ed978eac-4d2
+Call-ID: 32858@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_32.858.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:01:11.663] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=32858
+To: <sip:15782918530001045173032@sktims.net>;tag=852f5328-6898a8c0-13c4-45026-1fbf654c-264da2-ed978eac-4d2
+Call-ID: 32858@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK328583_32.858.1
+Max-Forwards: 70
+P-SKT-BYE-CAUSE: normal
+Content-Length: 0
+
+
+[15:01:11.663] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=32858
+To: <sip:15782918530001045173032@sktims.net>;tag=852f5328-6898a8c0-13c4-45026-1fbf654c-264da2-ed978eac-4d2
+Call-ID: 32858@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK328583_32.858.1
+Content-Length: 0
+
+
+[15:02:26.745] [Recv] Packet <----
+INVITE sip:15782918530001045173032@sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3314161
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3314161@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK33141611_33.14161.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.156:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:33.14161.1@192.168.131.156:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01091983031@sktims.net>
+P-SKT-O-SFI: 1000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: C0
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441260146 1441260146 IN IP4 192.168.131.145
+s=phone-call
+c=IN IP4 192.168.131.145
+t=0 0
+m=audio 26814 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[15:02:26.745] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=3314161
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3314161@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK33141611_33.14161.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:02:26.761] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3314161
+To: <sip:15782918530001045173032@sktims.net>;tag=85314968-6898a8c0-13c4-45026-4ec4adc3-264f0e-ed8f7eac-4d2
+Call-ID: 3314161@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK33141611_33.14161.1
+Record-Route: <sip:33.14161.1@192.168.131.156:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441260147 1441260146 IN IP4 192.168.152.103
+s=-
+c=IN IP4 192.168.152.103
+t=0 0
+m=audio 41800 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:20
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[15:02:26.766] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3314161
+To: <sip:15782918530001045173032@sktims.net>;tag=85314968-6898a8c0-13c4-45026-4ec4adc3-264f0e-ed8f7eac-4d2
+Call-ID: 3314161@192.168.131.156
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3314161201_33.14161.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[15:02:27.976] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3314161
+To: <sip:15782918530001045173032@sktims.net>;tag=85314968-6898a8c0-13c4-45026-4ec4adc3-264f0e-ed8f7eac-4d2
+Call-ID: 3314161@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_33.14161.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[15:02:27.976] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3314161
+To: <sip:15782918530001045173032@sktims.net>;tag=85314968-6898a8c0-13c4-45026-4ec4adc3-264f0e-ed8f7eac-4d2
+Call-ID: 3314161@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_33.14161.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:02:47.875] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3314161
+To: <sip:15782918530001045173032@sktims.net>;tag=85314968-6898a8c0-13c4-45026-4ec4adc3-264f0e-ed8f7eac-4d2
+Call-ID: 3314161@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK33141613_33.14161.1
+Max-Forwards: 70
+P-SKT-BYE-CAUSE: normal
+Content-Length: 0
+
+
+[15:02:47.876] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3314161
+To: <sip:15782918530001045173032@sktims.net>;tag=85314968-6898a8c0-13c4-45026-4ec4adc3-264f0e-ed8f7eac-4d2
+Call-ID: 3314161@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK33141613_33.14161.1
+Content-Length: 0
+
+
+[15:03:00.633] [Recv] Packet <----
+INVITE sip:15782918530001045173032@sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3912059
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3912059@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK39120591_39.12059.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.156:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:39.12059.1@192.168.131.156:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01091983031@sktims.net>
+P-SKT-O-SFI: 1000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: C0
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441260180 1441260180 IN IP4 192.168.131.147
+s=phone-call
+c=IN IP4 192.168.131.147
+t=0 0
+m=audio 16038 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[15:03:00.634] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=3912059
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3912059@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK39120591_39.12059.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:03:00.647] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3912059
+To: <sip:15782918530001045173032@sktims.net>;tag=853192e8-6898a8c0-13c4-45026-751b16d-264fb0-ed774eac-4d2
+Call-ID: 3912059@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK39120591_39.12059.1
+Record-Route: <sip:39.12059.1@192.168.131.156:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441260181 1441260180 IN IP4 192.168.152.102
+s=-
+c=IN IP4 192.168.152.102
+t=0 0
+m=audio 51800 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:80
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[15:03:00.652] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3912059
+To: <sip:15782918530001045173032@sktims.net>;tag=853192e8-6898a8c0-13c4-45026-751b16d-264fb0-ed774eac-4d2
+Call-ID: 3912059@192.168.131.156
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3912059201_39.12059.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[15:03:01.861] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3912059
+To: <sip:15782918530001045173032@sktims.net>;tag=853192e8-6898a8c0-13c4-45026-751b16d-264fb0-ed774eac-4d2
+Call-ID: 3912059@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_39.12059.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[15:03:01.862] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3912059
+To: <sip:15782918530001045173032@sktims.net>;tag=853192e8-6898a8c0-13c4-45026-751b16d-264fb0-ed774eac-4d2
+Call-ID: 3912059@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_39.12059.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:03:04.248] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3912059
+To: <sip:15782918530001045173032@sktims.net>;tag=853192e8-6898a8c0-13c4-45026-751b16d-264fb0-ed774eac-4d2
+Call-ID: 3912059@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK39120593_39.12059.1
+Max-Forwards: 70
+P-SKT-BYE-CAUSE: normal
+Content-Length: 0
+
+
+[15:03:04.248] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3912059
+To: <sip:15782918530001045173032@sktims.net>;tag=853192e8-6898a8c0-13c4-45026-751b16d-264fb0-ed774eac-4d2
+Call-ID: 3912059@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK39120593_39.12059.1
+Content-Length: 0
+
+
+[15:05:39.966] [Recv] Packet <----
+INVITE sip:15782918530001045173032@sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=396193
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 396193@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK3961931_39.6193.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.164:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:39.6193.1@192.168.131.164:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01091983031@sktims.net>
+P-SKT-O-SFI: 1000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: C0
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441260339 1441260339 IN IP4 192.168.131.151
+s=phone-call
+c=IN IP4 192.168.131.151
+t=0 0
+m=audio 31016 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[15:05:39.966] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=396193
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 396193@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK3961931_39.6193.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:05:39.982] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=396193
+To: <sip:15782918530001045173032@sktims.net>;tag=85357be8-6898a8c0-13c4-45026-2a273792-26527a-ed6f3eac-4d2
+Call-ID: 396193@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK3961931_39.6193.1
+Record-Route: <sip:39.6193.1@192.168.131.164:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441260340 1441260339 IN IP4 192.168.152.103
+s=-
+c=IN IP4 192.168.152.103
+t=0 0
+m=audio 51800 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:20
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[15:05:39.987] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=396193
+To: <sip:15782918530001045173032@sktims.net>;tag=85357be8-6898a8c0-13c4-45026-2a273792-26527a-ed6f3eac-4d2
+Call-ID: 396193@192.168.131.164
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK396193201_39.6193.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[15:05:41.182] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=396193
+To: <sip:15782918530001045173032@sktims.net>;tag=85357be8-6898a8c0-13c4-45026-2a273792-26527a-ed6f3eac-4d2
+Call-ID: 396193@192.168.131.164
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK74bf92_39.6193.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[15:05:41.182] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=396193
+To: <sip:15782918530001045173032@sktims.net>;tag=85357be8-6898a8c0-13c4-45026-2a273792-26527a-ed6f3eac-4d2
+Call-ID: 396193@192.168.131.164
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK74bf92_39.6193.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:06:05.402] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=396193
+To: <sip:15782918530001045173032@sktims.net>;tag=85357be8-6898a8c0-13c4-45026-2a273792-26527a-ed6f3eac-4d2
+Call-ID: 396193@192.168.131.164
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK3961933_39.6193.1
+Max-Forwards: 70
+P-SKT-BYE-CAUSE: normal
+Content-Length: 0
+
+
+[15:06:05.402] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=396193
+To: <sip:15782918530001045173032@sktims.net>;tag=85357be8-6898a8c0-13c4-45026-2a273792-26527a-ed6f3eac-4d2
+Call-ID: 396193@192.168.131.164
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK3961933_39.6193.1
+Content-Length: 0
+
+
+[15:06:47.169] [Recv] Packet <----
+INVITE sip:15782918530001045173032@sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3210902
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3210902@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK32109021_32.10902.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.164:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:32.10902.1@192.168.131.164:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01091983031@sktims.net>
+P-SKT-O-SFI: 1000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: C0
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441260407 1441260407 IN IP4 192.168.131.149
+s=phone-call
+c=IN IP4 192.168.131.149
+t=0 0
+m=audio 51950 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[15:06:47.169] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=3210902
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3210902@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK32109021_32.10902.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:06:47.185] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3210902
+To: <sip:15782918530001045173032@sktims.net>;tag=8537faa8-6898a8c0-13c4-45026-13cf0c21-26539f-ed876eac-4d2
+Call-ID: 3210902@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK32109021_32.10902.1
+Record-Route: <sip:32.10902.1@192.168.131.164:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441260408 1441260407 IN IP4 192.168.152.102
+s=-
+c=IN IP4 192.168.152.102
+t=0 0
+m=audio 61800 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:80
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[15:06:47.190] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3210902
+To: <sip:15782918530001045173032@sktims.net>;tag=8537faa8-6898a8c0-13c4-45026-13cf0c21-26539f-ed876eac-4d2
+Call-ID: 3210902@192.168.131.164
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK3210902201_32.10902.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[15:06:48.383] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3210902
+To: <sip:15782918530001045173032@sktims.net>;tag=8537faa8-6898a8c0-13c4-45026-13cf0c21-26539f-ed876eac-4d2
+Call-ID: 3210902@192.168.131.164
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK74bf92_32.10902.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[15:06:48.383] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3210902
+To: <sip:15782918530001045173032@sktims.net>;tag=8537faa8-6898a8c0-13c4-45026-13cf0c21-26539f-ed876eac-4d2
+Call-ID: 3210902@192.168.131.164
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK74bf92_32.10902.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:07:09.950] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3210902
+To: <sip:15782918530001045173032@sktims.net>;tag=8537faa8-6898a8c0-13c4-45026-13cf0c21-26539f-ed876eac-4d2
+Call-ID: 3210902@192.168.131.164
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK32109023_32.10902.1
+Max-Forwards: 70
+P-SKT-BYE-CAUSE: normal
+Content-Length: 0
+
+
+[15:07:09.951] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3210902
+To: <sip:15782918530001045173032@sktims.net>;tag=8537faa8-6898a8c0-13c4-45026-13cf0c21-26539f-ed876eac-4d2
+Call-ID: 3210902@192.168.131.164
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK32109023_32.10902.1
+Content-Length: 0
+
+
+[15:07:51.863] [Recv] Packet <----
+INVITE sip:15782918530001045173032@sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3519846
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3519846@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK35198461_35.19846.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.156:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:35.19846.1@192.168.131.156:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01091983031@sktims.net>
+P-SKT-O-SFI: 1000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: C0
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441260471 1441260471 IN IP4 192.168.131.146
+s=phone-call
+c=IN IP4 192.168.131.146
+t=0 0
+m=audio 24608 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[15:07:51.863] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=3519846
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3519846@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK35198461_35.19846.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:07:51.875] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3519846
+To: <sip:15782918530001045173032@sktims.net>;tag=853861e8-6898a8c0-13c4-45026-70cef4f7-2654d6-ed7f5eac-4d2
+Call-ID: 3519846@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK35198461_35.19846.1
+Record-Route: <sip:35.19846.1@192.168.131.156:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441260472 1441260471 IN IP4 192.168.152.103
+s=-
+c=IN IP4 192.168.152.103
+t=0 0
+m=audio 61800 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:20
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[15:07:51.881] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3519846
+To: <sip:15782918530001045173032@sktims.net>;tag=853861e8-6898a8c0-13c4-45026-70cef4f7-2654d6-ed7f5eac-4d2
+Call-ID: 3519846@192.168.131.156
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3519846201_35.19846.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[15:07:53.317] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3519846
+To: <sip:15782918530001045173032@sktims.net>;tag=853861e8-6898a8c0-13c4-45026-70cef4f7-2654d6-ed7f5eac-4d2
+Call-ID: 3519846@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_35.19846.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[15:07:53.317] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3519846
+To: <sip:15782918530001045173032@sktims.net>;tag=853861e8-6898a8c0-13c4-45026-70cef4f7-2654d6-ed7f5eac-4d2
+Call-ID: 3519846@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_35.19846.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:07:55.458] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3519846
+To: <sip:15782918530001045173032@sktims.net>;tag=853861e8-6898a8c0-13c4-45026-70cef4f7-2654d6-ed7f5eac-4d2
+Call-ID: 3519846@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK35198463_35.19846.1
+Max-Forwards: 70
+P-SKT-BYE-CAUSE: normal
+Content-Length: 0
+
+
+[15:07:55.458] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3519846
+To: <sip:15782918530001045173032@sktims.net>;tag=853861e8-6898a8c0-13c4-45026-70cef4f7-2654d6-ed7f5eac-4d2
+Call-ID: 3519846@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK35198463_35.19846.1
+Content-Length: 0
+
+
+[15:16:13.561] [Recv] Packet <----
+INVITE sip:15782918530001045173032@sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=345070
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 345070@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3450701_34.5070.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.156:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:34.5070.1@192.168.131.156:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01091983031@sktims.net>
+P-SKT-O-SFI: 1000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: C0
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441260973 1441260973 IN IP4 192.168.131.146
+s=phone-call
+c=IN IP4 192.168.131.146
+t=0 0
+m=audio 53340 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[15:16:13.561] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=345070
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 345070@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3450701_34.5070.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:16:13.574] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=345070
+To: <sip:15782918530001045173032@sktims.net>;tag=8546e8a8-6898a8c0-13c4-45026-78f2fd03-265d95-ed978eac-4d2
+Call-ID: 345070@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3450701_34.5070.1
+Record-Route: <sip:34.5070.1@192.168.131.156:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441260974 1441260973 IN IP4 192.168.152.102
+s=-
+c=IN IP4 192.168.152.102
+t=0 0
+m=audio 11804 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:80
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[15:16:13.578] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=345070
+To: <sip:15782918530001045173032@sktims.net>;tag=8546e8a8-6898a8c0-13c4-45026-78f2fd03-265d95-ed978eac-4d2
+Call-ID: 345070@192.168.131.156
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK345070201_34.5070.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[15:16:15.004] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=345070
+To: <sip:15782918530001045173032@sktims.net>;tag=8546e8a8-6898a8c0-13c4-45026-78f2fd03-265d95-ed978eac-4d2
+Call-ID: 345070@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_34.5070.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[15:16:15.004] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=345070
+To: <sip:15782918530001045173032@sktims.net>;tag=8546e8a8-6898a8c0-13c4-45026-78f2fd03-265d95-ed978eac-4d2
+Call-ID: 345070@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_34.5070.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:16:23.976] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=345070
+To: <sip:15782918530001045173032@sktims.net>;tag=8546e8a8-6898a8c0-13c4-45026-78f2fd03-265d95-ed978eac-4d2
+Call-ID: 345070@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3450703_34.5070.1
+Max-Forwards: 70
+P-SKT-BYE-CAUSE: normal
+Content-Length: 0
+
+
+[15:16:23.977] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=345070
+To: <sip:15782918530001045173032@sktims.net>;tag=8546e8a8-6898a8c0-13c4-45026-78f2fd03-265d95-ed978eac-4d2
+Call-ID: 345070@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3450703_34.5070.1
+Content-Length: 0
+
+
+[15:16:50.636] [Recv] Packet <----
+INVITE sip:15782918530001045173032@sktims.net SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3918487
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3918487@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK39184871_39.18487.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.156:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:39.18487.1@192.168.131.156:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01091983031@sktims.net>
+P-SKT-O-SFI: 1000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: C0
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441261010 1441261010 IN IP4 192.168.131.147
+s=phone-call
+c=IN IP4 192.168.131.147
+t=0 0
+m=audio 34446 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[15:16:50.637] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01091983031@sktims.net>;tag=3918487
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3918487@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK39184871_39.18487.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:16:50.645] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3918487
+To: <sip:15782918530001045173032@sktims.net>;tag=8546a9a8-6898a8c0-13c4-45026-1339c973-265e24-ed8f7eac-4d2
+Call-ID: 3918487@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK39184871_39.18487.1
+Record-Route: <sip:39.18487.1@192.168.131.156:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441261011 1441261010 IN IP4 192.168.152.103
+s=-
+c=IN IP4 192.168.152.103
+t=0 0
+m=audio 11804 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:20
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[15:16:50.650] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3918487
+To: <sip:15782918530001045173032@sktims.net>;tag=8546a9a8-6898a8c0-13c4-45026-1339c973-265e24-ed8f7eac-4d2
+Call-ID: 3918487@192.168.131.156
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3918487201_39.18487.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[15:16:51.894] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3918487
+To: <sip:15782918530001045173032@sktims.net>;tag=8546a9a8-6898a8c0-13c4-45026-1339c973-265e24-ed8f7eac-4d2
+Call-ID: 3918487@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_39.18487.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[15:16:51.894] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3918487
+To: <sip:15782918530001045173032@sktims.net>;tag=8546a9a8-6898a8c0-13c4-45026-1339c973-265e24-ed8f7eac-4d2
+Call-ID: 3918487@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_39.18487.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:17:01.200] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01091983031@sktims.net>;tag=3918487
+To: <sip:15782918530001045173032@sktims.net>;tag=8546a9a8-6898a8c0-13c4-45026-1339c973-265e24-ed8f7eac-4d2
+Call-ID: 3918487@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK39184873_39.18487.1
+Max-Forwards: 70
+P-SKT-BYE-CAUSE: normal
+Content-Length: 0
+
+
+[15:17:01.200] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01091983031@sktims.net>;tag=3918487
+To: <sip:15782918530001045173032@sktims.net>;tag=8546a9a8-6898a8c0-13c4-45026-1339c973-265e24-ed8f7eac-4d2
+Call-ID: 3918487@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK39184873_39.18487.1
+Content-Length: 0
+
+
+[15:18:34.367] [Recv] Packet <----
+INVITE sip:15782918530001045173032@sktims.net SIP/2.0
+From: <sip:01045173032@sktims.net>;tag=3211762
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3211762@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK32117621_32.11762.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.164:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:32.11762.1@192.168.131.164:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01045173032@sktims.net>
+P-SKT-O-SFI: 0000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: 80
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441261114 1441261114 IN IP4 192.168.131.150
+s=phone-call
+c=IN IP4 192.168.131.150
+t=0 0
+m=audio 24560 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[15:18:34.367] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01045173032@sktims.net>;tag=3211762
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3211762@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK32117621_32.11762.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:18:34.378] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01045173032@sktims.net>;tag=3211762
+To: <sip:15782918530001045173032@sktims.net>;tag=85488ca8-6898a8c0-13c4-45026-271ea85b-26600b-ed9f9eac-4d2
+Call-ID: 3211762@192.168.131.164
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK32117621_32.11762.1
+Record-Route: <sip:32.11762.1@192.168.131.164:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441261115 1441261114 IN IP4 192.168.152.103
+s=-
+c=IN IP4 192.168.152.103
+t=0 0
+m=audio 21804 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:20
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[15:18:34.385] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01045173032@sktims.net>;tag=3211762
+To: <sip:15782918530001045173032@sktims.net>;tag=85488ca8-6898a8c0-13c4-45026-271ea85b-26600b-ed9f9eac-4d2
+Call-ID: 3211762@192.168.131.164
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK3211762201_32.11762.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[15:18:35.571] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01045173032@sktims.net>;tag=3211762
+To: <sip:15782918530001045173032@sktims.net>;tag=85488ca8-6898a8c0-13c4-45026-271ea85b-26600b-ed9f9eac-4d2
+Call-ID: 3211762@192.168.131.164
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK74bf92_32.11762.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[15:18:35.572] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01045173032@sktims.net>;tag=3211762
+To: <sip:15782918530001045173032@sktims.net>;tag=85488ca8-6898a8c0-13c4-45026-271ea85b-26600b-ed9f9eac-4d2
+Call-ID: 3211762@192.168.131.164
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK74bf92_32.11762.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:18:48.618] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01045173032@sktims.net>;tag=3211762
+To: <sip:15782918530001045173032@sktims.net>;tag=85488ca8-6898a8c0-13c4-45026-271ea85b-26600b-ed9f9eac-4d2
+Call-ID: 3211762@192.168.131.164
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK32117623_32.11762.1
+Max-Forwards: 70
+P-SKT-BYE-CAUSE: normal
+Content-Length: 0
+
+
+[15:18:48.618] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01045173032@sktims.net>;tag=3211762
+To: <sip:15782918530001045173032@sktims.net>;tag=85488ca8-6898a8c0-13c4-45026-271ea85b-26600b-ed9f9eac-4d2
+Call-ID: 3211762@192.168.131.164
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.164:5060;branch=z9hG4bK32117623_32.11762.1
+Content-Length: 0
+
+
+[15:19:53.734] [Recv] Packet <----
+INVITE sip:15782918530001045173032@sktims.net SIP/2.0
+From: <sip:01045173032@sktims.net>;tag=345236
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 345236@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3452361_34.5236.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.156:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:34.5236.1@192.168.131.156:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01045173032@sktims.net>
+P-SKT-O-SFI: 0000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: 80
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441261193 1441261193 IN IP4 192.168.131.147
+s=phone-call
+c=IN IP4 192.168.131.147
+t=0 0
+m=audio 12290 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[15:19:53.735] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01045173032@sktims.net>;tag=345236
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 345236@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3452361_34.5236.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:19:53.744] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01045173032@sktims.net>;tag=345236
+To: <sip:15782918530001045173032@sktims.net>;tag=85496228-6898a8c0-13c4-45026-1b75ef6f-26616f-ed876eac-4d2
+Call-ID: 345236@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3452361_34.5236.1
+Record-Route: <sip:34.5236.1@192.168.131.156:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441261194 1441261193 IN IP4 192.168.152.102
+s=-
+c=IN IP4 192.168.152.102
+t=0 0
+m=audio 31804 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:80
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[15:19:53.749] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01045173032@sktims.net>;tag=345236
+To: <sip:15782918530001045173032@sktims.net>;tag=85496228-6898a8c0-13c4-45026-1b75ef6f-26616f-ed876eac-4d2
+Call-ID: 345236@192.168.131.156
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK345236201_34.5236.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[15:19:54.979] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01045173032@sktims.net>;tag=345236
+To: <sip:15782918530001045173032@sktims.net>;tag=85496228-6898a8c0-13c4-45026-1b75ef6f-26616f-ed876eac-4d2
+Call-ID: 345236@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_34.5236.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[15:19:54.979] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01045173032@sktims.net>;tag=345236
+To: <sip:15782918530001045173032@sktims.net>;tag=85496228-6898a8c0-13c4-45026-1b75ef6f-26616f-ed876eac-4d2
+Call-ID: 345236@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_34.5236.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:20:10.885] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01045173032@sktims.net>;tag=345236
+To: <sip:15782918530001045173032@sktims.net>;tag=85496228-6898a8c0-13c4-45026-1b75ef6f-26616f-ed876eac-4d2
+Call-ID: 345236@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3452363_34.5236.1
+Max-Forwards: 70
+P-SKT-BYE-CAUSE: normal
+Content-Length: 0
+
+
+[15:20:10.885] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01045173032@sktims.net>;tag=345236
+To: <sip:15782918530001045173032@sktims.net>;tag=85496228-6898a8c0-13c4-45026-1b75ef6f-26616f-ed876eac-4d2
+Call-ID: 345236@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3452363_34.5236.1
+Content-Length: 0
+
+
+[15:20:50.043] [Recv] Packet <----
+INVITE sip:15782918530001045173032@sktims.net SIP/2.0
+From: <sip:01045173032@sktims.net>;tag=3312139
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3312139@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK33121391_33.12139.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.156:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:33.12139.1@192.168.131.156:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01045173032@sktims.net>
+P-SKT-O-SFI: 0000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: 80
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441261250 1441261250 IN IP4 192.168.131.146
+s=phone-call
+c=IN IP4 192.168.131.146
+t=0 0
+m=audio 54644 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[15:20:50.043] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01045173032@sktims.net>;tag=3312139
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3312139@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK33121391_33.12139.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:20:50.056] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01045173032@sktims.net>;tag=3312139
+To: <sip:15782918530001045173032@sktims.net>;tag=854cc2a8-6898a8c0-13c4-45026-637a2f8f-266256-ed7f5eac-4d2
+Call-ID: 3312139@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK33121391_33.12139.1
+Record-Route: <sip:33.12139.1@192.168.131.156:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441261251 1441261250 IN IP4 192.168.152.103
+s=-
+c=IN IP4 192.168.152.103
+t=0 0
+m=audio 31804 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:20
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[15:20:50.073] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01045173032@sktims.net>;tag=3312139
+To: <sip:15782918530001045173032@sktims.net>;tag=854cc2a8-6898a8c0-13c4-45026-637a2f8f-266256-ed7f5eac-4d2
+Call-ID: 3312139@192.168.131.156
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3312139201_33.12139.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[15:20:51.264] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01045173032@sktims.net>;tag=3312139
+To: <sip:15782918530001045173032@sktims.net>;tag=854cc2a8-6898a8c0-13c4-45026-637a2f8f-266256-ed7f5eac-4d2
+Call-ID: 3312139@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_33.12139.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[15:20:51.264] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01045173032@sktims.net>;tag=3312139
+To: <sip:15782918530001045173032@sktims.net>;tag=854cc2a8-6898a8c0-13c4-45026-637a2f8f-266256-ed7f5eac-4d2
+Call-ID: 3312139@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_33.12139.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:20:59.916] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01045173032@sktims.net>;tag=3312139
+To: <sip:15782918530001045173032@sktims.net>;tag=854cc2a8-6898a8c0-13c4-45026-637a2f8f-266256-ed7f5eac-4d2
+Call-ID: 3312139@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK33121393_33.12139.1
+Max-Forwards: 70
+P-SKT-BYE-CAUSE: normal
+Content-Length: 0
+
+
+[15:20:59.916] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01045173032@sktims.net>;tag=3312139
+To: <sip:15782918530001045173032@sktims.net>;tag=854cc2a8-6898a8c0-13c4-45026-637a2f8f-266256-ed7f5eac-4d2
+Call-ID: 3312139@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK33121393_33.12139.1
+Content-Length: 0
+
+
+[15:21:24.574] [Recv] Packet <----
+INVITE sip:15782918530001045173032@sktims.net SIP/2.0
+From: <sip:01045173032@sktims.net>;tag=3912670
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3912670@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK39126701_39.12670.1
+Allow: REGISTER,INVITE,ACK,BYE,CANCEL,REFER,OPTIONS,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Route: <sip:192.168.152.104:5060;lr>
+Contact: <sip:IMG_CS1@192.168.131.156:5060>
+Supported: early-session,100rel,timer
+Max-Forwards: 70
+P-Early-Media: supported
+Record-Route: <sip:39.12670.1@192.168.131.156:5060;lr>
+Accept-Contact: *;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";require;explicit
+Session-Expires: 90;refresher=uac
+P-Asserted-Identity: <sip:01045173032@sktims.net>
+P-SKT-O-SFI: 0000000000
+P-SKT-User-Svc-Info: 8090A3
+P-SKT-O-TCI: 80
+P-SKT-CPC: 0A
+User-Agent: 3G324M
+Content-Type: application/sdp
+Content-Length: 372
+
+v=0
+o=SAMSUNG-MGW 1441261284 1441261284 IN IP4 192.168.131.146
+s=phone-call
+c=IN IP4 192.168.131.146
+t=0 0
+m=audio 31220 RTP/AVP 100 8 101
+b=AS:41
+b=RS:0
+b=RR:0
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=maxptime:20
+a=ptime:20
+a=sendrecv
+
+[15:21:24.575] [Send] Packet ---->
+SIP/2.0 100 Trying
+From: <sip:01045173032@sktims.net>;tag=3912670
+To: <sip:15782918530001045173032@sktims.net>
+Call-ID: 3912670@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK39126701_39.12670.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:21:24.593] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01045173032@sktims.net>;tag=3912670
+To: <sip:15782918530001045173032@sktims.net>;tag=854d8328-6898a8c0-13c4-45026-375bacaa-2662f4-ed978eac-4d2
+Call-ID: 3912670@192.168.131.156
+CSeq: 1 INVITE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK39126701_39.12670.1
+Record-Route: <sip:39.12670.1@192.168.131.156:5060;lr>
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Require: timer
+Session-Expires: 480;refresher=uac
+Content-Type: application/sdp
+Content-Length: 333
+
+v=0
+o=- 1441261285 1441261284 IN IP4 192.168.152.102
+s=-
+c=IN IP4 192.168.152.102
+t=0 0
+m=audio 41804 RTP/AVP 100 101
+b=AS:41
+b=RS:0
+b=RR:2500
+a=ptime:80
+a=maxptime:120
+a=rtpmap:100 AMR-WB/16000
+a=fmtp:100 octet-align=1; mode-set=0,1,2; mode-change-capability=2; max-red=0
+a=rtpmap:101 telephone-event/8000
+a=sendrecv
+
+[15:21:24.598] [Recv] Packet <----
+ACK sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01045173032@sktims.net>;tag=3912670
+To: <sip:15782918530001045173032@sktims.net>;tag=854d8328-6898a8c0-13c4-45026-375bacaa-2662f4-ed978eac-4d2
+Call-ID: 3912670@192.168.131.156
+CSeq: 1 ACK
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK3912670201_39.12670.1
+Max-Forwards: 70
+Content-Length: 0
+
+
+[15:21:25.882] [Recv] Packet <----
+INFO sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01045173032@sktims.net>;tag=3912670
+To: <sip:15782918530001045173032@sktims.net>;tag=854d8328-6898a8c0-13c4-45026-375bacaa-2662f4-ed978eac-4d2
+Call-ID: 3912670@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_39.12670.1
+Max-Forwards: 70
+Content-Type: application/mediaservercontrol+xml
+Content-Length: 137
+
+<?xml version="1.0" encoding="utf-8"?>
+ <MediaServerControl version="1.0">
+	<request>
+	<play/>
+	</request>
+	 </MediaServerControl>
+
+[15:21:25.882] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01045173032@sktims.net>;tag=3912670
+To: <sip:15782918530001045173032@sktims.net>;tag=854d8328-6898a8c0-13c4-45026-375bacaa-2662f4-ed978eac-4d2
+Call-ID: 3912670@192.168.131.156
+CSeq: 2 INFO
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK74bf92_39.12670.1
+Contact: <sip:pointi_service@192.168.152.104:5060>
+Content-Length: 0
+
+
+[15:21:34.108] [Recv] Packet <----
+BYE sip:pointi_service@192.168.152.104:5060 SIP/2.0
+From: <sip:01045173032@sktims.net>;tag=3912670
+To: <sip:15782918530001045173032@sktims.net>;tag=854d8328-6898a8c0-13c4-45026-375bacaa-2662f4-ed978eac-4d2
+Call-ID: 3912670@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK39126703_39.12670.1
+Max-Forwards: 70
+P-SKT-BYE-CAUSE: normal
+Content-Length: 0
+
+
+[15:21:34.109] [Send] Packet ---->
+SIP/2.0 200 OK
+From: <sip:01045173032@sktims.net>;tag=3912670
+To: <sip:15782918530001045173032@sktims.net>;tag=854d8328-6898a8c0-13c4-45026-375bacaa-2662f4-ed978eac-4d2
+Call-ID: 3912670@192.168.131.156
+CSeq: 3 BYE
+Via: SIP/2.0/UDP 192.168.131.156:5060;branch=z9hG4bK39126703_39.12670.1
+Content-Length: 0
+
+

@@ -1,0 +1,13 @@
+#!/nas/HC/PYTHON2.7/bin/python -tt
+# -*- coding: utf-8 -*-
+
+# 'SYSTEM_NUMBER','HOSTNAME','HOSTTYPE','HOSTIP'
+HostConf = [
+['VIC01','VIP', 'SIPAS', '121.134.202.55'],
+['VIC01','SIPAS01', 'SIPAS', '121.134.202.51'],
+['VIC01','SIPAS02', 'SIPAS', '121.134.202.52'],
+['VIC01','MP01', 'MP', '121.134.202.56'],
+['VIC01','WEB01', 'WEB', '121.134.202.57'],
+['VIC01','SPS01', 'SPS', '121.134.202.58'],
+['VIC01','OMP', 'OMP', '121.134.202.59'],
+]
