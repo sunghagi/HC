@@ -1,86 +1,86 @@
-11:04:09.907 [INFO ] ConfigLoad :: config path : /nas/HC/lib/../config/hc.cfg
-11:04:10.039 [INFO ] get_current_check_mode :: Health Check Infomation : 1
-11:04:10.040 [INFO ] _host_info : hostname is OMP
-11:04:10.040 [INFO ] run_method :: exec_flag : Process 확인,ALL,1,1
-11:04:10.041 [INFO ] _host_info : hostname is OMP
-2017-06-15 11:04:10,354 [INFO ] dis_prcs : ha_status :: ip address : ['127.0.0.1', '121.134.202.59']
-2017-06-15 11:04:10,354 [INFO ] dis_prcs : host_info : hostname is OMP
-2017-06-15 11:04:10,354 [INFO ] DIS-PRCS : main :: System Infomation : host_info_tpl(system_name='VIC01', hostname='OMP', hostclass='OMP', ip_address='121.134.202.59', ha_operating_mode='STANDBY', ha_installed=0)
-2017-06-15 11:04:10,357 [INFO ] dis_prcs : pnr_process_name :: HaStatus : STANDBY
-2017-06-15 11:04:10,362 [INFO ] dis_prcs : pnr_process_name :: Process List : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD']
-2017-06-15 11:04:10,363 [INFO ] dis_prcs : omc_process_name :: omc_type : 2
-2017-06-15 11:04:10,364 [INFO ] DIS-PRCS : main :: omc_process : ['snmpd', '--', 'mysqld']
-2017-06-15 11:04:10,364 [INFO ] DIS-PRCS : main :: ProcessName : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD', 'snmpd', '--', 'mysqld', '--', 'DELLOG_CRON_TOMCAT']
-2017-06-15 11:04:10,380 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : REST_AGENT 
-2017-06-15 11:04:10,382 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : WEB 
-2017-06-15 11:04:10,383 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : LOGD 
-2017-06-15 11:04:10,391 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : COLLECTOR 
-2017-06-15 11:04:10,406 [INFO ] DIS-PRCS : main :: PROCESS_STATUS_RESULT : OK
-11:04:10.419 [INFO ] run_method :: OMP ItemDesc : Process 확인, lib.vms_hc.process_display()
-11:04:10.419 [INFO ] run_method :: exec_flag : CORE 파일 생성 확인,ALL,1,1
-11:04:10.420 [INFO ] _host_info : hostname is OMP
-11:04:10.422 [INFO ] corefile_status :: core_file_path : /home/vic/bin
-11:04:10.427 [INFO ] run_method :: OMP ItemDesc : CORE 파일 생성 확인, lib.vms_hc.corefile_status()
-11:04:10.427 [INFO ] run_method :: exec_flag : Ping 확인,ALL,1,1
-11:04:10.428 [INFO ] _host_info : hostname is OMP
-11:04:10.432 [INFO ] _host_info : hostname is OMP
-11:04:13.454 [INFO ] run_method :: OMP ItemDesc : Ping 확인, lib.vms_hc.ping_status()
-11:04:13.455 [INFO ] run_method :: exec_flag : route 확인,ALL,1,1
-11:04:13.456 [INFO ] _host_info : hostname is OMP
-11:04:13.494 [INFO ] _host_info : hostname is OMP
-11:04:13.495 [INFO ] route_status :: route_config_file_path : /nas/HC/config/route/OMP.cfg
-11:04:13.503 [INFO ] run_method :: OMP ItemDesc : route 확인, lib.vms_hc.route_status()
-11:04:13.503 [INFO ] run_method :: exec_flag : crontab 확인,ALL,1,1
-11:04:13.504 [INFO ] _host_info : hostname is OMP
-11:04:13.507 [INFO ] crontab_status :: crontab_from_config  : [('dellog', '/home/vic/bin/dellog.sh')]
-11:04:13.557 [INFO ] run_method :: OMP ItemDesc : crontab 확인, lib.vms_hc.crontab_status()
-11:04:13.558 [INFO ] run_method :: exec_flag : NTP 연동 확인,ALL,1,1
-11:04:13.559 [INFO ] _host_info : hostname is OMP
-11:04:13.594 [INFO ] run_method :: OMP ItemDesc : NTP 연동 확인, lib.vms_hc.ntp_status()
-11:04:13.595 [INFO ] run_method :: exec_flag : CPU 사용률 확인,ALL,1,1
-11:04:13.596 [INFO ] _host_info : hostname is OMP
-11:04:13.599 [INFO ] run_method :: OMP ItemDesc : CPU 사용률 확인, lib.vms_hc.cpu_usage()
-11:04:13.599 [INFO ] run_method :: exec_flag : Memory 사용률 확인,ALL,1,1
-11:04:13.601 [INFO ] _host_info : hostname is OMP
-11:04:13.603 [INFO ] run_method :: OMP ItemDesc : Memory 사용률 확인, lib.vms_hc.memory_usage()
-11:04:13.603 [INFO ] run_method :: exec_flag : DISK 사용률 확인,ALL,1,1
-11:04:13.604 [INFO ] _host_info : hostname is OMP
-11:04:13.606 [INFO ] run_method :: OMP ItemDesc : DISK 사용률 확인, lib.vms_hc.disk_usage()
-11:04:13.606 [INFO ] run_method :: exec_flag : 시스템 Uptime 확인,ALL,1,1
-11:04:13.608 [INFO ] _host_info : hostname is OMP
-11:04:13.609 [INFO ] run_method :: OMP ItemDesc : 시스템 Uptime 확인, lib.vms_hc.uptime_status()
-11:04:13.610 [INFO ] run_method :: exec_flag : 디스크 이중화 상태 확인,ALL,1,1
-11:04:13.611 [INFO ] _host_info : hostname is OMP
-11:04:13.638 [INFO ] disk_mirror_status :: SYS_MANUF : Red Hat
-11:04:13.647 [ERROR] os_execute :: error return code : 1
+18:06:02.842 [INFO ] ConfigLoad :: config path : /nas/HC/lib/../config/hc.cfg
+18:06:02.908 [INFO ] get_current_check_mode :: Health Check Infomation : 1
+18:06:02.909 [INFO ] _host_info : hostname is OMP
+18:06:02.909 [INFO ] run_method :: exec_flag : Process 확인,ALL,1,1
+18:06:02.910 [INFO ] _host_info : hostname is OMP
+2017-06-20 18:06:03,140 [INFO ] dis_prcs : ha_status :: ip address : ['127.0.0.1', '121.134.202.59']
+2017-06-20 18:06:03,140 [INFO ] dis_prcs : host_info : hostname is OMP
+2017-06-20 18:06:03,141 [INFO ] DIS-PRCS : main :: System Infomation : host_info_tpl(system_name='VIC01', hostname='OMP', hostclass='OMP', ip_address='121.134.202.59', ha_operating_mode='STANDBY', ha_installed=0)
+2017-06-20 18:06:03,143 [INFO ] dis_prcs : pnr_process_name :: HaStatus : STANDBY
+2017-06-20 18:06:03,148 [INFO ] dis_prcs : pnr_process_name :: Process List : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD']
+2017-06-20 18:06:03,149 [INFO ] dis_prcs : omc_process_name :: omc_type : 2
+2017-06-20 18:06:03,150 [INFO ] DIS-PRCS : main :: omc_process : ['snmpd', '--', 'mysqld']
+2017-06-20 18:06:03,150 [INFO ] DIS-PRCS : main :: ProcessName : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD', 'snmpd', '--', 'mysqld', '--', 'DELLOG_CRON_TOMCAT']
+2017-06-20 18:06:03,166 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : REST_AGENT 
+2017-06-20 18:06:03,168 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : WEB 
+2017-06-20 18:06:03,169 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : LOGD 
+2017-06-20 18:06:03,177 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : COLLECTOR 
+2017-06-20 18:06:03,189 [INFO ] DIS-PRCS : main :: PROCESS_STATUS_RESULT : OK
+18:06:03.202 [INFO ] run_method :: OMP ItemDesc : Process 확인, lib.vms_hc.process_display()
+18:06:03.203 [INFO ] run_method :: exec_flag : CORE 파일 생성 확인,ALL,1,1
+18:06:03.204 [INFO ] _host_info : hostname is OMP
+18:06:03.206 [INFO ] corefile_status :: core_file_path : /home/vic/bin
+18:06:03.211 [INFO ] run_method :: OMP ItemDesc : CORE 파일 생성 확인, lib.vms_hc.corefile_status()
+18:06:03.211 [INFO ] run_method :: exec_flag : Ping 확인,ALL,1,1
+18:06:03.212 [INFO ] _host_info : hostname is OMP
+18:06:03.215 [INFO ] _host_info : hostname is OMP
+18:06:06.239 [INFO ] run_method :: OMP ItemDesc : Ping 확인, lib.vms_hc.ping_status()
+18:06:06.240 [INFO ] run_method :: exec_flag : route 확인,ALL,1,1
+18:06:06.241 [INFO ] _host_info : hostname is OMP
+18:06:06.254 [INFO ] _host_info : hostname is OMP
+18:06:06.256 [INFO ] route_status :: route_config_file_path : /nas/HC/config/route/OMP.cfg
+18:06:06.258 [INFO ] run_method :: OMP ItemDesc : route 확인, lib.vms_hc.route_status()
+18:06:06.258 [INFO ] run_method :: exec_flag : crontab 확인,ALL,1,1
+18:06:06.259 [INFO ] _host_info : hostname is OMP
+18:06:06.262 [INFO ] crontab_status :: crontab_from_config  : [('dellog', '/home/vic/bin/dellog.sh')]
+18:06:06.278 [INFO ] run_method :: OMP ItemDesc : crontab 확인, lib.vms_hc.crontab_status()
+18:06:06.278 [INFO ] run_method :: exec_flag : NTP 연동 확인,ALL,1,1
+18:06:06.280 [INFO ] _host_info : hostname is OMP
+18:06:06.459 [INFO ] run_method :: OMP ItemDesc : NTP 연동 확인, lib.vms_hc.ntp_status()
+18:06:06.460 [INFO ] run_method :: exec_flag : CPU 사용률 확인,ALL,1,1
+18:06:06.461 [INFO ] _host_info : hostname is OMP
+18:06:06.464 [INFO ] run_method :: OMP ItemDesc : CPU 사용률 확인, lib.vms_hc.cpu_usage()
+18:06:06.465 [INFO ] run_method :: exec_flag : Memory 사용률 확인,ALL,1,1
+18:06:06.466 [INFO ] _host_info : hostname is OMP
+18:06:06.468 [INFO ] run_method :: OMP ItemDesc : Memory 사용률 확인, lib.vms_hc.memory_usage()
+18:06:06.468 [INFO ] run_method :: exec_flag : DISK 사용률 확인,ALL,1,1
+18:06:06.469 [INFO ] _host_info : hostname is OMP
+18:06:06.471 [INFO ] run_method :: OMP ItemDesc : DISK 사용률 확인, lib.vms_hc.disk_usage()
+18:06:06.472 [INFO ] run_method :: exec_flag : 시스템 Uptime 확인,ALL,1,1
+18:06:06.473 [INFO ] _host_info : hostname is OMP
+18:06:06.475 [INFO ] run_method :: OMP ItemDesc : 시스템 Uptime 확인, lib.vms_hc.uptime_status()
+18:06:06.475 [INFO ] run_method :: exec_flag : 디스크 이중화 상태 확인,ALL,1,1
+18:06:06.476 [INFO ] _host_info : hostname is OMP
+18:06:06.564 [INFO ] disk_mirror_status :: SYS_MANUF : Red Hat
+18:06:06.584 [ERROR] os_execute :: error return code : 1
 Traceback (most recent call last):
   File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
     std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
   File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
     raise CalledProcessError(retcode, cmd, output=output)
 CalledProcessError: Command 'sudo mpt-status -p | /bin/grep Found' returned non-zero exit status 1
-11:04:13.675 [INFO ] disk_mirror_status :: std_out : |sudo: mpt-status: command not found
+18:06:06.588 [INFO ] disk_mirror_status :: std_out : |sudo: mpt-status: command not found
 | 
-11:04:13.676 [INFO ] disk_mirror_status :: CMD : sudo mpt-status -i  | /bin/grep state 
-11:04:13.709 [ERROR] os_execute :: error return code : 1
+18:06:06.590 [INFO ] disk_mirror_status :: CMD : sudo mpt-status -i  | /bin/grep state 
+18:06:06.604 [ERROR] os_execute :: error return code : 1
 Traceback (most recent call last):
   File "/nas/HC/lib/vms_hc.py", line 1039, in os_execute
     std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
   File "/nas/HC/PYTHON2.7/lib/python2.7/subprocess.py", line 219, in check_output
     raise CalledProcessError(retcode, cmd, output=output)
 CalledProcessError: Command 'sudo mpt-status -i  | /bin/grep state' returned non-zero exit status 1
-11:04:13.711 [INFO ] run_method :: OMP ItemDesc : 디스크 이중화 상태 확인, lib.vms_hc.disk_mirror_status()
-11:04:13.711 [INFO ] run_method :: exec_flag : 좀비 프로세스 확인,ALL,1,1
-11:04:13.712 [INFO ] _host_info : hostname is OMP
-11:04:13.728 [INFO ] run_method :: OMP ItemDesc : 좀비 프로세스 확인, lib.vms_hc.process_status()
-11:04:13.729 [INFO ] run_method :: exec_flag : 총 가입자수 확인,SPS,1,1
-11:04:13.730 [INFO ] _host_info : hostname is OMP
-11:04:13.731 [INFO ] run_method :: exec_flag : 월간 alarm,OMP,1,100
-11:04:13.732 [INFO ] _host_info : hostname is OMP
-11:04:13.732 [INFO ] run_method :: exec_flag : SIP 통계 확인,ALL,1,1
-11:04:13.733 [INFO ] _host_info : hostname is OMP
-11:04:13.735 [INFO ] __init__ :: DB DSN : DSN=mysql
-11:04:13.736 [INFO ] make_output :: DB Query : 
+18:06:06.607 [INFO ] run_method :: OMP ItemDesc : 디스크 이중화 상태 확인, lib.vms_hc.disk_mirror_status()
+18:06:06.607 [INFO ] run_method :: exec_flag : 좀비 프로세스 확인,ALL,1,1
+18:06:06.609 [INFO ] _host_info : hostname is OMP
+18:06:06.639 [INFO ] run_method :: OMP ItemDesc : 좀비 프로세스 확인, lib.vms_hc.process_status()
+18:06:06.640 [INFO ] run_method :: exec_flag : 총 가입자수 확인,SPS,1,1
+18:06:06.641 [INFO ] _host_info : hostname is OMP
+18:06:06.642 [INFO ] run_method :: exec_flag : 월간 alarm,OMP,1,100
+18:06:06.643 [INFO ] _host_info : hostname is OMP
+18:06:06.643 [INFO ] run_method :: exec_flag : SIP 통계 확인,ALL,1,1
+18:06:06.645 [INFO ] _host_info : hostname is OMP
+18:06:06.647 [INFO ] __init__ :: DB DSN : DSN=mysql
+18:06:06.648 [INFO ] make_output :: DB Query : 
    SELECT collectTime, SUM(totalCount) totalCount,
    SUM(IF(endCode IN (0, 403), totalCount, 0)) successCount,
    SUM(IF(endCode NOT IN (0, 403), totalCount, 0)) failCount,
@@ -89,93 +89,15 @@ CalledProcessError: Command 'sudo mpt-status -i  | /bin/grep state' returned non
    WHERE collectTime = ?
    GROUP BY collectTime
    
-11:04:13.925 [ERROR] odbc_query_execute_fetchall :: error : 
+18:06:06.718 [ERROR] odbc_query_execute_fetchall :: error : 
 Traceback (most recent call last):
   File "/nas/HC/lib/vms_hc.py", line 993, in odbc_query_execute_fetchall
     db._GetConnect()
   File "/nas/HC/lib/odbc_conn.py", line 16, in _GetConnect
     raise(NameError,"DB Connected failed!!")
 NameError
-11:04:13.929 [INFO ] make_output :: result.reason : [IM002] [unixODBC][Driver Manager]Data source name not found, and no default driver specified (0) (SQLDriverConnect)
-11:04:13.929 [INFO ] run_method :: OMP ItemDesc : SIP 통계 확인, lib.vms_hc.tars_sip_stat()
-11:04:13.930 [INFO ] _host_info : hostname is OMP
-11:04:13.932 [INFO ] csv_save :: CsvFileName : /nas/HC/20170615_VIC01.csv
-11:04:13.934 [INFO ] SaveResultCsv :: ResultList : CSV Write success.
-2017-06-15 11:04:29,273 [INFO ] dis_prcs : ha_status :: ip address : ['127.0.0.1', '121.134.202.59']
-2017-06-15 11:04:29,273 [INFO ] dis_prcs : host_info : hostname is OMP
-2017-06-15 11:04:29,273 [INFO ] DIS-PRCS : main :: System Infomation : host_info_tpl(system_name='VIC01', hostname='OMP', hostclass='OMP', ip_address='121.134.202.59', ha_operating_mode='STANDBY', ha_installed=0)
-2017-06-15 11:04:29,276 [INFO ] dis_prcs : pnr_process_name :: HaStatus : STANDBY
-2017-06-15 11:04:29,282 [INFO ] dis_prcs : pnr_process_name :: Process List : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD']
-2017-06-15 11:04:29,284 [INFO ] dis_prcs : omc_process_name :: omc_type : 2
-2017-06-15 11:04:29,285 [INFO ] DIS-PRCS : main :: omc_process : ['snmpd', '--', 'mysqld']
-2017-06-15 11:04:29,285 [INFO ] DIS-PRCS : main :: ProcessName : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD', 'snmpd', '--', 'mysqld', '--', 'DELLOG_CRON_TOMCAT']
-2017-06-15 11:04:29,303 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : REST_AGENT 
-2017-06-15 11:04:29,304 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : WEB 
-2017-06-15 11:04:29,306 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : LOGD 
-2017-06-15 11:04:29,314 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : COLLECTOR 
-2017-06-15 11:04:29,327 [INFO ] DIS-PRCS : main :: PROCESS_STATUS_RESULT : OK
-2017-06-15 11:04:48,916 [INFO ] dis_prcs : ha_status :: ip address : ['127.0.0.1', '121.134.202.59']
-2017-06-15 11:04:48,916 [INFO ] dis_prcs : host_info : hostname is OMP
-2017-06-15 11:04:48,916 [INFO ] DIS-PRCS : main :: System Infomation : host_info_tpl(system_name='VIC01', hostname='OMP', hostclass='OMP', ip_address='121.134.202.59', ha_operating_mode='STANDBY', ha_installed=0)
-2017-06-15 11:04:48,919 [INFO ] dis_prcs : pnr_process_name :: HaStatus : STANDBY
-2017-06-15 11:04:48,924 [INFO ] dis_prcs : pnr_process_name :: Process List : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD']
-2017-06-15 11:04:48,926 [INFO ] dis_prcs : omc_process_name :: omc_type : 2
-2017-06-15 11:04:48,927 [INFO ] DIS-PRCS : main :: omc_process : ['snmpd', '--', 'mysqld']
-2017-06-15 11:04:48,927 [INFO ] DIS-PRCS : main :: ProcessName : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD', 'snmpd', '--', 'mysqld', '--', 'DELLOG_CRON_TOMCAT']
-2017-06-15 11:04:48,944 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : REST_AGENT 
-2017-06-15 11:04:48,945 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : WEB 
-2017-06-15 11:04:48,946 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : LOGD 
-2017-06-15 11:04:48,954 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : COLLECTOR 
-2017-06-15 11:04:48,967 [INFO ] DIS-PRCS : main :: PROCESS_STATUS_RESULT : OK
-2017-06-15 18:00:50,694 [INFO ] dis_prcs : ha_status :: ip address : ['127.0.0.1', '121.134.202.59']
-2017-06-15 18:00:50,695 [INFO ] dis_prcs : host_info : hostname is OMP
-2017-06-15 18:00:50,695 [INFO ] DIS-PRCS : main :: System Infomation : host_info_tpl(system_name='VIC01', hostname='OMP', hostclass='OMP', ip_address='121.134.202.59', ha_operating_mode='STANDBY', ha_installed=0)
-2017-06-15 18:00:50,698 [INFO ] dis_prcs : pnr_process_name :: HaStatus : STANDBY
-2017-06-15 18:00:50,703 [INFO ] dis_prcs : pnr_process_name :: Process List : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD']
-2017-06-15 18:00:50,723 [INFO ] dis_prcs : omc_process_name :: omc_type : 2
-2017-06-15 18:00:50,723 [INFO ] DIS-PRCS : main :: omc_process : ['snmpd', '--', 'mysqld']
-2017-06-15 18:00:50,724 [INFO ] DIS-PRCS : main :: ProcessName : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD', 'snmpd', '--', 'mysqld', '--', 'DELLOG_CRON_TOMCAT']
-2017-06-15 18:00:50,741 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : REST_AGENT 
-2017-06-15 18:00:50,742 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : WEB 
-2017-06-15 18:00:50,744 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : LOGD 
-2017-06-15 18:00:50,751 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : COLLECTOR 
-2017-06-15 18:00:50,788 [INFO ] DIS-PRCS : main :: PROCESS_STATUS_RESULT : OK
-2017-06-15 18:01:16,440 [INFO ] dis_prcs : ha_status :: ip address : ['127.0.0.1', '121.134.202.59']
-2017-06-15 18:01:16,441 [INFO ] dis_prcs : host_info : hostname is OMP
-2017-06-15 18:01:16,441 [INFO ] DIS-PRCS : main :: System Infomation : host_info_tpl(system_name='VIC01', hostname='OMP', hostclass='OMP', ip_address='121.134.202.59', ha_operating_mode='STANDBY', ha_installed=0)
-2017-06-15 18:01:16,443 [INFO ] dis_prcs : pnr_process_name :: HaStatus : STANDBY
-2017-06-15 18:01:16,448 [INFO ] dis_prcs : pnr_process_name :: Process List : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD']
-2017-06-15 18:01:16,450 [INFO ] dis_prcs : omc_process_name :: omc_type : 2
-2017-06-15 18:01:16,451 [INFO ] DIS-PRCS : main :: omc_process : ['snmpd', '--', 'mysqld']
-2017-06-15 18:01:16,451 [INFO ] DIS-PRCS : main :: ProcessName : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD', 'snmpd', '--', 'mysqld', '--', 'DELLOG_CRON_TOMCAT']
-2017-06-15 18:01:16,467 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : REST_AGENT 
-2017-06-15 18:01:16,468 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : WEB 
-2017-06-15 18:01:16,469 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : LOGD 
-2017-06-15 18:01:16,477 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : COLLECTOR 
-2017-06-15 18:01:16,489 [INFO ] DIS-PRCS : main :: PROCESS_STATUS_RESULT : OK
-2017-06-15 18:02:21,875 [INFO ] dis_prcs : ha_status :: ip address : ['127.0.0.1', '121.134.202.59']
-2017-06-15 18:02:21,875 [INFO ] dis_prcs : host_info : hostname is OMP
-2017-06-15 18:02:21,876 [INFO ] DIS-PRCS : main :: System Infomation : host_info_tpl(system_name='VIC01', hostname='OMP', hostclass='OMP', ip_address='121.134.202.59', ha_operating_mode='STANDBY', ha_installed=0)
-2017-06-15 18:02:21,879 [INFO ] dis_prcs : pnr_process_name :: HaStatus : STANDBY
-2017-06-15 18:02:21,884 [INFO ] dis_prcs : pnr_process_name :: Process List : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD']
-2017-06-15 18:02:21,887 [INFO ] dis_prcs : omc_process_name :: omc_type : 2
-2017-06-15 18:02:21,887 [INFO ] DIS-PRCS : main :: omc_process : ['snmpd', '--', 'mysqld']
-2017-06-15 18:02:21,888 [INFO ] DIS-PRCS : main :: ProcessName : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD', 'snmpd', '--', 'mysqld', '--', 'DELLOG_CRON_TOMCAT']
-2017-06-15 18:02:21,906 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : REST_AGENT 
-2017-06-15 18:02:21,907 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : WEB 
-2017-06-15 18:02:21,908 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : LOGD 
-2017-06-15 18:02:21,916 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : COLLECTOR 
-2017-06-15 18:02:21,932 [INFO ] DIS-PRCS : main :: PROCESS_STATUS_RESULT : OK
-2017-06-19 11:48:59,105 [INFO ] dis_prcs : ha_status :: ip address : ['127.0.0.1', '121.134.202.59']
-2017-06-19 11:48:59,105 [INFO ] dis_prcs : host_info : hostname is OMP
-2017-06-19 11:48:59,106 [INFO ] DIS-PRCS : main :: System Infomation : host_info_tpl(system_name='VIC01', hostname='OMP', hostclass='OMP', ip_address='121.134.202.59', ha_operating_mode='STANDBY', ha_installed=0)
-2017-06-19 11:48:59,108 [INFO ] dis_prcs : pnr_process_name :: HaStatus : STANDBY
-2017-06-19 11:48:59,113 [INFO ] dis_prcs : pnr_process_name :: Process List : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD']
-2017-06-19 11:48:59,127 [INFO ] dis_prcs : omc_process_name :: omc_type : 2
-2017-06-19 11:48:59,128 [INFO ] DIS-PRCS : main :: omc_process : ['snmpd', '--', 'mysqld']
-2017-06-19 11:48:59,128 [INFO ] DIS-PRCS : main :: ProcessName : ['PNR', 'REST_AGENT', 'COLLECTOR', 'WEB', 'LOGD', 'snmpd', '--', 'mysqld', '--', 'DELLOG_CRON_TOMCAT']
-2017-06-19 11:48:59,144 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : REST_AGENT 
-2017-06-19 11:48:59,145 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : WEB 
-2017-06-19 11:48:59,146 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : LOGD 
-2017-06-19 11:48:59,154 [INFO ] dis_prcs : DisplayProcess ::  PidProcessName : COLLECTOR 
-2017-06-19 11:48:59,179 [INFO ] DIS-PRCS : main :: PROCESS_STATUS_RESULT : OK
+18:06:06.720 [INFO ] make_output :: result.reason : [IM002] [unixODBC][Driver Manager]Data source name not found, and no default driver specified (0) (SQLDriverConnect)
+18:06:06.721 [INFO ] run_method :: OMP ItemDesc : SIP 통계 확인, lib.vms_hc.tars_sip_stat()
+18:06:06.726 [INFO ] _host_info : hostname is OMP
+18:06:06.729 [INFO ] csv_save :: CsvFileName : /nas/HC/20170620_VIC01.csv
+18:06:06.736 [INFO ] SaveResultCsv :: ResultList : CSV Write success.
