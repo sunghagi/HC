@@ -52,7 +52,8 @@ class App():
       self.stdin_path = '/dev/null'
       self.stdout_path = '/dev/tty'
       self.stderr_path = '/dev/tty'
-      self.pidfile_path = '/nas/HC/log/dellog.pid'
+#      self.pidfile_path = '/nas/HC/log/dellog.pid'
+      self.pidfile_path = '/tmp/dellog.pid'
       self.pidfile_timeout = 5
    def run(self):
       logger = DaemonLogger()

@@ -13,7 +13,8 @@ from log import *
 from hostconf import *
 from collections import namedtuple
 
-logger = hcLogger('root')
+#logger = hcLogger('root')
+logger = HcLogger()
 
 #class HealthCheckCommand(object):
 #def __init__():
@@ -176,7 +177,7 @@ def DisplayProcess(ProcessName, longcmd):
                         else:
                             PidProcessName = PidProcessName[2:]
                             break
-                logger.info('%s ::  PidProcessName : %s ',GetCurFunc(), PidProcessName)
+                logger.debug('%s ::  PidProcessName : %s ',GetCurFunc(), PidProcessName)
 #               if PidProcessName.upper() in map(str.upper, ProcessName) :
 #               if filter(lambda x:PidProcessName in x, ProcessName)  :
             matcher = re.compile(PidProcessName, re.IGNORECASE)
