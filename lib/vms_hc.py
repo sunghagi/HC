@@ -17,7 +17,7 @@ logger = HcLogger()
 
 class ConfigLoad():
    default_config_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), '../config', 'hc.cfg')
-   logger.info('%s :: config path : %s', GetCurFunc(), default_config_path)
+   logger.debug('%s :: config path : %s', GetCurFunc(), default_config_path)
 
    def __init__(self, config_file=default_config_path):
       self.load_config(config_file)

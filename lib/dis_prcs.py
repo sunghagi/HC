@@ -12,6 +12,7 @@ import inspect
 from log import *
 from hostconf import *
 from collections import namedtuple
+from lib.vms_hc import *
 
 #logger = hcLogger('root')
 logger = HcLogger()
@@ -140,13 +141,15 @@ def display_dellog_cron():
     print 'DELLOG_CRON                root        %-s' % (result),
 
 def display_dellog_cron_tomcat():
-    cmd = 'crontab -l| grep -i Delete_tomcat_logs'
+    config = ConfigLoad()
+    userid = config.get_item_from_section('main', 'userid')
+    cmd = 'sudo crontab -u %s -l| grep -i Delete_tomcat_logs' % userid
     result = os_execute(cmd)
 
     if result == '':
         result = 'DELLOG for tomcat is not setup in crontab\n'
 
-    print 'DELLOG_CRON_TOMCAT         vic     %-s' % (result),
+    print 'DELLOG_CRON_TOMCAT         %-5s   %-s' % (userid, result),
 
 def DisplayProcess(ProcessName, longcmd):
     RESULT = "OK"
