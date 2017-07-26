@@ -33,6 +33,9 @@ class ConfigLoad():
    def get_item_from_section(self, section, item):
       return self.hc_config.get(section, item)
 
+   def getint_item_from_section(self, section, item):
+      return self.hc_config.getint(section, item)
+
    def get_items_from_section(self, section):
       return self.hc_config.items(section)
 
@@ -266,8 +269,9 @@ def cpu_usage():
    cpu_usage_result = HcResult()
 
    config = ConfigLoad()
-   CPU_THRESHOLD = config.get_item_from_section('threshold', 'cpu')
+   CPU_THRESHOLD = config.getint_item_from_section('threshold', 'cpu')
 
+   tot_percs = psutil.cpu_percent(interval=0, percpu=False)
    percs = psutil.cpu_percent(interval=0, percpu=True) 
    buf = ""
    for cpu_num, perc in enumerate(percs): 
@@ -275,11 +279,11 @@ def cpu_usage():
       templ = " CPU%-2s [%s%s] %5s%%"
       buf += templ % (cpu_num, dashes, empty_dashes, perc) + '\n'
 
-      if (perc > CPU_THRESHOLD):
-         cpu_usage_result.result = "NOK"
-         cpu_usage_result.reason = "CPU %s usage is %s" % ( cpu_num, perc )
+   if (tot_percs > CPU_THRESHOLD):
+      cpu_usage_result.result = "NOK"
+      cpu_usage_result.reason = "CPU %s usage is %s" % ( cpu_num, tot_percs )
 
-   hc_result_table = HcCmdResultTalbe('CPU 사용률(%)',70)
+   hc_result_table = HcCmdResultTalbe('CPU 사용률('+str(tot_percs)+'%)',70)
    hc_result_table._concate(buf)
    cpu_usage_result.output = hc_result_table.output
    logger.debug('%s :: hc_result_table.output : %s', 
@@ -292,8 +296,8 @@ def memory_usage():
    memory_usage_result = HcResult()
 
    config = ConfigLoad()
-   MEM_THRESHOLD = config.get_item_from_section('threshold', 'mem')
-   SWAP_THRESHOLD = config.get_item_from_section('threshold', 'swap_memory')
+   MEM_THRESHOLD = config.getint_item_from_section('threshold', 'mem')
+   SWAP_THRESHOLD = config.getint_item_from_section('threshold', 'swap_memory')
 
    mem = psutil.virtual_memory()
    total_mem = bytes2human(mem.total)
@@ -337,7 +341,7 @@ def disk_usage():
    disk_usage_result = HcResult()
 
    config = ConfigLoad()
-   DISK_THRESHOLD = config.get_item_from_section('threshold', 'disk')
+   DISK_THRESHOLD = config.getint_item_from_section('threshold', 'disk')
 
    list_partitions = psutil.disk_partitions()
    buf = ' Filesystem                Use%      Mounted on\n'
@@ -362,7 +366,7 @@ def uptime_status():
    hc_result_table = HcCmdResultTalbe('시스템 Uptime 확인',55)
 
    config = ConfigLoad()
-   UPTIME_THRESHOLD = config.get_item_from_section('threshold', 'uptime')
+   UPTIME_THRESHOLD = config.getint_item_from_section('threshold', 'uptime')
 
    float_boot_time = psutil.boot_time()
    BootTime = datetime.datetime.fromtimestamp(float_boot_time).strftime("%Y-%m-%d %H:%M:%S")

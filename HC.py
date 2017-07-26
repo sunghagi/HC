@@ -126,6 +126,7 @@ def run_method(health_check_items, current_check_mode):
 def main():
    parser = argparse.ArgumentParser(description="POINT-I Health Check Tool. This tool perform a health check.")
    parser.add_argument('-m', '--monthly', action='store_true')
+   parser.add_argument('-c', '--console', action='store_false')
    parser.add_argument('-l', '--show-detail-result', action='store_true')
    args = parser.parse_args()
 
@@ -155,7 +156,8 @@ def main():
    current_check_mode = get_current_check_mode(args.monthly)
    hc_result = run_method(health_check_items, current_check_mode)
 
-   csv_save(hc_result)
+   if args.console :
+      csv_save(hc_result)
 
 if __name__ == '__main__': 
    main() 

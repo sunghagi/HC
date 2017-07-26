@@ -18,7 +18,7 @@ from logging.handlers import TimedRotatingFileHandler
 
 LOG_FILE_PATH='/nas/HC/log/dellog.log'
 DellogConfigPath='/nas/HC/config/dellog.cfg'
-SCHEDULE_TIME='13:25'
+SCHEDULE_TIME='13:00'
 
 
 class DaemonLogger(object):
