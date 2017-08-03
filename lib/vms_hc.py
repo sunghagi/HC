@@ -306,7 +306,7 @@ def memory_usage():
    percent_mem = mem.percent
    templ = "%10s      %10s   %10s%%"
    buf = '     Total           Available     Use(%)\n'
-   buf += "-" * 55 + '\n'
+   buf += "-" * 65 + '\n'
    buf += templ % (total_mem, avail_mem, percent_mem) + '\n'
    '''
    dashes, empty_dashes = get_dashes(mem.percent)
@@ -344,17 +344,21 @@ def disk_usage():
    DISK_THRESHOLD = config.getint_item_from_section('threshold', 'disk')
 
    list_partitions = psutil.disk_partitions()
-   buf = ' Filesystem                Use%      Mounted on\n'
-   templ = "% -20s %10s      %-20s"
+   buf = ' Filesystem            Size   Used  Avail   Use%     Mounted on\n'
+   templ = "% -20s %6s %6s %6s %6s     %-20s"
    for part in list_partitions:
       fs = part.device
+      size = psutil.disk_usage(part.mountpoint).total
+      used = psutil.disk_usage(part.mountpoint).used
+      avail = psutil.disk_usage(part.mountpoint).free
       usage = psutil.disk_usage(part.mountpoint).percent
       if (usage > DISK_THRESHOLD):
          disk_usage_result.result = "NOK"
       mounton = part.mountpoint
-      buf = buf + templ % (fs, usage, mounton) + '\n'
+      buf = buf + templ % (fs, bytes2human(size), bytes2human(used), \
+                           bytes2human(avail), usage, mounton) + '\n'
 
-   hc_result_table = HcCmdResultTalbe('DISK 사용률 확인',55)
+   hc_result_table = HcCmdResultTalbe('DISK 사용률 확인',65)
    hc_result_table._concate(buf)
    disk_usage_result.output = hc_result_table.output
 
@@ -363,7 +367,7 @@ def disk_usage():
 
 def uptime_status():
    uptime_status_result = HcResult()
-   hc_result_table = HcCmdResultTalbe('시스템 Uptime 확인',55)
+   hc_result_table = HcCmdResultTalbe('시스템 Uptime 확인',65)
 
    config = ConfigLoad()
    UPTIME_THRESHOLD = config.getint_item_from_section('threshold', 'uptime')
@@ -547,6 +551,7 @@ def corefile_status():
 def disk_mirror_status():
    disk_mirror_status_result = HcResult()
    SYS_MANUF = GetSystemManufacturer()
+   logger.info('%s :: SYS_MANUF : %s', GetCurFunc(), SYS_MANUF)
 
    if SYS_MANUF == 'HP':
       if os.path.exists("/usr/sbin/hpssacli"):
@@ -556,11 +561,12 @@ def disk_mirror_status():
       os_command = hp_storage_admin_tool + " ctrl slot=0 show config"
    elif SYS_MANUF == 'Advantech':
       os_command = "SKIP (Console Cable연결 필요)"
+   elif SYS_MANUF == 'Red Hat':
+      os_command = "SKIP (KVM Host)"
    else :
       os_command = 'mpt-status -i SCSI_ID'
-   hc_result_table = HcCmdResultTalbe('디스크 이중화 상태 확인 : '+os_command, 78)
 
-   logger.info('%s :: SYS_MANUF : %s', GetCurFunc(), SYS_MANUF)
+   hc_result_table = HcCmdResultTalbe('디스크 이중화 상태 확인 : '+os_command, 78)
 
    if SYS_MANUF == 'HP':
       CheckAnotherInstanceOfHpacucli='ps -ef | /bin/grep ' + hp_storage_admin_tool + ' | /bin/grep -v grep'
@@ -578,6 +584,10 @@ def disk_mirror_status():
       OK = re.findall("OK", std_out)
    elif SYS_MANUF == 'Advantech':
       std_out = "SKIP"
+      OK = True
+   elif SYS_MANUF == 'Red Hat':
+      std_out = "SKIP"
+      OK = True
    else:
       std_out = os_execute("sudo mpt-status -p | /bin/grep Found")
       logger.info('%s :: std_out : |%s| ', GetCurFunc(), std_out)
