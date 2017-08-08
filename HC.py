@@ -132,10 +132,11 @@ def main():
 #   ['알티베이스 메모리 사용률','lib.vms_hc.altibase_tablespace("DSN=odbc_local")',DAILY,'SPS'],
    ['좀비 프로세스 확인', 'lib.vms_hc.process_status()',DAILY,'ALL'],
 #   ['/etc 백업', 'lib.vms_hc.etc_backup()',DAILY,'ALL'],
-   ['총 가입자수 확인','lib.vms_hc.vms_subscribers()',DAILY,'SPS'],
+   ['총 가입자수 확인','lib.vms_hc.vic_subscribers()',DAILY,'SPS'],
+   ['altibase tablespace 확인','lib.vms_hc.altibase_tablespace()', DAILY,'SPS'],
    ['월간 alarm', 'lib.vms_hc.dis_alarm()',MONTHLY,'OMP'],
    ['월간 CPU 통계 확인', 'lib.vms_hc.cpu_stat()',MONTHLY,'OMP'],
-   ['SIP 통계 확인','lib.vms_hc.tars_sip_stat()',DAILY,'ALL'],
+   ['SIP 통계 확인','lib.vms_hc.tars_sip_stat()',DAILY,'OMP'],
    ]
 
    current_check_mode = get_current_check_mode(args.monthly)

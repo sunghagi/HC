@@ -556,7 +556,6 @@ def corefile_status():
 def disk_mirror_status():
    disk_mirror_status_result = HcResult()
    SYS_MANUF = GetSystemManufacturer()
-   logger.info('%s :: SYS_MANUF : %s', GetCurFunc(), SYS_MANUF)
 
    if SYS_MANUF == 'HP':
       if os.path.exists("/usr/sbin/hpssacli"):
@@ -614,45 +613,27 @@ def disk_mirror_status():
 
    return disk_mirror_status_result
 
-
 def vms_subscribers():
-   column_name = '소리샘 총가입자'
-
-   db_column_name = ['SUBSCRIBERS']
-   db_column_width = ['60']
-   column_width = sum(int(CW) for CW in db_column_width)
-   hc_result_table = HcCmdResultTalbe(column_name, column_width)
-
-   vms_subscribers_result = HcResult()
-
-   config = ConfigLoad()
-   dsn_from_config = config.get_item_from_section('DB DSN', 'altibase')
-   dsn_string = 'DSN=%s' % ( dsn_from_config)
-   logger.info('%s :: DB DSN : %s', GetCurFunc(), dsn_string)
-
-   db_query = """
+   vms_subscribers_sps = OdbcQuery('소리샘 총가입자','altibase')
+   vms_subscribers_sps.db_column_name = ['SUBSCRIBERS']
+   vms_subscribers_sps.db_column_width = ['78']
+   vms_subscribers_sps.db_query = """
    select count(*) from subscribers
    """
-   db_param = ''
-   vms_subscribers, result = odbc_query_execute_fetchone(dsn_string, db_query, db_param, hc_result_table.column_width)
-
-   db_column_name = lib.vms_hc.print_column_name(db_column_name, db_column_width)
-   output_buf = string_concate(hc_result_table.output, db_column_name)
-
-   vms_subscribers_result.output = string_concate(output_buf, vms_subscribers)
-
-   if result.result == "OK":
-      vms_subscribers_result.output = string_concate(output_buf, vms_subscribers)
-      vms_subscribers_result.result = "OK"
-
-   result_templ = "   %-10s %3s %-30s "
-   if result.result == "NOK":
-      vms_subscribers_result.output = string_concate(output_buf, result.reason)
-      vms_subscribers_result.result = "NOK"
-#      print result_templ % ("REASON", "=", result.reason)
-#      print result_templ % ("HELP","=","Subscribers count is available in SPS01/02")
-
+   vms_subscribers_sps.db_param = ''
+   vms_subscribers_result = vms_subscribers_sps.make_output()
    return vms_subscribers_result
+
+def vic_subscribers():
+   vic_subscribers_sps = OdbcQuery('VIC 총가입자','altibase')
+   vic_subscribers_sps.db_column_name = ['SUBSCRIBERS']
+   vic_subscribers_sps.db_column_width = ['78']
+   vic_subscribers_sps.db_query = """
+   select count(*) from subscribers
+   """
+   vic_subscribers_sps.db_param = ''
+   vic_subscribers_result = vic_subscribers_sps.make_output()
+   return vic_subscribers_result
 
 def tars_subscribers():
    column_name = 'T-ARS 총가입자'
@@ -837,65 +818,30 @@ def dis_alarm():
    dis_alarm_result = dis_alarm_omp.make_output()
    return dis_alarm_result
 
-
 def sip_stat():
-   column_name = 'SIP 통계 확인'
-
-   db_column_name=['통계시간','TotalCount','CPS','사용량(%)/300 CPS']
-   db_column_width=['-20','-20','-20', '-20']
-   column_width = sum(int(CW) for CW in db_column_width)
-   vms_hc_cmd_result_table = HcCmdResultTalbe(column_name, column_width)
-
-   sip_stat_result = HcResult()
-
-   config = ConfigLoad()
-   dsn_from_config = config.get_item_from_section('DB DSN', 'mysql')
-   dsn_string = 'DSN=%s' % ( dsn_from_config)
-   logger.info('%s :: DB DSN : %s', GetCurFunc(), dsn_string)
-
-   yesterday = (datetime.date.today() - datetime.timedelta(1)).strftime("%Y-%m-%d %H:%M:%S")
-   today = datetime.date.today().strftime("%Y-%m-%d %H:%M:%S")
-
+   sip_stat_omp = OdbcQuery('SIP 통계 확인', 'mysql')
+   sip_stat_omp.db_column_name=['통계시간','TotalCount','CPS','사용량(%)/300 CPS']
+   sip_stat_omp.db_column_width=['-20','-20','-20', '-20']
    db_query = """
    select DATE_FORMAT(collectTime, '%Y-%m-%d %H:%i') AS collectTime,
    SUM(invite) invite,
    ROUND(SUM(invite)/5/60,1) CPS,
    ROUND(ROUND(SUM(invite)/5/60,1)/300,3)*100 USAGE_RATIO
-   from sam_st_sipmsg_min
+   from SAM_ST_SIPMSG_MIN
    where ( collectTime between ? and ? )
    group by collectTime
    order by sum(invite) desc limit 0,1;
    """
-   db_param = [yesterday,today]
-
-   db_column_name = print_column_name(db_column_name, db_column_width)
-   output_buf = string_concate(vms_hc_cmd_result_table.output, db_column_name)
-
-   stat, result = odbc_query_execute_fetchall(dsn_string, db_query, db_param, db_column_width)
-   sip_stat_result.output = string_concate(output_buf, stat)
-
-   if stat:
-      sip_stat_result.result = "OK"
-   else:
-      sip_stat_result.result = "NOK"
-
+   db_param = [sip_stat_omp.yesterday,sip_stat_omp.today]
+   sip_stat_result = sip_stat_omp.make_output()
    return sip_stat_result
 
 def altibase_tablespace():
-   column_name = '알티베이스 메모리 사용률'
-   column_width = 78
-   hc_result_table = HcCmdResultTalbe(column_name, column_width)
-   altibase_tablespace_result = HcResult()
+   altibase_tablespace_sps = OdbcQuery('알티베이스 메모리 사용률', 'altibase')
+   altibase_tablespace_sps.db_column_name=['MAX(M)','TOTAL(M)','ALLOC(M)','USED(M)','USAGE(%)']
+   altibase_tablespace_sps.db_column_width=['-16','-16','-16','-16','-16']
 
-   config = ConfigLoad()
-   dsn_from_config = config.get_item_from_section('DB DSN', 'altibase')
-   dsn_string = 'DSN=%s' % ( dsn_from_config)
-   logger.info('%s :: DB DSN : %s', GetCurFunc(), dsn_string)
-
-   db_column_name=['MAX(M)','TOTAL(M)','ALLOC(M)','USED(M)','USAGE(%)']
-   db_column_width=['-17','-17','-17','-17','-17']
-
-   db_query = """
+   altibase_tablespace_sps.db_query = """
    SELECT mem_max_db_size/1024/1024 'MAX(M)',
       round(mem_alloc_page_count*32/1024, 2) 'TOTAL(M)',
       trunc((mem_alloc_page_count-mem_free_page_count)*32/1024, 2) 'ALLOC(M)',
@@ -903,28 +849,8 @@ def altibase_tablespace():
       trunc(((mem_alloc_page_count-mem_free_page_count)*32*1024)/mem_max_db_size, 4)*100 'USAGE(%)'
    FROM v$database ;
    """
-   db_param = ''
-
-   db_column_name = print_column_name(db_column_name, db_column_width)
-#   db_column_name = hc_result_table.hc_header
-   output_buf = string_concate(hc_result_table.output, hc_result_table.hc_header)
-   output_buf = string_concate(output_buf, db_column_name)
-
-   tablespace, result = odbc_query_execute_fetchone(dsn_string, db_query, db_param, db_column_width)
-   altibase_tablespace_result.output = string_concate(output_buf, tablespace)
-
-   if result.result == "OK":
-#      vms_subscribers_result.output = string_concate(output_buf, vms_subscribers)
-      altibase_tablespace_result.result = "OK"
-
-   result_templ = "   %-10s %3s %-30s "
-   if result.result == "NOK":
-      altibase_tablespace_result.output = string_concate(output_buf, result.reason)
-      altibase_tablespace_result.result = "NOK"
-#      print result_templ % ("REASON", "=", result.reason)
-#      print result_templ % ("HELP","=","Subscribers count is available in SPS01/02")
-
-
+   altibase_tablespace_sps.db_param = ''
+   altibase_tablespace_result = altibase_tablespace_sps.make_output()
    return altibase_tablespace_result
 
 def print_column_name(column_name, column_width):
@@ -1051,6 +977,7 @@ def GetSystemManufacturer():
    output = os_execute('sudo /usr/sbin/dmidecode -s system-manufacturer | tail -1')
    logger.debug('%s :: Type output : %s', GetCurFunc(), type(output))
    SystemManufacturer = re.sub('\n','',output)
+   logger.info('%s :: System Manufacturer : %s', GetCurFunc(), SystemManufacturer)
    return SystemManufacturer
 
 def os_execute(OsCommand):
