@@ -11,22 +11,6 @@ MONTHLY = 100
 WEEKLY = 10
 DAILY = 1
 
-def section_from_config(section):
-   HCConfig = ConfigParser.RawConfigParser()
-   HCConfig.read(HC_CONFIG_PATH)
-
-   dict1 = {}
-   options = HCConfig.options(section)
-   for option in options:
-      try:
-         dict1[option] = HCConfig.getint(section, option)
-         if dict1[option] == -1:
-            HcLogger.logger.info('%s :: skip: %s', GetCurFunc(), option)
-      except:
-         logger.info('%s :: exception on %s', GetCurFunc(), option)
-         dict1[option] = None
-   return dict1
-
 def get_current_check_mode(args_monthly):
    ''' get check mode ? DAILY, WEEKLY,  MONTHLY '''
    DayOfTheWeek = datetime.datetime.today().weekday()
@@ -150,6 +134,7 @@ def main():
 #   ['/etc 백업', 'lib.vms_hc.etc_backup()',DAILY,'ALL'],
    ['총 가입자수 확인','lib.vms_hc.vms_subscribers()',DAILY,'SPS'],
    ['월간 alarm', 'lib.vms_hc.dis_alarm()',MONTHLY,'OMP'],
+   ['월간 CPU 통계 확인', 'lib.vms_hc.cpu_stat()',MONTHLY,'OMP'],
    ['SIP 통계 확인','lib.vms_hc.tars_sip_stat()',DAILY,'ALL'],
    ]
 

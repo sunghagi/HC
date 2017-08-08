@@ -9,6 +9,7 @@ import sys
 import time
 import datetime
 import glob
+import shutil
 import ConfigParser
 
 import inspect
@@ -18,7 +19,7 @@ from logging.handlers import TimedRotatingFileHandler
 
 LOG_FILE_PATH='/nas/HC/log/dellog.log'
 DellogConfigPath='/nas/HC/config/dellog.cfg'
-SCHEDULE_TIME='13:00'
+SCHEDULE_TIME='17:51'
 
 
 class DaemonLogger(object):
@@ -98,6 +99,12 @@ def main():
       logger.logger.info('[ %-5s ] log-path : %s', SectionName, LogPath)
 
       try:
+         log_type=DellogConfig.get(SectionName, 'log-type')
+      except ConfigParser.NoOptionError:
+         logger.logger.info("No option 'log-type' in section: %s", SectionName)
+         log-type="None"
+
+      try:
          LogFileExtention=DellogConfig.get(SectionName, 'log-extention')
       except ConfigParser.NoOptionError:
          logger.logger.info("No option 'log-extention' in section: %s", SectionName)
@@ -111,27 +118,30 @@ def main():
          logger.logger.info('sys.exit')
          sys.exit()
 
-      logger.logger.info('[ %-5s ] log-extention : %s , retention-period : %s Days', \
-                          SectionName, LogFileExtention, RetentionPeriodDay)
+      logger.logger.info('[ %-5s ] log-type : %s, log-extention : %s , retention-period : %s Days', \
+                          SectionName, log_type, LogFileExtention, RetentionPeriodDay)
 
       RetentionPeriodSec=int(RetentionPeriodDay)*24*60*60
       RetentionPeriodAgo=time.time() - RetentionPeriodSec
 
-      LogfileList = glob.glob(LogPath+'/*.'+LogFileExtention)
-#     !!!! insert check LogPath
-#     os.chdir(LogPath)
-#     for LogFile in os.listdir('.'):
+      if log_type == 'file':
+         LogfileList = glob.glob(LogPath+'/*.'+LogFileExtention)
+      elif log_type == 'dir':
+         LogfileList = glob.glob(LogPath+'/'+LogFileExtention)
+
       for LogFile in LogfileList:
+         logger.logger.info('%s :: Log File : %s', GetCurFunc(), LogFile)
          StatResult=os.stat(LogFile)
          mtime=StatResult.st_mtime
-#        print "%s : %s : %s" % (somefile, mtime, RetentionPeriodAgo)
          if mtime < RetentionPeriodAgo:
             try:
-               os.unlink(LogFile) # uncomment only if you are sure
-               logger.logger.info('%s :: Remove Log File : %s', GetCurFunc(), LogFile)
-            except:
-               logger.logger.info('Remove Log File Failure : %s', GetCurFunc(), LogFile)
-               sys.exit()
+               if log_type == 'file':
+                  os.unlink(LogFile)
+               if log_type == 'dir':
+                  shutil.rmtree(LogFile, ignore_errors=True)
+               logger.logger.info('%s :: Removed Log File : %s', GetCurFunc(), LogFile)
+            except Exception as e:
+               logger.logger.info('%s :: Remove Log File Failure : %s', GetCurFunc(), e)
    logger.logger.info('dellog.py End   ===================')
 
 if __name__ == "__main__":

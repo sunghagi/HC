@@ -25,7 +25,9 @@ class ConfigLoad():
 
    def load_config(self, config_file):
       if os.path.exists(config_file)==False:
-         raise Exception("%s file does not exist.\n" % config_file)
+#         raise Exception("%s file does not exist.\n" % config_file)
+         print "%s file does not exist.\n" % config_file
+         sys.exit()
 
       self.hc_config = ConfigParser.RawConfigParser()
       self.hc_config.read(config_file)
@@ -38,6 +40,9 @@ class ConfigLoad():
 
    def get_items_from_section(self, section):
       return self.hc_config.items(section)
+
+   def get_sections(self):
+      return self.hc_config.sections()
 
 class HcResult(object):
    ''' Health check status
@@ -752,7 +757,7 @@ def cpu_stat():
    if cpu_stat_omp.omc_type == '1' or cpu_stat_omp.omc_type == '2' :
       cpu_stat_omp.db_query = """
       SELECT B.SYSNAME, max(A.usages) as max_usages , round(avg(A.usages),1) as avg_usages
-      FROM sam_st_cpu_hour A INNER JOIN SAM_SYSTEM B
+      FROM SAM_ST_CPU_HOUR A INNER JOIN SAM_SYSTEM B
       ON A.SYSTEMID = B.SYSTEMID
       group by sysname;
       """
@@ -1208,8 +1213,8 @@ def route_status():
 
    route_result = ''
    route_result += "Kernel IP routing table\n"
-   route_result += "Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface\n"
-#	Netconf파일정보유무               비고\n"
+   route_result += "Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface "
+   route_result += "Netconf파일정보유무               비고\n"
 
    route_status_result.result = "OK"
 
@@ -1219,14 +1224,13 @@ def route_status():
    route_config_file_path = os.path.join(HC_CONFIG_ROUTE_PATH, route_config_file)
    logger.info('%s :: route_config_file_path : %s', GetCurFunc(), route_config_file_path)
 
-   HCConfig = ConfigParser.RawConfigParser()
-   HCConfig.read(route_config_file_path)
-   route_dest_sections_from_config=HCConfig.sections()
+   route_config = ConfigLoad(route_config_file_path)
+   route_dest_sections_from_config = route_config.get_sections()
 
    for route_dest_section in route_dest_sections_from_config:
-      DEST = HCConfig.get(route_dest_section, 'DEST')
-      GW = HCConfig.get(route_dest_section, 'GW')
-      DESC = HCConfig.get(route_dest_section, 'DESC')
+      DEST = route_config.get_item_from_section(route_dest_section, 'DEST')
+      GW = route_config.get_item_from_section(route_dest_section, 'GW')
+      DESC = route_config.get_item_from_section(route_dest_section, 'DESC')
 
       search_result = "NOK"
       for route_command_result_line in route_command_result_list:
@@ -1245,11 +1249,13 @@ def route_status():
                   netconf_file_info = '자체 네트워크'
                else :
                   netconf_file_info = single_grep(DEST, network_scripts_file)
-                  logger.info('%s :: %s in netconf_file_info ?: %s', GetCurFunc(), dest_with_cidr, netconf_file_info)
+                  logger.info('%s :: %s in netconf_file_info ?: %s', \
+                               GetCurFunc(), dest_with_cidr, netconf_file_info)
                   if netconf_file_info == None:
                      netconf_file_info = '미존재'
                      route_status_result.result = "NOK"
-            route_result += "%-78s\n==> %-33s %s\n" % ( route_command_result_line, netconf_file_info, DESC)
+            route_result += "%-78s %-33s %s\n" % \
+                            ( route_command_result_line, netconf_file_info, DESC)
             search_result = "OK"
             break
       if search_result != "OK":
