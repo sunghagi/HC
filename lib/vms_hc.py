@@ -54,7 +54,7 @@ class HcResult(object):
 
    def __init__(self):
       self.result = 'OK'
-      self.outout = ""
+      self.output = ""
 #      self.width = width
 #   ResultList = [index, CheckDate, TodayCheckPeriod, SystemNumber, HostName, ItemDesc, CmdResult, ReturnString]
 
@@ -420,9 +420,7 @@ def etc_backup():
    CMD = '/usr/bin/file '+BackupFileName
    backup_status = os_execute(CMD)
 
-   if os.path.exists(BackupFileName):
-      backup_result.result = "OK"
-   else:
+   if not os.path.exists(BackupFileName):
       backup_result.result = "NOK"
 
    hc_result_table._concate(backup_status)
@@ -479,9 +477,7 @@ def ntp_status():
 
    sync_char = re.findall("\*.*", ntp_status)
 
-   if sync_char:
-      ntp_status_result.result = "OK"
-   else:
+   if not sync_char:
       ntp_status_result.result = "NOK"
 
    hc_result_table._concate(ntp_status)
@@ -1009,7 +1005,6 @@ def net_io_counters():
    hc_result_table = HcCmdResultTalbe('NET IO 확인',78)
 
    buf = ""
-   net_io_counters_result.result = "OK"
    for nic, netio_counters in psutil.net_io_counters(pernic=True).items():
       if nic == 'lo' or nic == 'sit0':
          continue
@@ -1036,12 +1031,13 @@ def net_if_stats():
    hc_result_table = HcCmdResultTalbe('NET interface 확인',78)
 
    buf = ""
-   net_if_stats_result.result = "OK"
    for nic, nic_stats in psutil.net_if_stats().items():
       if nic == 'lo' or nic == 'sit0':
          continue
 
-      buf += " NIC : %4s, isup : %5s, duplex : %3s, speed : %4s" % (nic, nic_stats.isup, duplex_map[nic_stats.duplex], nic_stats.speed)  + '\n'
+      buf += " %s :\n" % ( nic )
+      buf += "    stats : up=%s, duplex=%s, speed=%s" % \
+            ("yes" if nic_stats.isup else "no", duplex_map[nic_stats.duplex], nic_stats.speed)  + '\n'
       if nic_stats.isup != True or nic_stats.duplex != 2:
          net_if_stats_result.result = "NOK"
 
@@ -1056,10 +1052,6 @@ def net_if_address():
    net_if_addrs_result = HcResult()
    hc_result_table = HcCmdResultTalbe('Net interface address 확인',78)
 
-   config = ConfigLoad()
-   net_if_addrs_from_config = config.get_items_from_section('ipa')
-   logger.info('%s :: net_if_addrs_from_config  : %s', GetCurFunc(), net_if_addrs_from_config)
-
    ipa_dic = {}
    for nic_name, nic_value_list in psutil.net_if_addrs().items():
       if nic_name == 'lo' or nic_name == 'sit0':
@@ -1071,8 +1063,18 @@ def net_if_address():
             continue
       ipa_dic[nic_name] = ip_addrs
 
+   config = ConfigLoad()
+   hc_home_path = config.get_item_from_section('main', 'path')
+   HC_CONFIG_IPADDR_PATH= os.path.join(hc_home_path, 'config/ipaddr')
+   HostInfo = lib.vms_hc.HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
+   HostInfo._host_info()
+   ipaddr_config_file = HostInfo.hostname + '.cfg'
+   ipaddr_config_file_path = os.path.join(HC_CONFIG_IPADDR_PATH, ipaddr_config_file)
+
+   config = ConfigLoad(ipaddr_config_file_path)
+   net_if_addrs_from_config = config.get_items_from_section('ipaddr')
+
    buf = ""
-   net_if_addrs_result.result = "OK"
    for nic_name_conf, ip_addrs_conf in net_if_addrs_from_config:
       search_result = "OK"
       ip_addrs_sys = ipa_dic.get(nic_name_conf)
@@ -1102,7 +1104,7 @@ def ping_status():
    ping_config_file_path = os.path.join(HC_CONFIG_PING_PATH, ping_config_file)
 
    config = ConfigLoad(ping_config_file_path)
-   gateway_ip = config.get_item_from_section('default', 'gateway')
+   gateway_ip = config.get_item_from_section('default', 'GW')
 
    ping_command='ping -c 4 -w 4 ' + gateway_ip
    ping_result = os_execute(ping_command)
@@ -1113,9 +1115,7 @@ def ping_status():
          PingResult = line.split(',')
    PacketLoss = re.findall(r'\d', PingResult[2])
 
-   if int(PacketLoss[0]) < 20:
-      ping_status_result.result = "OK"
-   else:
+   if int(PacketLoss[0]) > 20:
       ping_status_result.result = "NOK"
 
 #   print ' Packet Loss : %2s %% ' % (PacketLoss[0])
@@ -1142,8 +1142,6 @@ def route_status():
    route_result += "Kernel IP routing table\n"
    route_result += "Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface "
    route_result += "Netconf파일정보유무               비고\n"
-
-   route_status_result.result = "OK"
 
    HostInfo = lib.vms_hc.HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
    HostInfo._host_info()
@@ -1209,7 +1207,6 @@ def crontab_status():
    crontab_command_result_list = crontab_command_result.split('\n')
 
    crontab_result = ''
-   crontab_status_result.result = "OK"
    for crontab_entry,crontab_command in crontab_from_config:
       search_result = "NOK"
       for crontab_command_result_line in crontab_command_result_list:
@@ -1234,8 +1231,6 @@ def sshd_status():
    sshd_status_result = HcResult()
    hc_result_table = HcCmdResultTalbe('sshd running 확인',78)
 
-   sshd_status_result.result = "OK"
-
    SSHD_PID = "/var/run/sshd.pid"
    try:
       f = open(SSHD_PID, 'r')
@@ -1256,8 +1251,8 @@ def sshd_status():
    templ = "%-13s %6s %6s   %-5s %-5s %-20s %-s\n"
    buf += templ % (p.name(), p.pid, p.ppid(), p.username(), round(p.memory_percent(),1),"".join(p.cmdline()), create_time)
 
-   if p.name() == 'sshd':
-      sshd_status_result.result = "OK"
+#   if p.name() == 'sshd':
+#      sshd_status_result.result = "OK"
 
    hc_result_table._concate(buf)
    sshd_status_result.output = hc_result_table.output

@@ -116,6 +116,7 @@ def main():
 
    health_check_items = [
    ['Process 확인', 'lib.vms_hc.process_display()',DAILY,'ALL'],
+   ['sshd 확인', 'lib.vms_hc.sshd_status()',DAILY,'ALL'],
    ['CORE 파일 생성 확인','lib.vms_hc.corefile_status()',DAILY,'ALL'],
    ['Ping 확인', 'lib.vms_hc.ping_status()',DAILY,'ALL'],
    ['route 확인', 'lib.vms_hc.route_status()',DAILY,'ALL'],
@@ -126,8 +127,8 @@ def main():
    ['DISK 사용률 확인','lib.vms_hc.disk_usage()',DAILY,'ALL'],
    ['시스템 Uptime 확인', 'lib.vms_hc.uptime_status()',DAILY,'ALL'],
    ['디스크 이중화 상태 확인', 'lib.vms_hc.disk_mirror_status()',DAILY,'ALL'],
-#   ['Net If Address 확인', 'lib.vms_hc.net_if_address()',DAILY,'ALL'],
-#   ['NIC IF 확인', 'lib.vms_hc.net_if_stats()',DAILY,'ALL'],
+   ['Net If Address 확인', 'lib.vms_hc.net_if_address()',DAILY,'ALL'],
+   ['NIC IF 확인', 'lib.vms_hc.net_if_stats()',DAILY,'ALL'],
 #   ['NIC IO 확인', 'lib.vms_hc.net_io_counters()',DAILY,'ALL'],
 #   ['알티베이스 메모리 사용률','lib.vms_hc.altibase_tablespace("DSN=odbc_local")',DAILY,'SPS'],
    ['좀비 프로세스 확인', 'lib.vms_hc.process_status()',DAILY,'ALL'],
