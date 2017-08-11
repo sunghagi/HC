@@ -348,10 +348,12 @@ def disk_usage():
    config = ConfigLoad()
    DISK_THRESHOLD = config.getint_item_from_section('threshold', 'disk')
 
-   list_partitions = psutil.disk_partitions()
+   list_partitions = psutil.disk_partitions(all=True)
    buf = ' Filesystem            Size   Used  Avail   Use%     Mounted on\n'
-   templ = "% -20s %6s %6s %6s %6s     %-20s"
+   NON_PHYSICAL_DEVICE = ['', 'proc', 'sysfs', 'devpts', 'tmpfs', 'sunrpc']
    for part in list_partitions:
+      if part.device in NON_PHYSICAL_DEVICE:
+         continue
       fs = part.device
       size = psutil.disk_usage(part.mountpoint).total
       used = psutil.disk_usage(part.mountpoint).used
@@ -360,8 +362,13 @@ def disk_usage():
       if (usage > DISK_THRESHOLD):
          disk_usage_result.result = "NOK"
       mounton = part.mountpoint
-      buf = buf + templ % (fs, bytes2human(size), bytes2human(used), \
-                           bytes2human(avail), usage, mounton) + '\n'
+      if len(fs) > 20:
+         templ = "% -20s \n %26s %6s %6s %6s     %-20s"
+      else:
+         templ = "% -20s %6s %6s %6s %6s     %-20s"
+
+      buf += templ % (fs, bytes2human(size), bytes2human(used), \
+                      bytes2human(avail), usage, mounton) + '\n'
 
    hc_result_table = HcCmdResultTalbe('DISK 사용률 확인',65)
    hc_result_table._concate(buf)
@@ -1258,3 +1265,33 @@ def sshd_status():
    sshd_status_result.output = hc_result_table.output
 
    return sshd_status_result
+
+def nas_status():
+   ''' Check NAS status
+   '''
+   nas_status_result = HcResult()
+   hc_result_table = HcCmdResultTalbe('NAS Fault 확인',78)
+
+   NAS_CLI = "/opt/Navisphere/bin/naviseccli"
+
+   config = ConfigLoad()
+   nas_sp_ipaddr = config.get_item_from_section('ip address', 'nas_sp')
+   logger.debug('%s :: nas_sp_ipaddr  : %s', GetCurFunc(), nas_sp_ipaddr)
+
+   nascli_command='sudo ' + NAS_CLI + ' ' \
+                   '-User sysadmin -Password sysadmin -Scope 0 -h ' + \
+                   nas_sp_ipaddr + ' ' + \
+                   'faults -list'
+
+   nascli_command_result = os_execute(nascli_command)
+   nascli_command_result_list = nascli_command_result.split('\n')
+   logger.debug('%s :: nascli_command_result  : %s', GetCurFunc(), nascli_command_result)
+   fault_msg = re.findall("Faulted", nascli_command_result)
+
+   if fault_msg:
+      nas_status_result.result = "NOK"
+
+   hc_result_table._concate(nascli_command_result)
+   nas_status_result.output = hc_result_table.output
+
+   return nas_status_result

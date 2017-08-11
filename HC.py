@@ -138,6 +138,7 @@ def main():
    ['월간 alarm', 'lib.vms_hc.dis_alarm()',MONTHLY,'OMP'],
    ['월간 CPU 통계 확인', 'lib.vms_hc.cpu_stat()',MONTHLY,'OMP'],
    ['SIP 통계 확인','lib.vms_hc.tars_sip_stat()',DAILY,'OMP'],
+   ['NAS Fault 확인','lib.vms_hc.nas_status()',DAILY,'OMP'],
    ]
 
    current_check_mode = get_current_check_mode(args.monthly)
