@@ -132,7 +132,7 @@ def main():
 #   ['NIC IO 확인', 'lib.vms_hc.net_io_counters()',DAILY,'ALL'],
 #   ['알티베이스 메모리 사용률','lib.vms_hc.altibase_tablespace("DSN=odbc_local")',DAILY,'SPS'],
    ['좀비 프로세스 확인', 'lib.vms_hc.process_status()',DAILY,'ALL'],
-#   ['/etc 백업', 'lib.vms_hc.etc_backup()',DAILY,'ALL'],
+   ['/etc 백업', 'lib.vms_hc.etc_backup()',DAILY,'ALL'],
    ['총 가입자수 확인','lib.vms_hc.vic_subscribers()',DAILY,'SPS'],
    ['altibase tablespace 확인','lib.vms_hc.altibase_tablespace()', DAILY,'SPS'],
    ['월간 alarm', 'lib.vms_hc.dis_alarm()',MONTHLY,'OMP'],

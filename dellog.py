@@ -102,7 +102,7 @@ def main():
          log_type=DellogConfig.get(SectionName, 'log-type')
       except ConfigParser.NoOptionError:
          logger.logger.info("No option 'log-type' in section: %s", SectionName)
-         log-type="None"
+         log_type="None"
 
       try:
          LogFileExtention=DellogConfig.get(SectionName, 'log-extention')

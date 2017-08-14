@@ -15,8 +15,8 @@ SRCDIR2="/var/log/secure /var/log/dmesg /var/log/messages /var/log/wtmp \
 /var/log/btmp"
 SRCDIR3=/root/.bash_history
 
-DESDIR1=/nas/HC/ETC_BK # Destination of backup file.
-DESDIR2=/nas/HC/Secure # Destination of backup file.
+DESDIR1=/nas/ETC_BK # Destination of backup file.
+DESDIR2=/nas/Secure # Destination of backup file.
 
 # For gnu/tar
 tar -cpzf $DESDIR1/$FILENAME1 $SRCDIR1

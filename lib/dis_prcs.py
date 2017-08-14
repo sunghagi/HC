@@ -200,11 +200,11 @@ def DisplayProcess(ProcessName, longcmd):
                     else:
                         cmdline = 'STATUS_UNKNOWN'
 # CPU disable
-                cpu_percent = p.cpu_percent(interval=None)
+#                cpu_percent = p.cpu_percent(interval=None)
 #                templ = "%-11s %5s %5s  %-5s %-4s %-4s %-34s %-s"
+                templ = "%-13s %5s %5s  %-6s %4s %-34s %-s"
 #                AppendRunningProcessList.append(templ % (PidProcessName, p.pid, p.ppid(), p.username(), cpu_percent, round(p.memory_percent(),1), cmdline, create_time))
 
-                templ = "%-13s %5s %5s  %-6s %4s %-34s %-s"
                 AppendRunningProcessList.append(templ % (PidProcessName, p.pid, p.ppid(), p.username(), round(p.memory_percent(),1), cmdline, create_time))
     logger.debug('%s :: Running process list : \n%s ', GetCurFunc(), '\n'.join(AppendRunningProcessList))
     
@@ -263,9 +263,8 @@ def ha_process_name(HOST_INFO):
     return AppendProcessNameList
 
 def omc_process_name(HOST_INFO):
-    omc_config = ConfigParser.RawConfigParser()
-    omc_config.read('/nas/HC/config/hc.cfg')
-    omc_type = omc_config.get('omc type','type')
+    config = ConfigLoad()
+    omc_type = config.get_item_from_section('omc type', 'type')
     logger.info('%s :: omc_type : %s', GetCurFunc(), omc_type)
     AppendProcessNameList = []
 

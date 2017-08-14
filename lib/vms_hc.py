@@ -11,6 +11,7 @@ import socket
 import os.path
 import ConfigParser
 from lib.log import *
+from collections import namedtuple
 
 #logger = hcLogger('root')
 logger = HcLogger()
@@ -349,7 +350,7 @@ def disk_usage():
    DISK_THRESHOLD = config.getint_item_from_section('threshold', 'disk')
 
    list_partitions = psutil.disk_partitions(all=True)
-   buf = ' Filesystem            Size   Used  Avail   Use%     Mounted on\n'
+   buf = ' Filesystem             Size    Used   Avail    Use%     Mounted on\n'
    NON_PHYSICAL_DEVICE = ['', 'proc', 'sysfs', 'devpts', 'tmpfs', 'sunrpc']
    for part in list_partitions:
       if part.device in NON_PHYSICAL_DEVICE:
@@ -363,14 +364,14 @@ def disk_usage():
          disk_usage_result.result = "NOK"
       mounton = part.mountpoint
       if len(fs) > 20:
-         templ = "% -20s \n %26s %6s %6s %6s     %-20s"
+         templ = "% -20s \n %27s %7s %7s %7s     %-20s"
       else:
-         templ = "% -20s %6s %6s %6s %6s     %-20s"
+         templ = "% -20s %7s %7s %7s %7s     %-20s"
 
       buf += templ % (fs, bytes2human(size), bytes2human(used), \
                       bytes2human(avail), usage, mounton) + '\n'
 
-   hc_result_table = HcCmdResultTalbe('DISK 사용률 확인',65)
+   hc_result_table = HcCmdResultTalbe('DISK 사용률 확인',70)
    hc_result_table._concate(buf)
    disk_usage_result.output = hc_result_table.output
 
@@ -424,13 +425,13 @@ def etc_backup():
    BackupFileName = os.path.join(etc_backup_path, 'etc_bkup_'+BackupHost+'_'+BackupDate+'.tar.gz')
    logger.info('%s :: BackupFileName : %s', GetCurFunc(), BackupFileName)
 
-   CMD = '/usr/bin/file '+BackupFileName
-   backup_status = os_execute(CMD)
+   backup_file_chk_cmd = '/usr/bin/file '+BackupFileName
+   os_exec_result = os_execute(backup_file_chk_cmd)
 
    if not os.path.exists(BackupFileName):
       backup_result.result = "NOK"
 
-   hc_result_table._concate(backup_status)
+   hc_result_table._concate(os_exec_result.output)
    backup_result.output = hc_result_table.output
 
    return backup_result
@@ -469,9 +470,9 @@ def process_display():
    hc_home_path = config.get_item_from_section('main', 'path')
 
    process_display_command = os.path.join(hc_home_path,'DIS-PRCS.py')
-   process_display_output = os_execute(process_display_command)
+   os_exec_result = os_execute(process_display_command)
 
-   hc_result_table._concate(process_display_output)
+   hc_result_table._concate(os_exec_result.output)
    process_display_result.output = hc_result_table.output
 
    return process_display_result
@@ -480,14 +481,14 @@ def ntp_status():
    ntp_status_result = HcResult()
    hc_result_table = HcCmdResultTalbe('NTP 연동 확인 : ntpq -p',78)
 
-   ntp_status = os_execute("/usr/sbin/ntpq -p")
+   os_exec_result = os_execute("/usr/sbin/ntpq -p")
 
-   sync_char = re.findall("\*.*", ntp_status)
+   sync_char = re.findall("\*.*", os_exec_result.output)
 
    if not sync_char:
       ntp_status_result.result = "NOK"
 
-   hc_result_table._concate(ntp_status)
+   hc_result_table._concate(os_exec_result.output)
    ntp_status_result.output = hc_result_table.output
 
    return ntp_status_result
@@ -546,8 +547,8 @@ def corefile_status():
       for CoreFileName in files:
          # OMA는 root 권한 필요
          CMD = 'sudo /usr/bin/file '+core_file_path+'/'+CoreFileName
-         output = os_execute(CMD)
-         buf += output
+         os_exec_result = os_execute(CMD)
+         buf += os_exec_result.output
       if files:
          corefile_status_result.result = "NOK"
 
@@ -576,42 +577,44 @@ def disk_mirror_status():
    hc_result_table = HcCmdResultTalbe('디스크 이중화 상태 확인 : '+os_command, 78)
 
    if SYS_MANUF == 'HP':
-      CheckAnotherInstanceOfHpacucli='ps -ef | /bin/grep ' + hp_storage_admin_tool + ' | /bin/grep -v grep'
-      CheckAnotherInstanceOfHpacucliResult = os_execute(CheckAnotherInstanceOfHpacucli)
-      logger.info('%s :: CheckAnotherInstanceOfHpacucliResult : \n%s', GetCurFunc(), CheckAnotherInstanceOfHpacucliResult)
-      CMD='sudo /usr/sbin/'+ hp_storage_admin_tool +' ctrl slot=0 show config | /bin/grep logicaldrive'
-      if CheckAnotherInstanceOfHpacucliResult:
-         logger.info('%s :: Another instance of %s is running! waiting 3 seconds', GetCurFunc(), hp_storage_admin_tool)
+      ps_cmd = 'ps -ef | /bin/grep ' + hp_storage_admin_tool + ' | /bin/grep -v grep | cat'
+      ps_cmd_result = os_execute(ps_cmd)
+      logger.info('%s :: hp_storage_admin_tool status : \n%s', GetCurFunc(), ps_cmd_result.output)
+      find_ps_cmd_result = re.findall(hp_storage_admin_tool, ps_cmd_result.output)
+      if find_ps_cmd_result:
+         logger.info('%s :: Another instance of %s is running! waiting 3 seconds',\
+                      GetCurFunc(), hp_storage_admin_tool)
          time.sleep(3)
-         std_out = os_execute(CMD)
-      else:
-         std_out = os_execute(CMD)
-      logger.info('%s :: %s ctrl slot=0 show config result : \n%s', GetCurFunc(), hp_storage_admin_tool, std_out)
-
-      OK = re.findall("OK", std_out)
+      hptool_run_cmd='sudo /usr/sbin/'+ hp_storage_admin_tool +' ctrl slot=0 show config | /bin/grep logicaldrive'
+      hptool_run_cmd_result = os_execute(hptool_run_cmd)
+      logger.info('%s :: %s ctrl slot=0 show config result : \n%s', \
+		            GetCurFunc(), hp_storage_admin_tool, hptool_run_cmd_result.output)
+      buf = hptool_run_cmd_result.output
+      OK = re.findall("OK", hptool_run_cmd_result.output)
    elif SYS_MANUF == 'Advantech':
-      std_out = "SKIP"
+      buf = "SKIP"
       OK = True
    elif SYS_MANUF == 'Red Hat':
-      std_out = "SKIP"
+      buf = "SKIP"
       OK = True
    else:
-      std_out = os_execute("sudo mpt-status -p | /bin/grep Found")
-      logger.info('%s :: std_out : |%s| ', GetCurFunc(), std_out)
-      Buf = re.sub(",.*",'', std_out)
+      mpt_status_result = os_execute("sudo mpt-status -p | /bin/grep Found")
+      logger.info('%s :: std_out : |%s| ', GetCurFunc(), mpt_status_result.output)
+      Buf = re.sub(",.*",'', mpt_status_result.output)
       SCSI_ID = re.sub("\D",'', Buf)
 
       CMD='sudo mpt-status -i '+SCSI_ID+' | /bin/grep state'
       logger.info('%s :: CMD : %s ', GetCurFunc(), CMD)
-      std_out = os_execute(CMD)
-      OK = re.findall("OPTIMAL", std_out)
+      mpt_status_result = os_execute(CMD)
+      buf = mpt_status_result.output
+      OK = re.findall("OPTIMAL", mpt_status_result.output)
 
    if OK:
       disk_mirror_status_result.result = "OK"
    else:
       disk_mirror_status_result.result = "NOK"
 
-   hc_result_table._concate(std_out)
+   hc_result_table._concate(buf)
    disk_mirror_status_result.output = hc_result_table.output
 
    return disk_mirror_status_result
@@ -825,7 +828,7 @@ def sip_stat():
    sip_stat_omp = OdbcQuery('SIP 통계 확인', 'mysql')
    sip_stat_omp.db_column_name=['통계시간','TotalCount','CPS','사용량(%)/300 CPS']
    sip_stat_omp.db_column_width=['-20','-20','-20', '-20']
-   db_query = """
+   sip_stat_omp.db_query = """
    select DATE_FORMAT(collectTime, '%Y-%m-%d %H:%i') AS collectTime,
    SUM(invite) invite,
    ROUND(SUM(invite)/5/60,1) CPS,
@@ -835,7 +838,7 @@ def sip_stat():
    group by collectTime
    order by sum(invite) desc limit 0,1;
    """
-   db_param = [sip_stat_omp.yesterday,sip_stat_omp.today]
+   sip_stat_omp.db_param = [sip_stat_omp.yesterday,sip_stat_omp.today]
    sip_stat_result = sip_stat_omp.make_output()
    return sip_stat_result
 
@@ -977,21 +980,25 @@ def odbc_query_execute_fetchall(DSN,db_query,db_param, column_width):
 
 
 def GetSystemManufacturer():
-   output = os_execute('sudo /usr/sbin/dmidecode -s system-manufacturer | tail -1')
-   logger.debug('%s :: Type output : %s', GetCurFunc(), type(output))
-   SystemManufacturer = re.sub('\n','',output)
+   os_exec_result = os_execute('sudo /usr/sbin/dmidecode -s system-manufacturer | tail -1')
+   SystemManufacturer = re.sub('\n','', os_exec_result.output)
    logger.info('%s :: System Manufacturer : %s', GetCurFunc(), SystemManufacturer)
    return SystemManufacturer
 
-def os_execute(OsCommand):
+def os_execute(OS_COMMAND):
+   ATTR_OS_EXEC_RESULT = 'output, exit_code'
+   result_exec_tpl = namedtuple('result_exec_tpl', ATTR_OS_EXEC_RESULT)
    try:
-      std_out = subprocess.check_output(OsCommand, stderr=subprocess.STDOUT, shell=True)
+      std_out = subprocess.check_output(OS_COMMAND, stderr=subprocess.STDOUT, shell=True)
+      exit_code = 0
    except subprocess.CalledProcessError as e:
       logger.exception('%s :: error return code : %s', GetCurFunc(), e.returncode)
       std_out = e.output
+      exit_code = 1
    logger.debug('%s :: std_out : \n%s', GetCurFunc(), std_out)
+   result_exec = result_exec_tpl._make([std_out, exit_code])
 
-   return std_out
+   return result_exec
 
 def ip_address_List():
    ''' return IP address list
@@ -1115,7 +1122,7 @@ def ping_status():
 
    ping_command='ping -c 4 -w 4 ' + gateway_ip
    ping_result = os_execute(ping_command)
-   ping_result_list = ping_result.split('\n')
+   ping_result_list = ping_result.output.split('\n')
 
    for line in ping_result_list:
       if 'packet loss' in line:
@@ -1127,7 +1134,7 @@ def ping_status():
 
 #   print ' Packet Loss : %2s %% ' % (PacketLoss[0])
 
-   hc_result_table._concate(ping_result)
+   hc_result_table._concate(ping_result.output)
    ping_status_result.output = hc_result_table.output
 
    return ping_status_result
@@ -1143,7 +1150,7 @@ def route_status():
 
    route_command='/bin/netstat -rn'
    route_command_result = os_execute(route_command)
-   route_command_result_list = route_command_result.split('\n')
+   route_command_result_list = route_command_result.output.split('\n')
 
    route_result = ''
    route_result += "Kernel IP routing table\n"
@@ -1211,7 +1218,7 @@ def crontab_status():
 
    crontab_command='sudo crontab -l'
    crontab_command_result = os_execute(crontab_command)
-   crontab_command_result_list = crontab_command_result.split('\n')
+   crontab_command_result_list = crontab_command_result.output.split('\n')
 
    crontab_result = ''
    for crontab_entry,crontab_command in crontab_from_config:
@@ -1282,16 +1289,16 @@ def nas_status():
                    '-User sysadmin -Password sysadmin -Scope 0 -h ' + \
                    nas_sp_ipaddr + ' ' + \
                    'faults -list'
-
    nascli_command_result = os_execute(nascli_command)
-   nascli_command_result_list = nascli_command_result.split('\n')
+       
+   nascli_command_result_list = nascli_command_result.output.split('\n')
    logger.debug('%s :: nascli_command_result  : %s', GetCurFunc(), nascli_command_result)
-   fault_msg = re.findall("Faulted", nascli_command_result)
+   fault_msg = re.findall("Faulted", nascli_command_result.output)
 
-   if fault_msg:
+   if fault_msg or nascli_command_result.exit_code:
       nas_status_result.result = "NOK"
 
-   hc_result_table._concate(nascli_command_result)
+   hc_result_table._concate(nascli_command_result.output)
    nas_status_result.output = hc_result_table.output
 
    return nas_status_result
