@@ -18,8 +18,8 @@ from lib.cmd import *
 BONDING_NIC_NAME=['bond0:1','bond1:1']
 LOCAL_IP_ADDR_NIC='bond0'
 #LOCAL_IP_ADDR_NIC='eth0'
-MAIL_ID_LIST=['hagee@pointi.com', 'jmpark@pointi.com','ksunglok@pointi.com','bluebriz@pointi.com']
-#MAIL_ID_LIST=['hagee@pointi.com']
+#MAIL_ID_LIST=['hagee@pointi.com', 'jmpark@pointi.com','ksunglok@pointi.com','bluebriz@pointi.com']
+MAIL_ID_LIST=['hagee@pointi.com']
 smtp_server  = "222.122.219.59"
 port = 587
 userid = 'hagee@pointi.com'
@@ -170,8 +170,7 @@ def main():
 	SystemList = ['IVMS01','IVMS02','IVMS03','IVMS04']
 	TmemoIsupSystemList = ['IVMS02','IVMS03']
 	VomoIsupSystemList = ['IVMS04']
-#	TmemoIsupSystemList = ['IVMS02']
-	TmemoSubsSystemList = ['IVMS03']
+#	TmemoSubsSystemList = ['IVMS03']
 
 	Subject = CheckDate + ' VoMo, T메모링 점검결과'
 	ResultMerge = ''
@@ -194,12 +193,12 @@ def main():
 		ResultPerSystem = cmd.GetTmemoIsupResult(CsvFileName,System)
 		ResultMerge = ResultMerge + '\n' + ResultPerSystem 
 
-	for System in TmemoSubsSystemList:
-		CsvFilePath = '/nas/HC/'
-		CsvFileName = CsvFilePath+CheckDate.replace('-','')+'_'+System+'.csv'
-		logger.info('%s :: CsvFileName : %s', cmd.GetCurFunc(), CsvFileName)
-		ResultPerSystem = cmd.GetTmemoSubsResult(CsvFileName,System)
-		ResultMerge = ResultMerge + '\n' + ResultPerSystem 
+#	for System in TmemoSubsSystemList:
+#		CsvFilePath = '/nas/HC/'
+#		CsvFileName = CsvFilePath+CheckDate.replace('-','')+'_'+System+'.csv'
+#		logger.info('%s :: CsvFileName : %s', cmd.GetCurFunc(), CsvFileName)
+#		ResultPerSystem = cmd.GetTmemoSubsResult(CsvFileName,System)
+#		ResultMerge = ResultMerge + '\n' + ResultPerSystem 
 
 #	MailText = Subject + ResultMerge
 	MailText = ResultMerge
