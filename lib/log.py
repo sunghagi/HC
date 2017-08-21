@@ -1,11 +1,13 @@
 #!/nas/HC/PYTHON2.7/bin/python -tt
-import sys
+from os import path
 import inspect
 import logging
 from logging.handlers import RotatingFileHandler
 from logging.handlers import TimedRotatingFileHandler
 
-LOG_FILE_PATH='/nas/HC/log/hc.log'
+#LOG_FILE_PATH='/nas/HC/log/hc.log'
+LOG_FILE_PATH = path.join(path.abspath(path.dirname(__file__)), \
+												'../log', 'hc.log')
 
 def HcLogger():
    logger = logging.getLogger(__name__)

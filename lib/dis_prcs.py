@@ -25,10 +25,10 @@ def GetCurFunc():
     return inspect.stack()[1][3]
 
 def PrintDashLine():
-    print "-" * 93
+    print("-" * 93)
 
 def PrintEqualLine():
-    print "=" * 93
+    print("=" * 93)
 
 def IP_address_List():
     ''' return IP address list
@@ -134,11 +134,13 @@ def poll(interval):
 def display_dellog_cron():
     cmd = 'sudo crontab -l| grep -i dellog'
     result = os_execute(cmd)
+    if len(result) > 68: 
+        result = result[:55] + '...'
 
     if result == '':
         result = 'DELLOG is not setup in crontab\n'
 
-    print 'DELLOG_CRON                root        %-s' % (result),
+    print('DELLOG_CRON                root    %-s' % (result))
 
 def display_dellog_cron_tomcat():
     config = ConfigLoad()
@@ -149,13 +151,13 @@ def display_dellog_cron_tomcat():
     if result == '':
         result = 'DELLOG for tomcat is not setup in crontab\n'
 
-    print 'DELLOG_CRON_TOMCAT         %-5s   %-s' % (userid, result),
+    print('DELLOG_CRON_TOMCAT         %-5s   %-s' % (userid, result),)
 
 def DisplayProcess(ProcessName, longcmd):
     RESULT = "OK"
     PrintEqualLine()
-#   print 'Prcs Name     PID  PPID  USER   %CPU %MEM PATH                               CREATE TIME'
-    print 'Prcs_Name       PID  PPID  USER   %MEM PATH                               START TIME'
+#   print('Prcs Name     PID  PPID  USER   %CPU %MEM PATH                               CREATE TIME')
+    print('Prcs_Name       PID  PPID  USER   %MEM PATH                               START TIME')
     PrintDashLine()
 
     pid_list = psutil.pids()
@@ -174,7 +176,7 @@ def DisplayProcess(ProcessName, longcmd):
                 for cmdline in p.cmdline():
                     if re.search('true',cmdline):
                         PidProcessName = cmdline.split('=', 1)[0].strip()
-#                       print cmdline
+#                       print(cmdline)
                         if re.search('java|file',PidProcessName):
                             continue
                         else:
@@ -223,12 +225,12 @@ def DisplayProcess(ProcessName, longcmd):
 #               if pl2 in pl3:
             if re.search(pl2, pl3, re.IGNORECASE):
                 process_status = "Running"
-                print pl3
+                print(pl3)
                 break
         else:
             process_status = "Not Running"
             RESULT = "NOK"
-            print '%-60s %-s' % (pl2, process_status)
+            print("%-60s %-s" % (pl2, process_status))
 
     PrintEqualLine()
     return RESULT
@@ -236,18 +238,18 @@ def DisplayProcess(ProcessName, longcmd):
 def print_column_name(column_name, column_width):
     total_width = sum(int(CW) for CW in column_width)
 
-    print "-" * abs(total_width)
+    print("-" * abs(total_width))
     for name, width in zip(column_name, column_width):
         print '%*s' % (int(width), name),
-    print ""
-    print "-" * abs(total_width)
+    print("")
+    print("-" * abs(total_width))
 
 
 def ConfigFileCheck(ConfigPath):
     import os.path
     if not os.path.isfile(ConfigPath):
-        print "Failed to open config file !!"
-        print "Check Server type !!"
+        print("Failed to open config file !!")
+        print("Check Server type !!")
         logger.info('%s :: Config File : %s', GetCurFunc(), ConfigPath)
         sys.exit()
 

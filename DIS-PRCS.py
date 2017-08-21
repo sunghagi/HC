@@ -7,13 +7,7 @@ import argparse
 import ConfigParser
 from lib.dis_prcs import *
 
-HCConfigPath='/nas/HC/config/hc.cfg'
 
-SPS_PNR_CONFIG_PATH='/home/vic/config/PNR/PNR.cfg'
-SPS_CDS_CONFIG_PATH='/home/vic/config/CDSIF.cfg'
-SPS_SMS_CONFIG_PATH='/home/vic/config/SMSIF.cfg'
-MPS_PNR_CONFIG_PATH='/home/vic/config/pnr/PNR.cfg'
-OMP_PNR_CONFIG_PATH='/home/vic/config/pnr/PNR.cfg'
 PNR_CONFIG_PATH='/home/vic/config/PNR/PNR.cfg'
 class DisPrcsException(Exception):
     pass
@@ -50,11 +44,11 @@ def main():
 
     pnr_process = pnr_process_name(HOST_INFO, PNR_CONFIG_PATH)
     omc_process = omc_process_name(HOST_INFO)
-    logger.info("%s :: omc_process : %s" , GetCurFunc(), omc_process)
+    logger.debug("%s :: omc_process : %s" , GetCurFunc(), omc_process)
     ha_process = ha_process_name(HOST_INFO)
 
     if HostClass == 'SPS':
-        etc_process = ['--','DELLOG_CRON','altibase']
+        etc_process = ['--','altibase','--','DELLOG_CRON']
     elif HostClass == "SIP":
         etc_process = ['--','DELLOG_CRON']
     elif HostClass == "OMP":
@@ -70,7 +64,7 @@ def main():
 
 ##### Display start
     PrintEqualLine()
-    head_title_templ0 = '                        SKT BDNG - VIC Process Check !!'
+    head_title_templ0 = ' '+SystemNumber+' Process Status '
     if HaInstalled :
         head_title_templ1 = ' HOST : %s %s ( HA : %s )'
         print head_title_templ0

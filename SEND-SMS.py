@@ -10,11 +10,14 @@ import time
 
 from lib.vms_hc import *
 
-SendSmsConfigPath='/nas/HC/config/sendsms.cfg'
-
 def AltibaseInsertQueryExecute(db_query,db_param):
-   from lib.altibase import AltibaseConn
-   db = AltibaseConn('DSN=tars_local')
+   from lib.odbc_conn import odbcConn
+
+   config = ConfigLoad()
+   dsn_from_config = config.get_item_from_section('DB DSN', 'altibase')
+   dsn_string = 'DSN=%s' % (dsn_from_config)
+#   db = AltibaseConn(dsn_string)
+   db = odbcConn(dsn_string)
    db._GetConnect()
 
    if db_param == '':
@@ -56,7 +59,7 @@ def gen_sms_text():
 
    HcPeriodCsv = GetHcPeriod(csv_file_name, HostInfo.system_name)
    if HcPeriodCsv == 'DAILY':
-      HcPeriod = '일일'
+      HcPeriod = "일일"
    elif HcPeriodCsv == 'WEEKLY':
       HcPeriod = '주간'
    elif HcPeriodCsv == 'MONTHLY':
@@ -68,12 +71,15 @@ def gen_sms_text():
    SMS_TEXT = sms_text_head + sms_text_hcresult
    logger.info('%s :: SMS TEXT : \n%s', GetCurFunc(), SMS_TEXT)
 
-   if len(SMS_TEXT) > 80:
-      # sms head text : 24 bytes : 2017-08-16 일일점검 결과
-      SMS_TEXT = SMS_TEXT[:77] + '...'
-      logger.info('%s :: sms length : %s', GetCurFunc(), len(SMS_TEXT))
+   sms_text_list = split2len(SMS_TEXT,80)
+#   print ('\n'.join(sms_text_list))
 
-   return SMS_TEXT
+#   if len(SMS_TEXT) > 80:
+#      # sms head text : 24 bytes : 2017-08-16 일일점검 결과
+#      SMS_TEXT = SMS_TEXT[:77] + '...'
+#      logger.info('%s :: sms length : %s', GetCurFunc(), len(SMS_TEXT))
+
+   return sms_text_list
 
 
 def GetHcPeriod(CsvFileName, SystemNumber):
@@ -86,8 +92,9 @@ def GetHcPeriod(CsvFileName, SystemNumber):
             if not Period == '':
                break
    except Exception as e:
-      logger.info('%s :: result : %s', GetCurFunc(), ', '.join(row))
       logger.exception('%s :: CSV file handle error : %s',GetCurFunc(), e)
+      print "%s 실행결과가 없습니다." % ( CsvFileName )
+      sys.exit()
       Period='DAILY'
    return Period
 
@@ -102,11 +109,17 @@ def SendSms(Phoneid, Message):
    INSERT INTO SMSINFO(SerialNo,PhoneId,CallerId,SmsType,Message) 
    VALUES(seq_smsinfo_serialno.NEXTVAL,?,'0112008585',0,?);
    """
-   db_param = [Phoneid,Message]
+   Message_unicode = unicode(Message,'euc-kr')
+   db_param = [Phoneid,Message_unicode]
+
    AltibaseInsertQueryExecute(pStmt,db_param)
 
 def phoneid_from_config():
-   config = ConfigLoad(SendSmsConfigPath)
+   config = ConfigLoad()
+   hc_home_path = config.get_item_from_section('main', 'path')
+   CONFIG_PATH = os.path.join(hc_home_path, 'config/sendsms.cfg')
+
+   config = ConfigLoad(CONFIG_PATH)
    phoneid_list = dict(config.get_items_from_section('hc result')).values()
 
    logger.debug('Phoneid List : %s', phoneid_list)
@@ -118,16 +131,14 @@ def main():
    parser.add_argument('-m', '--monthly', action='store_true')
    args = parser.parse_args()
 
-   sms_text_hcresult = gen_sms_text()
-#   HcResultMerge = ''
-#   HcResultMerge = HcResultMerge + '\n' + ResultPerSystem 
-
-   print sms_text_hcresult
+   sms_text_list = gen_sms_text()
 
    phoneid_list = phoneid_from_config()
    logger.info('%s :: SMS receive list : %s', GetCurFunc(), ', '.join(phoneid_list))
-#   for PhoneId in phoneid_list:
-#      SendSms(PhoneId, sms_text_hcresult)
+   for sms_text in sms_text_list:
+      logger.info('%s :: sms_text : %s', GetCurFunc(), sms_text)
+      for PhoneId in phoneid_list:
+         SendSms(PhoneId, sms_text)
 
 if __name__ == "__main__":
    main()

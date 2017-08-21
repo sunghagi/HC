@@ -16,8 +16,10 @@ from collections import namedtuple
 #logger = hcLogger('root')
 logger = HcLogger()
 
+default_config_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), \
+												'../config', 'hc.cfg')
+
 class ConfigLoad():
-   default_config_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), '../config', 'hc.cfg')
    logger.debug('%s :: config path : %s', GetCurFunc(), default_config_path)
 
    def __init__(self, config_file=default_config_path):
@@ -27,7 +29,7 @@ class ConfigLoad():
    def load_config(self, config_file):
       if os.path.exists(config_file)==False:
 #         raise Exception("%s file does not exist.\n" % config_file)
-         print "%s file does not exist.\n" % config_file
+         print("%s file does not exist.\n" % config_file)
          sys.exit()
 
       self.hc_config = ConfigParser.RawConfigParser()
@@ -197,6 +199,13 @@ def GetCurFunc():
 
 def oneline_print(str):
    return str[:75] + '...'
+
+def split2len(s, n):
+   def _f(s, n):
+      while s:
+         yield s[:n]
+         s = s[n:]
+   return list(_f(s,n))
 
 def string_concate(a, b):
    if not isinstance(b, str):
@@ -683,8 +692,8 @@ def tars_subscribers():
    if result.result == "NOK":
       vms_subscribers_result.output = string_concate(output_buf, result.reason)
       vms_subscribers_result.result = "NOK"
-#      print result_templ % ("REASON", "=", result.reason)
-#      print result_templ % ("HELP","=","Subscribers count is available in SPS01/02")
+#      print(result_templ % ("REASON", "=", result.reason))
+#      print(result_templ % ("HELP","=","Subscribers count is available in SPS01/02"))
 
    return vms_subscribers_result
 
@@ -791,8 +800,8 @@ def dis_alarm():
    alarm_start_time=checkday[0] + ' ' + '00:00:00'
    alarm_end_time=checkday[1] + ' ' + '23:59:59'
 
-#   print "알람 조회 기간 : %s ~ %s " % ( alarm_start_time, alarm_end_time )
-#   print "작업시간(02:00 ~ 05:59) 알람은 제외"
+#   print("알람 조회 기간 : %s ~ %s " % ( alarm_start_time, alarm_end_time ))
+#   print("작업시간(02:00 ~ 05:59) 알람은 제외")
    if dis_alarm_omp.omc_type == '1' or dis_alarm_omp.omc_type == '2' :
       dis_alarm_omp.db_query = """
       select A.firstTime,
@@ -1023,7 +1032,9 @@ def net_io_counters():
       if nic == 'lo' or nic == 'sit0':
          continue
 
-      buf += " NIC : %5s, errin : %3s, errout : %3s" % (nic, netio_counters.errin, netio_counters.errout)  + '\n'
+      buf += " %s :\n" % ( nic )
+      buf += "    errin : %3s, errout : %3s" % \
+		       (netio_counters.errin, netio_counters.errout)  + '\n'
       if netio_counters.errin >= 100 or netio_counters.errout >= 100:
          net_io_counters_result.result = "NOK"
 
@@ -1132,7 +1143,7 @@ def ping_status():
    if int(PacketLoss[0]) > 20:
       ping_status_result.result = "NOK"
 
-#   print ' Packet Loss : %2s %% ' % (PacketLoss[0])
+#   print(" Packet Loss : %2s %% " % PacketLoss[0])
 
    hc_result_table._concate(ping_result.output)
    ping_status_result.output = hc_result_table.output
