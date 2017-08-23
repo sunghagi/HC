@@ -1,82 +1,69 @@
 #!/nas/HC/PYTHON2.7/bin/python -tt
-# -*- coding: utf-8 -*-
-
-#!/nas/HC/PYTHON2.7/bin/python -tt
-# -*- coding: utf-8 -*-
+# -*- coding: euckr -*-
 import sys
 import lib.vms_hc
 #import datetime
 import argparse
-from Crypto.Cipher import AES
-import base64
-
-BS = 16
-pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS) 
-unpad = lambda s : s[0:-ord(s[-1])]
-
-class CipherAES(object):
-	def __init__(self, base64_encoded_key):
-		"""
-		key is base64_encoded_key
-		"""
-		self.key = base64.decodestring(base64_encoded_key)
-
-	def PKCS5Padding(self, raw_phoneid):
-		"""
-		If numberOfBytes(clearText) mod 8 == 7, PM = M + 0x01
-		If numberOfBytes(clearText) mod 8 == 6, PM = M + 0x0202
-		If numberOfBytes(clearText) mod 8 == 5, PM = M + 0x030303
-		...
-		If numberOfBytes(clearText) mod 8 == 0, PM = M + 0x0808080808080808
-		"""
-		padded_phoneid = raw_phoneid + (BS - len(raw_phoneid) % BS) * chr(BS - len(raw_phoneid) % BS)
-
-		return padded_phoneid
+import re
+from lib.vms_hc import *
 
 
-	def encrypt_AES(self, raw_phoneid):
-#		Cipher cipher = Cipher.getInstance("AES"); ==>  Java "AES" means AES/ECB/PKCS5Padding
-#		bs_phoneid = pad(raw_phoneid)
-		bs_phoneid = self.PKCS5Padding(raw_phoneid)
-		print repr(bs_phoneid)
+def dis_subs(phoneid):
+   vic_subs = OdbcQuery('VIC 가입자 정보','altibase')  
 
-		cipher = AES.new(self.key)  # Default is MODE_ECB. IV It is ignored for MODE_ECB and MODE_CTR.
-		encrypted_phoneid_hex = cipher.encrypt(bs_phoneid).encode("hex")
-#		print "enc_phoneid : %s" % ( enc_phoneid)
+   vic_subs.db_column_name=['가입자 전화번호','가입자 구분','가입자 이름 설정 여부',
+									'사서함 구분','단말 구분','CREATEDDATE','lastUpdatedDate']
+   vic_subs.db_column_width=['17','10','10','20','20']
+   vic_subs.set_vertical="on"
 
-		return encrypted_phoneid_hex
+   vic_subs.db_query = """
+   select PHONEID,
+   userClass,
+   greetFlag,
+   mmcType,
+   termType,
+   to_char(createdDate, 'YYYY-MM-DD'),
+   to_char(lastUpdatedDate, 'YYYY-MM-DD')
+   from SUBSCRIBERS
+   where phoneid = ?
+   """
+   vic_subs.db_param = phoneid
+   vic_subs_result = vic_subs.make_output()
 
-	def decrypt_AES(self, encrypted_phoneid_hex):
-		encrypted_phoneid = encrypted_phoneid_hex.decode("hex")
-		cipher = AES.new(self.key)
-		plain_phoneid = cipher.decrypt(encrypted_phoneid)
-#		print "plain_phoneid : %s" % ( plain_phoneid)
+   result_templ = "   %-10s %3s %-30s "
+   if vic_subs_result.result == "OK":
+      print vic_subs_result.output
+      print result_templ % ("RESULT", "=", vic_subs_result.result)
+   else:
+      print vic_subs_result.header
+      print result_templ % ("RESULT", "=", vic_subs_result.result)
+      print result_templ % ("REASON", "=", vic_subs_result.reason)
+   print ""
 
-		return plain_phoneid
+def is_phone_number(phoneid):
+#   rule = re.compile('01[0-9]{1}[0-9]{8}')
+   rule = re.compile(r'(01[0-9]{1}[0-9]{8})')
 
+   if not rule.search(phoneid):
+      msg = "%s is Invalid phone number." % phoneid
+      raise argparse.ArgumentTypeError(msg)
+   return phoneid
 
 def main():
-	parser = argparse.ArgumentParser(description="POINT-I Health Check Tool. This tool check a alarm.")
-	parser.add_argument('-p', '--phoneid', action='store', help="PREFIX, ex) 010-2099-1234, 2099")
-	args = parser.parse_args()
+   parser = argparse.ArgumentParser(description="POINT-I Health Check Tool. This tool check a alarm.")
+   parser.add_argument('-p', '--phoneid', action='store', required=True, type=is_phone_number, help="phoneid, ex) 01090874208")
+   args = parser.parse_args()
 
-	base64_encoded_key='ezRaQz4nPDtZSUM4QysoXw=='
-	decryptor = CipherAES(base64_encoded_key)
+#   HOST_INFO = lib.vms_hc.HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
+#   HOST_INFO._host_info()
 
-	encoded_phoneid = decryptor.encrypt_AES(args.phoneid)
-	print encoded_phoneid
-#	enc_phoneid = '9af1e9600bbe0f988a20b7030a026c50'
-	print "=============================="
-	dec_phoneid = decryptor.decrypt_AES(encoded_phoneid)
-	print unpad(dec_phoneid)
+#   SystemNumber = HOST_INFO.system_name
+#   HostName = HOST_INFO.hostname
+#   HostClass = HOST_INFO.hostclass
+#   HaStatus = HOST_INFO.ha_operating_mode
+#   HaInstalled = HOST_INFO.ha_installed
 
-#	DbParameter = []
-#	DbParameter.append(args.netid)
-#	DbParameter.append(args.prefix)
-
-#	print DbParameter
-
-#	cmd.DisPrefix("DSN=odbc_local", DbParameter)
+   dis_subs(args.phoneid)
 
 if __name__ == "__main__":
-	sys.exit(main())
+   sys.exit(main())

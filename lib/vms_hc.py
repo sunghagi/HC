@@ -79,6 +79,7 @@ class OdbcQuery(object):
       self.db_column_width = []
       self.db_query = ""
       self.db_parameter = ""
+      self.set_vertical = "off"
 
       config = ConfigLoad()
       self.omc_type = config.get_item_from_section('omc type', 'type')
@@ -90,23 +91,27 @@ class OdbcQuery(object):
       hc_result = HcResult()
 
       column_width = sum(int(CW) for CW in self.db_column_width)
-      hc_result_table = HcCmdResultTalbe(self.db_column_name, column_width)
-
-      title_table_row = print_column_name(self.db_column_name, self.db_column_width)
-
-      output_buf = string_concate(hc_result_table.output, title_table_row)
+      hc_result_table = HcCmdResultTalbe(self.hc_item_name, column_width)
+      if self.set_vertical == "on":
+         output_buf = hc_result_table.hc_header
+         direction = "vertical"
+      else:
+         title_table_row = print_column_name(self.db_column_name, self.db_column_width)
+         output_buf = string_concate(hc_result_table.hc_header, title_table_row)
+         direction = "Horizontal"
 
       logger.info('%s :: DB Query : %s', GetCurFunc(), self.db_query)
-      output_table_row, result = odbc_query_execute_fetchall(self.dsn_string, self.db_query, self.db_param, self.db_column_width)
+      output_table_row, result = odbc_query_execute_fetchall(self.dsn_string, self.db_query, self.db_param, self.db_column_name, self.db_column_width, direction)
 
       if result.result == "OK":
          hc_result.output = string_concate(output_buf, output_table_row)
          hc_result.result = "OK"
       else:
          logger.info('%s :: result.reason : %s', GetCurFunc(), result.reason)
+         hc_result.header = hc_result_table.hc_header
          hc_result.output = string_concate(output_buf, oneline_print(result.reason))
          hc_result.result = "NOK"
-         hc_result.resaon = result.reason
+         hc_result.reason = result.reason
 
       return hc_result
 
@@ -643,6 +648,7 @@ def vic_subscribers():
    vic_subscribers_sps = OdbcQuery('VIC 총가입자','altibase')
    vic_subscribers_sps.db_column_name = ['SUBSCRIBERS']
    vic_subscribers_sps.db_column_width = ['78']
+   vic_subscribers_sps.set_vertical = "on"
    vic_subscribers_sps.db_query = """
    select count(*) from subscribers
    """
@@ -855,6 +861,7 @@ def altibase_tablespace():
    altibase_tablespace_sps = OdbcQuery('알티베이스 메모리 사용률', 'altibase')
    altibase_tablespace_sps.db_column_name=['MAX(M)','TOTAL(M)','ALLOC(M)','USED(M)','USAGE(%)']
    altibase_tablespace_sps.db_column_width=['-16','-16','-16','-16','-16']
+   altibase_tablespace_sps.set_vertical="on"
 
    altibase_tablespace_sps.db_query = """
    SELECT mem_max_db_size/1024/1024 'MAX(M)',
@@ -926,7 +933,7 @@ def odbc_query_execute_fetchone(DSN,db_query,db_param, column_width):
 
    return output_buf, fetch_result
 
-def odbc_query_execute_fetchall(DSN,db_query,db_param, column_width):
+def odbc_query_execute_fetchall(DSN, db_query, db_param, column_name, column_width, direction):
    fetch_result = HcResult()
 
    output_buf = ""
@@ -942,7 +949,7 @@ def odbc_query_execute_fetchall(DSN,db_query,db_param, column_width):
    try:
       from lib.odbc_conn import odbcConn
    except ImportError as e:
-      logger.exception('%s :: error : %s', GetCurFunc(), e)
+      logger.exception('%s :: Import Error : %s', GetCurFunc(), e)
       output_buf += "=" * abs(total_width) + '\n'
       fetch_result.result = "NOK"
       fetch_result.reason = e
@@ -964,28 +971,58 @@ def odbc_query_execute_fetchall(DSN,db_query,db_param, column_width):
          db.cursor.execute(db_query)
       else :
          db.cursor.execute(db_query, db_param)
-      logger.debug('%s :: DB execute : query : %s', GetCurFunc(), db_query)
+      logger.info('%s :: DB execute : query : %s', GetCurFunc(), db_query)
    except Exception as e:
-      logger.exception('%s :: error : %s', GetCurFunc(), e[1])
+      logger.exception('%s :: Execute Error : %s', GetCurFunc(), e[1])
       output_buf += "=" * abs(total_width) + '\n'
       fetch_result.result = "NOK"
       fetch_result.reason = e[1] + '\n' + output_buf
       return output_buf, fetch_result
 
    rows = db.cursor.fetchall()
+   
    if len(rows) == 0:
       output_buf += "=" * abs(total_width) + '\n'
       fetch_result.result = "NOK"
       fetch_result.reason = "NOT_EXIST: empty list is returned"
       return output_buf, fetch_result
-   for row in rows:
-      for value, width in zip(row, column_width):
-         output_buf += '%*s' % (int(width), value)
-      output_buf += "\n"
-   output_buf += "=" * abs(total_width) + '\n'
-#   output_buf += "\n"
+
+   if direction == "vertical":
+      logger.info('%s :: output direction : %s', GetCurFunc(), direction)
+      str_rows = unicode2str(rows[0])
+      t = zip(column_name, str_rows)
+      logger.info('%s :: column_name, str_rows : %s', GetCurFunc(), t)
+      for x in t:
+         output_buf += " %30s : %20s\n" % (x[0], x[1])
+      output_buf += "=" * abs(total_width) + '\n'
+   else:
+      for row in rows:
+         for value, width in zip(row, column_width):
+            output_buf += '%*s' % (int(width), value)
+         output_buf += "\n"
+      output_buf += "=" * abs(total_width) + '\n'
+#      output_buf += "\n"
 
    return output_buf, fetch_result
+
+def unicode2str(unicode_list):
+   '''
+   unicodestring = u"Hello world"
+   # Convert Unicode to plain Python string: "encode"
+   utf8string = unicodestring.encode("utf-8")
+   # Convert plain Python string to Unicode: "decode"
+   plainstring1 = unicode(utf8string, "utf-8")
+
+   '''
+   str_list = []
+   for x in unicode_list:
+      if type(x) == unicode:
+         euckr_str = x.encode("euckr")
+      else:
+         euckr_str = x
+      str_list.append(euckr_str)
+
+   return str_list
 
 
 def GetSystemManufacturer():
