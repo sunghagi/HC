@@ -135,7 +135,7 @@ def main():
 #   ['/etc 백업', 'lib.vms_hc.etc_backup()',DAILY,'ALL'],
    ['총 가입자수 확인','lib.vms_hc.vic_subscribers()',DAILY,'SPS'],
    ['altibase tablespace 확인','lib.vms_hc.altibase_tablespace()', DAILY,'SPS'],
-   ['월간 alarm', 'lib.vms_hc.dis_alarm()',MONTHLY,'OMP'],
+#   ['월간 alarm', 'lib.vms_hc.dis_alarm()',MONTHLY,'OMP'],
    ['월간 CPU 통계 확인', 'lib.vms_hc.cpu_stat()',MONTHLY,'OMP'],
    ['SIP 통계 확인','lib.vms_hc.tars_sip_stat()',DAILY,'OMP'],
    ['NAS Fault 확인','lib.vms_hc.nas_status()',DAILY,'OMP'],

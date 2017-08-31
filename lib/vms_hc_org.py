@@ -1,5 +1,5 @@
 #!/nas/HC/PYTHON2.7/bin/python -tt
-# -*- coding: utf-8 -*-
+# -*- coding: euckr -*-
 import psutil
 import lib.hostconf
 import csv
@@ -105,9 +105,10 @@ class OdbcQuery(object):
          output_buf = string_concate(hc_result_table.hc_header, title_table_row)
          direction = "Horizontal"
 
+      logger.info('%s :: DB Query : %s', GetCurFunc(), self.db_query)
       unicode_db_query =  unicode(self.db_query,"euc-kr")
-      logger.debug('%s :: Unicode DB Query : %s', GetCurFunc(), unicode_db_query)
       output_table_row, result = odbc_query_execute_fetchall(self.dsn_string, unicode_db_query, self.db_param, self.db_column_name, self.db_column_width, direction)
+
       if result.result == "OK":
          hc_result.output = string_concate(output_buf, output_table_row)
          hc_result.result = "OK"
@@ -115,7 +116,6 @@ class OdbcQuery(object):
          logger.info('%s :: result.reason : %s', GetCurFunc(), result.reason)
          hc_result.header = hc_result_table.hc_header
          hc_result.output = string_concate(output_buf, oneline_print(result.reason))
-         hc_result.output += "=" * column_width + '\n'
          hc_result.result = "NOK"
          hc_result.reason = result.reason
 
@@ -209,7 +209,7 @@ def GetCurFunc():
    return inspect.stack()[1][3]
 
 def oneline_print(str):
-   return str[:75] + '...' + '\n'
+   return str[:75] + '...'
 
 def split2len(s, n):
    def _f(s, n):
@@ -978,11 +978,11 @@ def odbc_query_execute_fetchall(DSN, db_query, db_param, column_name, column_wid
       return output_buf, fetch_result
 
    try:
-      logger.info('%s :: DB execute : query type: %s', GetCurFunc(), type(db_query))
       if db_param == '':
          db.cursor.execute(db_query)
       else :
          db.cursor.execute(db_query, db_param)
+      logger.info('%s :: DB execute : query : %s', GetCurFunc(), db_query)
    except Exception as e:
       logger.exception('%s :: Execute Error : %s', GetCurFunc(), e[1])
       output_buf += "=" * abs(total_width) + '\n'
@@ -991,6 +991,7 @@ def odbc_query_execute_fetchall(DSN, db_query, db_param, column_name, column_wid
       return output_buf, fetch_result
 
    rows = db.cursor.fetchall()
+   print rows
    
    if len(rows) == 0:
       output_buf += "=" * abs(total_width) + '\n'
@@ -1001,8 +1002,8 @@ def odbc_query_execute_fetchall(DSN, db_query, db_param, column_name, column_wid
    logger.info('%s :: output direction : %s', GetCurFunc(), direction)
    if direction == "vertical":
       for row in rows:
-         str_row = unicode2str(row)
-         t = zip(column_name, str_row)
+         str_rows = unicode2str(row)
+         t = zip(column_name, str_rows)
          logger.info('%s :: column_name, str_rows : %s', GetCurFunc(), t)
          for x in t:
             output_buf += " %15s : %-20s\n" % (x[0], x[1])
@@ -1010,8 +1011,8 @@ def odbc_query_execute_fetchall(DSN, db_query, db_param, column_name, column_wid
       output_buf += "=" * abs(total_width) + '\n'
    else:
       for row in rows:
-         str_row = unicode2str(row)
-         for value, width in zip(str_row, column_width):
+         str_rows = unicode2str(row)
+         for value, width in zip(str_rows, column_width):
             output_buf += '%*s' % (int(width), value)
          output_buf += "\n"
       output_buf += "=" * abs(total_width) + '\n'
@@ -1031,10 +1032,10 @@ def unicode2str(unicode_list):
    str_list = []
    for x in unicode_list:
       if type(x) == unicode:
-         byte_str = x.encode("euc-kr")
+         euckr_byte_str = x.encode("utf-8")
       else:
-         byte_str = x
-      str_list.append(byte_str)
+         euckr_byte_str = x
+      str_list.append(euckr_byte_str)
 
    return str_list
 

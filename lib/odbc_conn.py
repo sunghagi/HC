@@ -12,7 +12,10 @@ class odbcConn(object):
 		''' Connect to the DB '''
 		try:
 			self.cnxn = pyodbc.connect(self.DSN)
-#			self.cnxn.setencoding(unicode, encoding='euckr')
+#			self.cnxn.setdecoding(pyodbc.SQL_CHAR, encoding='euc-kr')
+#			self.cnxn.setdecoding(pyodbc.SQL_WCHAR, encoding='euc-kr')
+#			self.cnxn.setencoding(str, encoding='euc-kr')
+			self.cnxn.setencoding(unicode, encoding='euc-kr')
 		except Exception as e:
 			self.error = e[1]
 			raise(NameError,"DB Connected failed!!")

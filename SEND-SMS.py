@@ -110,6 +110,7 @@ def SendSms(Phoneid, Message):
    VALUES(seq_smsinfo_serialno.NEXTVAL,?,'0112008585',0,?);
    """
    Message_unicode = unicode(Message,'euc-kr')
+   logger.info('Message_unicode : %s', Message_unicode)
    db_param = [Phoneid,Message_unicode]
 
    AltibaseInsertQueryExecute(pStmt,db_param)

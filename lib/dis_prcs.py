@@ -1,4 +1,4 @@
-#!/nas/HC/PYTHON2.7/bin/python -tt
+#!/nas/HC/PYTHON3.6/bin/python3 -tt
 # -*- coding: utf-8 -*-
 import os
 import sys
@@ -151,7 +151,7 @@ def display_dellog_cron_tomcat():
     if result == '':
         result = 'DELLOG for tomcat is not setup in crontab\n'
 
-    print('DELLOG_CRON_TOMCAT         %-5s   %-s' % (userid, result),)
+    print 'DELLOG_CRON_TOMCAT         %-5s   %-s' % (userid, result),
 
 def DisplayProcess(ProcessName, longcmd):
     RESULT = "OK"
