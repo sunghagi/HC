@@ -30,25 +30,25 @@ def dis_alm_sts(direction):
    SELECT 
    CASE 
       WHEN A.severity = 1
-		THEN 'CRIT'
+         THEN 'CRIT'
       WHEN A.severity = 2
-		THEN 'MAGER'
+         THEN 'MAGER'
       WHEN A.severity = 3
-		THEN 'MINOR'
-		END AS serveriy,
+         THEN 'MINOR'
+      END AS serveriy,
    CASE
-	   WHEN A.confirmed = 0
-		THEN '[ ]'
-	   WHEN A.confirmed = 1
-		THEN '[V]'
-		END AS confirmed,
+      WHEN A.confirmed = 0
+         THEN '[ ]'
+      WHEN A.confirmed = 1
+         THEN '[V]'
+      END AS confirmed,
    DATE_FORMAT(A.firstTime, "%c-%e %T"),
    C.eventName,
    B.sysname,
    A.source,
    A.alarmMessage
    from SAM_ALARM A inner join SAM_SYSTEM B on A.systemid = B.systemid 
-					     inner join SAM_EVENTTYPE C on A.eventTypeId = C.eventTypeId
+		     inner join SAM_EVENTTYPE C on A.eventTypeId = C.eventTypeId
    WHERE A.cleared = 0 
 	ORDER by A.firstTime DESC;
    """

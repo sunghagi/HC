@@ -59,7 +59,7 @@ def csv_save(list_result):
    hc_home_path = config.get_item_from_section('main', 'path')
 
    Csv_file_name = os.path.join(hc_home_path, alarm_checkday[1].replace('-','')+'_'+HostInfo.system_name+'.csv')
-   logger.info('%s :: CsvFileName : %s', lib.log.GetCurFunc(), Csv_file_name)
+   logger.info('%s :: CsvFileName : %s', GetCurFunc(), Csv_file_name)
    lib.vms_hc.SaveResultCsv(Csv_file_name, list_result)
 
 
@@ -79,7 +79,7 @@ def run_method(health_check_items, current_check_mode):
       config_check_mode = item[2]
       check_host = item[3]
 
-      logger.info('%s :: exec_flag : %s,%s,%s,%s', lib.log.GetCurFunc(), ItemDesc, check_host, current_check_mode, config_check_mode)
+      logger.info('%s :: exec_flag : %s,%s,%s,%s', GetCurFunc(), ItemDesc, check_host, current_check_mode, config_check_mode)
       exec_flag = get_exec_mode(check_host, current_check_mode, config_check_mode)
 
       if exec_flag :
@@ -135,9 +135,9 @@ def main():
 #   ['/etc 백업', 'lib.vms_hc.etc_backup()',DAILY,'ALL'],
    ['총 가입자수 확인','lib.vms_hc.vic_subscribers()',DAILY,'SPS'],
    ['altibase tablespace 확인','lib.vms_hc.altibase_tablespace()', DAILY,'SPS'],
-#   ['월간 alarm', 'lib.vms_hc.dis_alarm()',MONTHLY,'OMP'],
+   ['월간 alarm', 'lib.vms_hc.dis_alarm()',MONTHLY,'OMP'],
    ['월간 CPU 통계 확인', 'lib.vms_hc.cpu_stat()',MONTHLY,'OMP'],
-   ['SIP 통계 확인','lib.vms_hc.tars_sip_stat()',DAILY,'OMP'],
+#   ['SIP 통계 확인','lib.vms_hc.tars_sip_stat()',DAILY,'OMP'],
    ['NAS Fault 확인','lib.vms_hc.nas_status()',DAILY,'OMP'],
    ]
 

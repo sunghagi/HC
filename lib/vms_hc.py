@@ -1,7 +1,7 @@
 #!/nas/HC/PYTHON2.7/bin/python -tt
 # -*- coding: utf-8 -*-
+import sys
 import psutil
-import lib.hostconf
 import csv
 import subprocess
 import re
@@ -12,13 +12,13 @@ import os.path
 import ConfigParser
 import chardet
 from lib.log import *
+from lib.hostconf import *
 from collections import namedtuple
 
-#logger = hcLogger('root')
 logger = HcLogger()
 
-default_config_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), \
-												'../config', 'hc.cfg')
+default_config_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),
+				'../config', 'hc.cfg')
 
 class ConfigLoad():
    logger.debug('%s :: config path : %s', GetCurFunc(), default_config_path)
@@ -168,18 +168,26 @@ class HostInfo(object):
 
    def __init__(self):
       ips_list = ip_address_List()
-      logger.debug('%s :: ip address : %s', GetCurFunc(), ips_list )
+      logger.info('%s :: ip address : %s', GetCurFunc(), ips_list )
 
+      search_flag = 0
       for ip in ips_list:
-         for hostlist in lib.hostconf.HostConf:
+         for hostlist in HostConf:
             if ip in hostlist:
+               search_flag = 1
                host_class = hostlist[2]
                if hostlist[1] == 'VIP':
                   self.ha_operating_mode = 'ACTIVE'
                   break
                else:
                   self.ha_operating_mode = 'STANDBY'
-      for hostlist in lib.hostconf.HostConf:
+
+      if search_flag == 0:
+         print "장비의 IP주소가 hostconf.py에 등록되어 있지 않습니다."
+         print "설정을 확인하세요."
+         sys.exit()
+
+      for hostlist in HostConf:
          if host_class in hostlist:
             if hostlist[1] == 'VIP':
                self.ha_installed = 1
@@ -191,7 +199,8 @@ class HostInfo(object):
       ips_list = ip_address_List()
 
       for ip in ips_list:
-         for hostlist in lib.hostconf.HostConf:
+#         for hostlist in lib.hostconf.HostConf:
+         for hostlist in HostConf:
             if ip in hostlist:
                if hostlist[1] == 'VIP':
                   continue
@@ -811,6 +820,7 @@ def dis_alarm():
    dis_alarm_omp.db_column_width=['-21','-25','-40']
 
    checkday = get_alarm_checkday()
+#   alarm_checkday = [lastMonthday_Ymd, today_Ymd, two_month_ago_day_Ymd]
    alarm_start_time=checkday[0] + ' ' + '00:00:00'
    alarm_end_time=checkday[1] + ' ' + '23:59:59'
 
@@ -1110,12 +1120,18 @@ def net_if_stats():
    for nic, nic_stats in psutil.net_if_stats().items():
       if nic == 'lo' or nic == 'sit0':
          continue
+      
+      if type(nic) == unicode:
+         nic = nic.encode("utf-8")
 
-      buf += " %s :\n" % ( nic )
-      buf += "    stats : up=%s, duplex=%s, speed=%s" % \
-            ("yes" if nic_stats.isup else "no", duplex_map[nic_stats.duplex], nic_stats.speed)  + '\n'
-      if nic_stats.isup != True or nic_stats.duplex != 2:
-         net_if_stats_result.result = "NOK"
+      try:
+         if nic_stats.isup != True or nic_stats.duplex != 2:
+            net_if_stats_result.result = "NOK"
+         buf += " %s :\n" % ( nic )
+         buf += "    stats : up=%s, duplex=%s, speed=%s" % \
+                ("yes" if nic_stats.isup else "no", duplex_map[nic_stats.duplex], nic_stats.speed)  + '\n'
+      except Exception as e:
+         pass
 
    hc_result_table._concate(buf)
    net_if_stats_result.output = hc_result_table.output
@@ -1142,9 +1158,9 @@ def net_if_address():
    config = ConfigLoad()
    hc_home_path = config.get_item_from_section('main', 'path')
    HC_CONFIG_IPADDR_PATH= os.path.join(hc_home_path, 'config/ipaddr')
-   HostInfo = lib.vms_hc.HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
-   HostInfo._host_info()
-   ipaddr_config_file = HostInfo.hostname + '.cfg'
+   host_info = HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
+   host_info._host_info()
+   ipaddr_config_file = host_info.hostname + '.cfg'
    ipaddr_config_file_path = os.path.join(HC_CONFIG_IPADDR_PATH, ipaddr_config_file)
 
    config = ConfigLoad(ipaddr_config_file_path)
@@ -1174,9 +1190,10 @@ def ping_status():
    hc_home_path = config.get_item_from_section('main', 'path')
 
    HC_CONFIG_PING_PATH= os.path.join(hc_home_path, 'config/ping')
-   HostInfo = lib.vms_hc.HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
-   HostInfo._host_info()
-   ping_config_file = HostInfo.hostname + '.cfg'
+#   HostInfo = lib.vms_hc.HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
+   host_info = HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
+   host_info._host_info()
+   ping_config_file = host_info.hostname + '.cfg'
    ping_config_file_path = os.path.join(HC_CONFIG_PING_PATH, ping_config_file)
 
    config = ConfigLoad(ping_config_file_path)
@@ -1219,9 +1236,9 @@ def route_status():
    route_result += "Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface "
    route_result += "Netconf파일정보유무               비고\n"
 
-   HostInfo = lib.vms_hc.HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
-   HostInfo._host_info()
-   route_config_file = HostInfo.hostname + '.cfg'
+   host_info = HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
+   host_info._host_info()
+   route_config_file = host_info.hostname + '.cfg'
    route_config_file_path = os.path.join(HC_CONFIG_ROUTE_PATH, route_config_file)
    logger.info('%s :: route_config_file_path : %s', GetCurFunc(), route_config_file_path)
 
