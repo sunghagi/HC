@@ -21,7 +21,7 @@ def dis_mailinfo(phoneid, direction):
    '착신자전화번호',
 	'저장시각',
 	'최종수정시각']
-   vic_subs.db_column_width=['16','11','9','13','21','12','16','16','20','20']
+   vic_subs.db_column_width=[16,11,9,13,21,12,16,16,20,20]
 
    vic_subs.db_query = """
    select

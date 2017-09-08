@@ -3,3 +3,4 @@ tmp/
 PYTHON3.6.2/
 PYTHON3.6
 *.csv
+*.pyc

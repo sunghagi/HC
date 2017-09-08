@@ -245,7 +245,7 @@ def SaveResultCsv(CsvFileName, ResultList):
       with open(CsvFileName, 'a') as f:
          writer = csv.writer(f)
          writer.writerows(ResultList)
-         logger.info('%s :: ResultList : CSV Write success.', GetCurFunc())
+         logger.info('%s : Write to csv file result : success', GetCurFunc())
    except Exception as e:
       logger.exception('%s :: CSV file handle error : %s', GetCurFunc(), e)
 
@@ -1010,12 +1010,15 @@ def odbc_query_execute_fetchall(DSN, db_query, db_param, column_name, column_wid
 
    logger.info('%s :: output direction : %s', GetCurFunc(), direction)
    if direction == "vertical":
+      max_column_name_width = len(max(column_name, key=len))
+      logger.info('%s : initializing variable : max_column_name_width to %s', 
+							GetCurFunc(), max_column_name_width)
       for row in rows:
          str_row = unicode2str(row)
          t = zip(column_name, str_row)
-         logger.info('%s :: column_name, str_rows : %s', GetCurFunc(), t)
+         logger.debug('%s :: column_name, str_rows : %s', GetCurFunc(), t)
          for x in t:
-            output_buf += " %15s : %-20s\n" % (x[0], x[1])
+            output_buf += " %*s : %-20s\n" % (max_column_name_width, x[0], x[1])
          output_buf += "\n"
       output_buf += "=" * abs(total_width) + '\n'
    else:
@@ -1381,3 +1384,26 @@ def nas_status():
    nas_status_result.output = hc_result_table.output
 
    return nas_status_result
+
+def messages_check():
+   ''' /var/log/messages check
+   '''
+   messages_check_result = HcResult()
+   hc_result_table = HcCmdResultTalbe('/var/log/messages »Æ¿Œ',78)
+
+   search_pattern = '"erro|down|fault|fail"'
+
+   messages_check_command = "/bin/egrep -i "+search_pattern+" /var/log/messages"
+   messages_check_command_result = os_execute(messages_check_command)
+       
+   messages_check_command_result_list = messages_check_command_result.output.split('\n')
+   logger.info('%s :: messages_check_command_result  : %s', GetCurFunc(), messages_check_command_result)
+#   fault_msg = re.findall("Faulted", messages_check_result.output)
+#   if fault_msg or nascli_command_result.exit_code:
+   if not messages_check_command_result.exit_code:
+      messages_check_result.result = "NOK"
+
+   hc_result_table._concate(messages_check_command_result.output)
+   messages_check_result.output = hc_result_table.output
+
+   return messages_check_result

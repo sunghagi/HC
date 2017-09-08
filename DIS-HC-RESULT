@@ -59,12 +59,12 @@ def main():
    parser.add_argument('-n', '--hostname')
    args = parser.parse_args()
 
-   HostInfo = lib.vms_hc.HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
-   HostInfo._host_info()
+   host_info = HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
+   host_info._host_info()
 
    config = ConfigLoad()
    hc_home_path = config.get_item_from_section('main', 'path')
-   csv_file_name = os.path.join(hc_home_path, args.date+'_'+HostInfo.system_name+'.csv')
+   csv_file_name = os.path.join(hc_home_path, args.date+'_'+host_info.system_name+'.csv')
 
    if args.hostname:
       PrintReport(csv_file_name, args.hostname.upper())

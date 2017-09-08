@@ -1,5 +1,5 @@
 #!/bin/bash
-#Purpose = Backup of /etc Data
+#Purpose = Backup of SECURE Data
 #Version 1.1
 #START
 
@@ -23,7 +23,7 @@ fi
 
 SRCDIR2=/root/.bash_history
 
-DESDIR=/nas/HC/Secure # Destination of backup file.
+DESDIR=/nas/Secure # Destination of backup file.
 
 # For gnu/tar
 tar -cpzf $DESDIR/$FILENAME $SRCDIR1 $SRCDIR2

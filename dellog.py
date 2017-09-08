@@ -14,10 +14,6 @@ from lib.vms_hc import *
 DellogConfigPath='/nas/HC/config/dellog.cfg'
 SCHEDULE_TIME='17:51'
 
-
-#def GetCurFunc():
-#   return inspect.stack()[1][3]
-
 def ConfigFileCheck(ConfigPath):
    import os.path
    if not os.path.isfile(ConfigPath):

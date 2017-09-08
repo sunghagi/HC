@@ -17,7 +17,6 @@ def csv_to_xlsx(date):
    list_of_files.sort()
    logger.info('%s :: HC result csv files %s', GetCurFunc(), list_of_files)
 
-   system_name  = "IVMS"
    config = ConfigLoad()
    try:
       xlsx_filename = config.get_item_from_section('main', 'xlsx_filename')
@@ -29,7 +28,7 @@ def csv_to_xlsx(date):
 
    logger.info('%s :: xlsx_filename : %s', GetCurFunc(), xlsx_filename)
 
-   workbook = xlsxwriter.Workbook(xlsx_filename + '.xlsx')
+   workbook = xlsxwriter.Workbook(date+ '_' + xlsx_filename + '.xlsx')
    worksheet = workbook.add_worksheet(xlsx_filename)    
 
    format_title = workbook.add_format({
@@ -68,7 +67,7 @@ def csv_to_xlsx(date):
    'border' : 1
    })
 
-   worksheet.merge_range('A1:H1',u'[iVMS01,02,03,04]- 월간 점검 결과 ( '+date+' )', format_title)
+   worksheet.merge_range('A1:H1','[ ' + xlsx_filename + u' ]- 월간 점검 결과 ( '+date+' )', format_title)
    worksheet.write('A3', 'No', format_head)
    worksheet.write('B3', '점검일'.decode("euc-kr"), format_head)
    worksheet.write('C3', '점검주기'.decode("euc-kr"), format_head)
@@ -115,7 +114,7 @@ def csv_to_xlsx(date):
    worksheet.set_column(7,7,120)
 
    worksheet.set_zoom(85)
-   worksheet.autofilter('A3:H100')
+   worksheet.autofilter('A3:H'+str(row))
 
    workbook.close()
 
