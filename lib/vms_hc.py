@@ -1,8 +1,8 @@
 #!/nas/HC/PYTHON2.7/bin/python -tt
 # -*- coding: utf-8 -*-
+from __future__ import division
 import sys
 import psutil
-import csv
 import subprocess
 import re
 import datetime
@@ -10,12 +10,13 @@ import time
 import socket
 import os.path
 import ConfigParser
-import chardet
+import math
 from lib.log import *
 from lib.hostconf import *
+from lib.hclib import *
 from collections import namedtuple
 
-logger = HcLogger()
+#logger = HcLogger()
 
 default_config_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),
 				'../config', 'hc.cfg')
@@ -158,7 +159,6 @@ class HcCmdResultTalbe(object):
       self._insert_tail()
 
 
-
 class HostInfo(object):
    ''' Health check HA
 
@@ -212,81 +212,6 @@ class HostInfo(object):
 
 #      logger.info('%s :: unknown IP address, check HostConf List', GetCurFunc())
 #      sys.exit()
-
-
-def GetCurFunc():
-   return inspect.stack()[1][3]
-
-def oneline_print(str):
-   return str[:75] + '...' + '\n'
-
-def split2len(s, n):
-   def _f(s, n):
-      while s:
-         yield s[:n]
-         s = s[n:]
-   return list(_f(s,n))
-
-def string_concate(a, b):
-   if not isinstance(b, str):
-      b = str(b)
-
-   string_list = []
-   string_list.append(a)
-   string_list.append(b)
-
-   try:
-      return ''.join(string_list)
-   except Exception as e:
-      logger.exception('%s :: error : %s', GetCurFunc(), e)
-
-def SaveResultCsv(CsvFileName, ResultList):
-   try :
-      with open(CsvFileName, 'a') as f:
-         writer = csv.writer(f)
-         writer.writerows(ResultList)
-         logger.info('%s : Write to csv file result : success', GetCurFunc())
-   except Exception as e:
-      logger.exception('%s :: CSV file handle error : %s', GetCurFunc(), e)
-
-def bytes2human(n): 
-   # http://code.activestate.com/recipes/578019 
-   # >>> bytes2human(10000) 
-   # '9.8K' 
-   # >>> bytes2human(100001221) 
-   # '95.4M' 
-   symbols = ('K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y') 
-   prefix = {} 
-   for i, s in enumerate(symbols): 
-      prefix[s] = 1 << (i + 1) * 10 
-   for s in reversed(symbols): 
-      if n >= prefix[s]: 
-         value = float(n) / prefix[s] 
-         return '%.1f%s' % (value, s) 
-   return "%sB" % n 
-
-def get_dashes(perc): 
-   dashes = "|" * int((float(perc) / 10 * 4)) 
-   empty_dashes = " " * (40 - len(dashes)) 
-   return dashes, empty_dashes 
-
-
-def pprint_ntuple(nt): 
-   for name in nt._fields: 
-      value = getattr(nt, name) 
-      if name != 'percent': 
-         value = bytes2human(value) 
-      print('%-10s : %7s' % (name.capitalize(), value)) 
-
-def single_grep(STR, FILE_PATH):
-   for line in open(FILE_PATH):
-      if STR in line:
-         line_without_crlf = ''.join(line.splitlines())
-         return line_without_crlf
-
-def netmask2cidr(NETMASK):
-   cidr = sum([bin(int(x)).count("1") for x in NETMASK.split(".")])
-   return str(cidr)
 
 def get_alarm_checkday():
    ''' return one month ago and today '''
@@ -405,6 +330,45 @@ def disk_usage():
    disk_usage_result.output = hc_result_table.output
 
    return disk_usage_result
+
+def disk_inode_usage():
+   disk_node_usage_result = HcResult()
+
+   config = ConfigLoad()
+   DISK_THRESHOLD = config.getint_item_from_section('threshold', 'disk')
+
+   list_partitions = psutil.disk_partitions(all=True)
+   buf = ' Filesystem           Inodes   IUsed   IFree   IUse%     Mounted on\n'
+   NON_PHYSICAL_DEVICE = ['', 'proc', 'sysfs', 'devpts', 'tmpfs', 'sunrpc']
+   for part in list_partitions:
+      if part.device in NON_PHYSICAL_DEVICE:
+         continue
+      fs = part.device
+      dict_node_usage = disk_node_usage(part.mountpoint)
+      nodes = dict_node_usage['total_no_of_nodes']
+      free = dict_node_usage['total_no_of_free_nodes']
+      used = nodes - free
+      try:
+         usage = math.ceil((used/nodes)*100)
+      except Exception as e:
+         usage = 0
+
+      if (usage > DISK_THRESHOLD):
+         disk_usage_result.result = "NOK"
+      mounton = part.mountpoint
+      if len(fs) > 20:
+         templ = "% -20s \n %27s %7s %7s %7s     %-20s"
+      else:
+         templ = "% -20s %7s %7s %7s %7s     %-20s"
+
+      buf += templ % (fs, bytes2human(nodes), bytes2human(used), \
+                      bytes2human(free), usage, mounton) + '\n'
+
+   hc_result_table = HcCmdResultTalbe('DISK inode 사용률', 70)
+   hc_result_table._concate(buf)
+   disk_node_usage_result.output = hc_result_table.output
+
+   return disk_node_usage_result
 
 
 def uptime_status():
@@ -905,7 +869,6 @@ def print_column_name(column_name, column_width):
 
    return buf
 
-
 def odbc_query_execute_fetchone(DSN,db_query,db_param, column_width):
    from lib.odbc_conn import odbcConn
    fetch_result = HcResult()
@@ -1223,7 +1186,7 @@ def ping_status():
 
 def route_status():
    route_status_result = HcResult()
-   hc_result_table = HcCmdResultTalbe('route 확인 : ping -c 4 -w 4 gateway_ip',78)
+   hc_result_table = HcCmdResultTalbe('route 확인',78)
 
    config = ConfigLoad()
    hc_home_path = config.get_item_from_section('main', 'path')
@@ -1407,3 +1370,33 @@ def messages_check():
    messages_check_result.output = hc_result_table.output
 
    return messages_check_result
+
+def bond_status_check():
+    ''' bond interface check
+    '''
+    bond_check_result = HcResult()
+    hc_result_table = HcCmdResultTalbe('bond interface 확인',78)
+
+    bondList = get_bond() 
+    buf = ""
+    if bondList: 
+        for bond in bondList: 
+            bond_status = check_bond_status(bond) 
+            slave_iface = ", ".join([str(x) for x in bond_status['slave_iface']])
+            if bond_status: 
+                buf += " %s :\n" % ( bond )
+                buf += "    stats : up=%s, current active slave=%s, slave Iface=%s" % \
+                       ("yes" if bond_status['intState'] == 0 else "no", \
+							  bond_status['active'], 
+							  slave_iface)  + '\n'
+                if bond_status['intState'] == 1:
+                    buf += "Bond %s error:%s" % (bond, bond_status['strState'])
+    else: 
+        buf += "no bond found"
+        bond_check_result.result = "NOK"
+
+    hc_result_table._concate(buf)
+    bond_check_result.output = hc_result_table.output
+
+    return bond_check_result
+

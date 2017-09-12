@@ -202,7 +202,7 @@ def DisplayProcess(ProcessName, longcmd):
                     else:
                         cmdline = 'STATUS_UNKNOWN'
 # CPU disable
-#                cpu_percent = p.cpu_percent(interval=None)
+#                cpu_percent = p.cpu_percent(interval=1.0)
 #                templ = "%-11s %5s %5s  %-5s %-4s %-4s %-34s %-s"
                 templ = "%-13s %5s %5s  %-6s %4s %-34s %-s"
 #                AppendRunningProcessList.append(templ % (PidProcessName, p.pid, p.ppid(), p.username(), cpu_percent, round(p.memory_percent(),1), cmdline, create_time))
