@@ -1382,15 +1382,21 @@ def bond_status_check():
     if bondList: 
         for bond in bondList: 
             bond_status = check_bond_status(bond) 
-            slave_iface = ", ".join([str(x) for x in bond_status['slave_iface']])
             if bond_status: 
                 buf += " %s :\n" % ( bond )
-                buf += "    stats : up=%s, current active slave=%s, slave Iface=%s" % \
-                       ("yes" if bond_status['intState'] == 0 else "no", \
-							  bond_status['active'], 
-							  slave_iface)  + '\n'
-                if bond_status['intState'] == 1:
-                    buf += "Bond %s error:%s" % (bond, bond_status['strState'])
+                buf += "    mode  : %s" % bond_status.mode + '\n'
+                buf += "    stats : up=%s, slave Iface=%4s(%6s,%4s), %4s(%6s,%4s)" % \
+                       ("yes" if bond_status.intState == 0 else "no", 
+                       bond_status.slave_iface[0], 
+                       "ACTIVE" if bond_status.active in bond_status.slave_iface[0] else "STDBY", 
+                       bond_status.slave_iface_status[0],
+                       bond_status.slave_iface[1], 
+                       "ACTIVE" if bond_status.active in bond_status.slave_iface[1] else "STDBY",
+                       bond_status.slave_iface_status[1]) + '\n'
+                if bond_status.intState == 1:
+                    buf += "Bond %s error:%s" % (bond, bond_status.strState)
+        if "down" in bond_status.slave_iface_status:
+            bond_check_result.result = "NOK"
     else: 
         buf += "no bond found"
         bond_check_result.result = "NOK"
@@ -1399,4 +1405,3 @@ def bond_status_check():
     bond_check_result.output = hc_result_table.output
 
     return bond_check_result
-

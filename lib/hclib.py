@@ -98,48 +98,69 @@ def get_bond():
     except Exception: 
         return 
 
-def check_bond_status(strBondName): 
-    try: 
-        bondStatus = {} 
-        slave_iface = []
-        n = 0 
-        strBondPath = "/proc/net/bonding/%s" % strBondName 
-        for line in open(strBondPath).readlines(): 
-            if "Currently Active Slave" in line:
-                active = line.split(":")
-                active = active[1].strip()
-                bondStatus['active'] = active 
-            if "MII Status" in line: 
-                if n >= 1:
-                    n = n + 1 
-                    continue
-                strState = line.split(":") 
-                strState = strState[1].strip() 
-                if strState != "up": 
-                    # bond nok 
-                    intState = 1 
-                    bondStatus['intState'] = intState 
-                    bondStatus['strState'] = strState 
-                    # we stop at first error 
-                    return bondStatus 
-                else: 
-                    # bond ok 
-                    n = n + 1 
-                    intState = 0 
-                    bondStatus['intState'] = intState 
-                    bondStatus['strState'] = strState 
-            if "Slave Interface" in line:
-                iface = line.split(":")
-                iface = iface[1].strip()
-                slave_iface.append(iface)
-                bondStatus['slave_iface'] = slave_iface 
+def get_value_after_sep(str_line):
+    value = str_line.split(":")[-1].strip()
+    return value
 
-        # we expect to find 3 "up" in our typical bond, trigg error if not 
-        if n != 3: 
-            intState = 1 
-            strState = "One NIC is missing in bond" 
-            bondStatus['intState'] = intState 
-            bondStatus['strState'] = strState 
+class BondStatus(object):
+    __slots__ = ('mode', 'active', 'slave_iface', 'intState', 'strState', 'slave_iface_status')
+    def __init__(self):
+        self.mode = ""
+        self.active = ""
+        self.slave_iface = []
+        self.slave_iface_status = []
+        self.intState = 0
+        self.strState = ""
+
+def get_between_parentheses(str):
+    return (str.split('('))[1].split(')')[0]
+
+def check_bond_status(strBondName): 
+    bondStatus = BondStatus()
+    mii_status = []
+    slave_iface = []
+    n = 0 
+
+    strBondPath = "/proc/net/bonding/%s" % strBondName 
+    for line in open(strBondPath).readlines(): 
+        if "Bonding Mode" in line:
+#            mode = get_value_after_sep(line)
+            mode = get_between_parentheses(line)
+            bondStatus.mode = mode 
+        if "Currently Active Slave" in line:
+            active = get_value_after_sep(line)
+            bondStatus.active = active 
+        if "MII Status" in line: 
+            strState = get_value_after_sep(line)
+            mii_status.append(strState)
+            n = n + 1 
+        if "Slave Interface" in line:
+            iface = get_value_after_sep(line)
+            slave_iface.append(iface)
+            bondStatus.slave_iface = slave_iface 
+
+    if mii_status[0] != "up": 
+        # bond nok 
+        intState = 1 
+        strState = mii_status[0]
+        bondStatus.intState = intState 
+        bondStatus.strState = strState
+        # we stop at first error 
         return bondStatus 
-    except Exception: 
-        return 
+    else: 
+        # bond ok 
+        intState = 0 
+        strState = mii_status[0]
+        bondStatus.intState = intState 
+        bondStatus.strState = strState
+
+    bondStatus.slave_iface_status = mii_status[1:]
+
+    # we expect to find 3 "up" in our typical bond, trigg error if not 
+    if n != 3: 
+        intState = 1 
+        strState = "One NIC is missing in bond" 
+        bondStatus.intState = intState 
+        bondStatus.strState = strState 
+
+    return bondStatus 
