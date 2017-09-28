@@ -66,6 +66,7 @@ def ha_status():
     IPs = IP_address_List()
     logger.info('%s :: ip address : %s', GetCurFunc(),IPs )
 
+    st_ha_operating_mode = 'STANDBY'
     for IP in IPs:
         for hostlist in HostConf:
             if IP in hostlist:
@@ -74,8 +75,6 @@ def ha_status():
                     st_ha_operating_mode = 'ACTIVE'
                     logger.info('%s : This host is Active', GetCurFunc())
                     break
-                else:
-                    st_ha_operating_mode = 'STANDBY'
     for hostlist in HostConf:
         if host_class in hostlist:
             if hostlist[1] == 'VIP':

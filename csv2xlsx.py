@@ -80,7 +80,7 @@ def csv_to_full_xlsx(date):
 
    row = 3
    for index, file_in_list in enumerate(list_of_files):     
-      print file_in_list
+#      print file_in_list
       with open(file_in_list, 'rb') as f:   
           content = csv.reader(f)
           col = 0
@@ -141,7 +141,9 @@ def csv_to_summ_xlsx(date):
 
    logger.info('%s :: xlsx_filename : %s', GetCurFunc(), xlsx_filename)
 
-   workbook = xlsxwriter.Workbook(date+ '_' + xlsx_filename + '_' + '1' +'.xlsx')
+   filename = date+ '_' + xlsx_filename + '_' + '1' +'.xlsx'
+   workbook = xlsxwriter.Workbook(filename, {'strings_to_numbers': True})
+
    sheetname = u"점검걸과"
    worksheet = workbook.add_worksheet(sheetname)    
 
@@ -185,15 +187,11 @@ def csv_to_summ_xlsx(date):
    col = 0
    count_col = 5
 
-   first_row = 1
-   first_col = 0
-   last_row = 1
-   last_col = 4
    for index, file_in_list in enumerate(list_of_files):     
       result_start_row = 3
       title_merge_row = 1
 
-      print file_in_list
+#      print file_in_list
       merge_text = get_between_char(file_in_list)
 
       worksheet.write(2, col, 'No', format_head)
@@ -205,12 +203,12 @@ def csv_to_summ_xlsx(date):
       with open(file_in_list, 'rb') as f:   
          content = csv.reader(f)
          for index, checkday, check_mode, system_name, hostname, item_desc, result, output in content :
-             worksheet.write(result_start_row, col,     index, format)
-             worksheet.write(result_start_row, col + 1, system_name, format)
-             worksheet.write(result_start_row, col + 2, hostname, format)
-             worksheet.write(result_start_row, col + 3, item_desc.decode("euc-kr"), format)
-             worksheet.write(result_start_row, col + 4, result, format)
-             result_start_row += 1
+            worksheet.write(result_start_row, col,     index, format)
+            worksheet.write(result_start_row, col + 1, system_name, format)
+            worksheet.write(result_start_row, col + 2, hostname, format)
+            worksheet.write(result_start_row, col + 3, item_desc.decode("euc-kr"), format)
+            worksheet.write(result_start_row, col + 4, result, format)
+            result_start_row += 1
          # 열너비 지정
          worksheet.set_column(col+0, col+0,  4)
          worksheet.set_column(col+1, col+1,  7)
@@ -218,6 +216,10 @@ def csv_to_summ_xlsx(date):
          worksheet.set_column(col+3, col+3, 22)
          worksheet.set_column(col+4, col+4,  5)
 
+      worksheet.conditional_format(3, col+4, result_start_row, col+4, {'type':     'text',
+                                                                       'criteria': 'containing',
+                                                                       'value':    'NOK',
+                                                                       'format':   format_head}) 
       worksheet.autofilter(2, 0, result_start_row, col+4)
       worksheet.merge_range(title_merge_row, col, title_merge_row, col+4,'< ' + merge_text + u' > - '+ str(result_start_row-3) + u'항목 OK', format_title)
       col = col + count_col + 1

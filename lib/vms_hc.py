@@ -171,6 +171,7 @@ class HostInfo(object):
       logger.info('%s :: ip address : %s', GetCurFunc(), ips_list )
 
       search_flag = 0
+      self.ha_operating_mode = 'STANDBY'
       for ip in ips_list:
          for hostlist in HostConf:
             if ip in hostlist:
@@ -179,8 +180,6 @@ class HostInfo(object):
                if hostlist[1] == 'VIP':
                   self.ha_operating_mode = 'ACTIVE'
                   break
-               else:
-                  self.ha_operating_mode = 'STANDBY'
 
       if search_flag == 0:
          print "장비의 IP주소가 hostconf.py에 등록되어 있지 않습니다."
