@@ -64,7 +64,7 @@ def ha_status():
     ha_status = []
 
     IPs = IP_address_List()
-    logger.info('%s :: ip address : %s', GetCurFunc(),IPs )
+    logger.info('%s : ip address : %s', GetCurFunc(),IPs )
 
     st_ha_operating_mode = 'STANDBY'
     for IP in IPs:

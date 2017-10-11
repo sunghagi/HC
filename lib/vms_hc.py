@@ -168,7 +168,7 @@ class HostInfo(object):
 
    def __init__(self):
       ips_list = ip_address_List()
-      logger.info('%s :: ip address : %s', GetCurFunc(), ips_list )
+      logger.debug('%s :: ip address : %s', GetCurFunc(), ips_list )
 
       search_flag = 0
       self.ha_operating_mode = 'STANDBY'
@@ -207,7 +207,7 @@ class HostInfo(object):
                self.hostname = hostlist[1]
                self.hostclass = hostlist[2]
                self.ip_address = hostlist[3]
-               logger.info('%s : hostname is %s', GetCurFunc(), self.hostname)
+               logger.debug('%s : hostname is %s', GetCurFunc(), self.hostname)
 
 #      logger.info('%s :: unknown IP address, check HostConf List', GetCurFunc())
 #      sys.exit()
@@ -304,7 +304,7 @@ def disk_usage():
 
    list_partitions = psutil.disk_partitions(all=True)
    buf = ' Filesystem             Size    Used   Avail    Use%     Mounted on\n'
-   NON_PHYSICAL_DEVICE = ['', 'proc', 'sysfs', 'devpts', 'tmpfs', 'sunrpc']
+   NON_PHYSICAL_DEVICE = ['', 'proc', 'sysfs', 'devpts', 'tmpfs', 'sunrpc', 'nfsd']
    for part in list_partitions:
       if part.device in NON_PHYSICAL_DEVICE:
          continue
@@ -338,7 +338,7 @@ def disk_inode_usage():
 
    list_partitions = psutil.disk_partitions(all=True)
    buf = ' Filesystem           Inodes   IUsed   IFree   IUse%     Mounted on\n'
-   NON_PHYSICAL_DEVICE = ['', 'proc', 'sysfs', 'devpts', 'tmpfs', 'sunrpc']
+   NON_PHYSICAL_DEVICE = ['', 'proc', 'sysfs', 'devpts', 'tmpfs', 'sunrpc', 'nfsd']
    for part in list_partitions:
       if part.device in NON_PHYSICAL_DEVICE:
          continue
@@ -558,7 +558,7 @@ def disk_mirror_status():
          hp_storage_admin_tool = "hpssacli"
       else :
          hp_storage_admin_tool = "hpacucli"
-      os_command = hp_storage_admin_tool + " ctrl slot=0 show config"
+      os_command = hp_storage_admin_tool + " ctrl all show config"
    elif SYS_MANUF == 'Advantech':
       os_command = "SKIP (Console Cable 연결 필요)"
    elif SYS_MANUF == 'Red Hat':
@@ -577,7 +577,7 @@ def disk_mirror_status():
          logger.info('%s :: Another instance of %s is running! waiting 3 seconds',\
                       GetCurFunc(), hp_storage_admin_tool)
          time.sleep(3)
-      hptool_run_cmd='sudo /usr/sbin/'+ hp_storage_admin_tool +' ctrl slot=0 show config | /bin/grep logicaldrive'
+      hptool_run_cmd='sudo /usr/sbin/'+ os_command + '| /bin/egrep "logicaldrive"'
       hptool_run_cmd_result = os_execute(hptool_run_cmd)
       logger.info('%s :: %s ctrl slot=0 show config result : \n%s', \
 		            GetCurFunc(), hp_storage_admin_tool, hptool_run_cmd_result.output)
@@ -1048,26 +1048,46 @@ def ip_address_List():
    return retlist
 
 def net_io_counters():
-   ''' Check Net io counters 
-   '''
-   net_io_counters_result = HcResult()
-   hc_result_table = HcCmdResultTalbe('NET IO 확인',78)
+    ''' Check Net io counters 
+    '''
+    net_io_counters_result = HcResult()
+    hc_result_table = HcCmdResultTalbe('NET IO 확인',78)
 
-   buf = ""
-   for nic, netio_counters in psutil.net_io_counters(pernic=True).items():
-      if nic == 'lo' or nic == 'sit0':
-         continue
+    config = ConfigLoad()
+    hc_home_path = config.get_item_from_section('main', 'path')
 
-      buf += " %s :\n" % ( nic )
-      buf += "    errin : %3s, errout : %3s" % \
-		       (netio_counters.errin, netio_counters.errout)  + '\n'
-      if netio_counters.errin >= 100 or netio_counters.errout >= 100:
-         net_io_counters_result.result = "NOK"
+    HC_CONFIG_NETIF_PATH= os.path.join(hc_home_path, 'config/netif')
+#    HostInfo = lib.vms_hc.HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
+    host_info = HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
+    host_info._host_info()
+    netif_config_file = host_info.hostname + '.cfg'
+    netif_config_file_path = os.path.join(HC_CONFIG_NETIF_PATH, netif_config_file)
 
-   hc_result_table._concate(buf)
-   net_io_counters_result.output = hc_result_table.output
+    config = ConfigLoad(netif_config_file_path)
+    netif = config.get_item_from_section('check nic', 'nic')
+    netif_nowhitespace = netif.replace(" ","")
+    logger.info('%s :: check netif list : %s', GetCurFunc(), netif_nowhitespace)
 
-   return net_io_counters_result
+    netif_list = netif_nowhitespace.split(',')
+
+
+    buf = ""
+    for nic, netio_counters in psutil.net_io_counters(pernic=True).items():
+        if nic == 'lo' or nic == 'sit0':
+            continue
+        if nic in netif_list:
+            buf += " %s :\n" % ( nic )
+            buf += "    errin : %3s, errout : %3s" % \
+ 	        	        (netio_counters.errin, netio_counters.errout)  + '\n'
+            if netio_counters.errin >= 100 or netio_counters.errout >= 100:
+                net_io_counters_result.result = "NOK"
+        else:
+            continue
+
+    hc_result_table._concate(buf)
+    net_io_counters_result.output = hc_result_table.output
+
+    return net_io_counters_result
 
 def net_if_stats():
    ''' Check Net if stats 
@@ -1081,22 +1101,42 @@ def net_if_stats():
    net_if_stats_result = HcResult()
    hc_result_table = HcCmdResultTalbe('NET interface 확인',78)
 
+   config = ConfigLoad()
+   hc_home_path = config.get_item_from_section('main', 'path')
+
+   HC_CONFIG_NETIF_PATH= os.path.join(hc_home_path, 'config/netif')
+#   HostInfo = lib.vms_hc.HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
+   host_info = HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
+   host_info._host_info()
+   netif_config_file = host_info.hostname + '.cfg'
+   netif_config_file_path = os.path.join(HC_CONFIG_NETIF_PATH, netif_config_file)
+
+   config = ConfigLoad(netif_config_file_path)
+   netif = config.get_item_from_section('check nic', 'nic')
+   netif_nowhitespace = netif.replace(" ","")
+   logger.info('%s :: check netif list : %s', GetCurFunc(), netif_nowhitespace)
+
+   netif_list = netif_nowhitespace.split(',')
+
    buf = ""
    for nic, nic_stats in psutil.net_if_stats().items():
-      if nic == 'lo' or nic == 'sit0':
-         continue
+      if nic in netif_list:
+         if nic == 'lo' or nic == 'sit0':
+            continue
       
-      if type(nic) == unicode:
-         nic = nic.encode("utf-8")
+         if type(nic) == unicode:
+            nic = nic.encode("utf-8")
 
-      try:
-         if nic_stats.isup != True or nic_stats.duplex != 2:
-            net_if_stats_result.result = "NOK"
-         buf += " %s :\n" % ( nic )
-         buf += "    stats : up=%s, duplex=%s, speed=%s" % \
-                ("yes" if nic_stats.isup else "no", duplex_map[nic_stats.duplex], nic_stats.speed)  + '\n'
-      except Exception as e:
-         pass
+         try:
+            if nic_stats.isup != True or nic_stats.duplex != 2:
+               net_if_stats_result.result = "NOK"
+            buf += " %s :\n" % ( nic )
+            buf += "    stats : up=%s, duplex=%s, speed=%s" % \
+                   ("yes" if nic_stats.isup else "no", duplex_map[nic_stats.duplex], nic_stats.speed)  + '\n'
+         except Exception as e:
+            pass
+      else:
+         continue
 
    hc_result_table._concate(buf)
    net_if_stats_result.output = hc_result_table.output
@@ -1110,15 +1150,13 @@ def net_if_address():
    hc_result_table = HcCmdResultTalbe('Net interface address 확인',78)
 
    ipa_dic = {}
-   for nic_name, nic_value_list in psutil.net_if_addrs().items():
+   for nic_name, addrs in psutil.net_if_addrs().items():
       if nic_name == 'lo' or nic_name == 'sit0':
          continue
-      for nic_value in nic_value_list: 
-         if nic_value.family == socket.AF_INET:
-            ip_addrs = nic_value.address
-         else:
-            continue
-      ipa_dic[nic_name] = ip_addrs
+      for addr in addrs:
+         if addr.family == socket.AF_INET:
+            ip_addrs = addr.address
+            ipa_dic[nic_name] = ip_addrs
 
    config = ConfigLoad()
    hc_home_path = config.get_item_from_section('main', 'path')
@@ -1139,7 +1177,7 @@ def net_if_address():
          net_if_addrs_result.result = "NOK"
          search_result = "NOK"
 
-      buf += "  %4s : %15s                                 [ %3s ]" \
+      buf += "  %5s : %15s                                 [ %3s ]" \
 		   % (nic_name_conf, ip_addrs_conf, search_result  )  + '\n'
 
    hc_result_table._concate(buf)
@@ -1149,7 +1187,7 @@ def net_if_address():
 
 def ping_status():
    ping_status_result = HcResult()
-   hc_result_table = HcCmdResultTalbe('Ping 확인 : ping -c 4 -w 4 gateway_ip',78)
+   hc_result_table = HcCmdResultTalbe('Ping 확인 : ping -s 1500 -c 60 gateway_ip',78)
 
    config = ConfigLoad()
    hc_home_path = config.get_item_from_section('main', 'path')
@@ -1164,7 +1202,7 @@ def ping_status():
    config = ConfigLoad(ping_config_file_path)
    gateway_ip = config.get_item_from_section('default', 'GW')
 
-   ping_command='ping -c 4 -w 4 ' + gateway_ip
+   ping_command='ping -s 1500 -c 6 ' + gateway_ip
    ping_result = os_execute(ping_command)
    ping_result_list = ping_result.output.split('\n')
 
@@ -1172,11 +1210,10 @@ def ping_status():
       if 'packet loss' in line:
          PingResult = line.split(',')
    PacketLoss = re.findall(r'\d', PingResult[2])
+   logger.info('%s : parsing packet loss from ping result : %s', GetCurFunc(), PacketLoss[0])
 
-   if int(PacketLoss[0]) > 20:
+   if int(PacketLoss[0]) > 0:
       ping_status_result.result = "NOK"
-
-#   print(" Packet Loss : %2s %% " % PacketLoss[0])
 
    hc_result_table._concate(ping_result.output)
    ping_status_result.output = hc_result_table.output
@@ -1354,15 +1391,16 @@ def messages_check():
    hc_result_table = HcCmdResultTalbe('/var/log/messages 확인',78)
 
    search_pattern = '"erro|down|fault|fail"'
+   logger.info('%s : assign search pattern : %s', GetCurFunc(), search_pattern)
 
-   messages_check_command = "/bin/egrep -i "+search_pattern+" /var/log/messages"
+   messages_check_command = "/bin/egrep -i "+search_pattern+" /var/log/messages | cat"
    messages_check_command_result = os_execute(messages_check_command)
+   logger.info('%s : result from os command : %s', GetCurFunc(), messages_check_command_result)
        
-   messages_check_command_result_list = messages_check_command_result.output.split('\n')
-   logger.info('%s :: messages_check_command_result  : %s', GetCurFunc(), messages_check_command_result)
+#   messages_check_command_result_list = messages_check_command_result.output.split('\n')
 #   fault_msg = re.findall("Faulted", messages_check_result.output)
 #   if fault_msg or nascli_command_result.exit_code:
-   if not messages_check_command_result.exit_code:
+   if messages_check_command_result.output != '':
       messages_check_result.result = "NOK"
 
    hc_result_table._concate(messages_check_command_result.output)
@@ -1376,24 +1414,46 @@ def bond_status_check():
     bond_check_result = HcResult()
     hc_result_table = HcCmdResultTalbe('bond interface 확인',78)
 
+    config = ConfigLoad()
+    hc_home_path = config.get_item_from_section('main', 'path')
+
+    HC_CONFIG_NETIF_PATH= os.path.join(hc_home_path, 'config/netif')
+#    HostInfo = lib.vms_hc.HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
+    host_info = HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
+    host_info._host_info()
+    netif_config_file = host_info.hostname + '.cfg'
+    netif_config_file_path = os.path.join(HC_CONFIG_NETIF_PATH, netif_config_file)
+
+    config = ConfigLoad(netif_config_file_path)
+    netif = config.get_item_from_section('check nic', 'nic')
+    netif_nowhitespace = netif.replace(" ","")
+    logger.info('%s :: check netif list : %s', GetCurFunc(), netif_nowhitespace)
+
+    netif_list = netif_nowhitespace.split(',')
+
     bondList = get_bond() 
+    logger.info('%s :: bonding interface list  : %s', GetCurFunc(), bondList)
     buf = ""
     if bondList: 
         for bond in bondList: 
-            bond_status = check_bond_status(bond) 
-            if bond_status: 
-                buf += " %s :\n" % ( bond )
-                buf += "    mode  : %s" % bond_status.mode + '\n'
-                buf += "    stats : up=%s, slave Iface=%4s(%6s,%4s), %4s(%6s,%4s)" % \
-                       ("yes" if bond_status.intState == 0 else "no", 
-                       bond_status.slave_iface[0], 
-                       "ACTIVE" if bond_status.active in bond_status.slave_iface[0] else "STDBY", 
-                       bond_status.slave_iface_status[0],
-                       bond_status.slave_iface[1], 
-                       "ACTIVE" if bond_status.active in bond_status.slave_iface[1] else "STDBY",
-                       bond_status.slave_iface_status[1]) + '\n'
-                if bond_status.intState == 1:
-                    buf += "Bond %s error:%s" % (bond, bond_status.strState)
+            if bond in netif_list:
+                bond_status = check_bond_status(bond) 
+                logger.info('%s :: bond_status intState : %s', GetCurFunc(),  bond_status.intState)
+                if bond_status: 
+                    buf += " %s :\n" % ( bond )
+                    buf += "    mode  : %s" % bond_status.mode + '\n'
+                    buf += "    stats : up=%s, slave Iface=%4s(%6s,%4s), %4s(%6s,%4s)" % \
+                           ("yes" if bond_status.intState == 0 else "no", 
+                           bond_status.slave_iface[0], 
+                           "ACTIVE" if bond_status.active in bond_status.slave_iface[0] else "STDBY", 
+                           bond_status.slave_iface_status[0],
+                           bond_status.slave_iface[1], 
+                           "ACTIVE" if bond_status.active in bond_status.slave_iface[1] else "STDBY",
+                           bond_status.slave_iface_status[1]) + '\n'
+                    if bond_status.intState == 1:
+                        buf += "Bond %s error:%s" % (bond, bond_status.strState)
+            else:
+                continue
         if "down" in bond_status.slave_iface_status:
             bond_check_result.result = "NOK"
     else: 
