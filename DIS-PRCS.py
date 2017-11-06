@@ -26,7 +26,7 @@ def main():
     parser.add_argument('-l', '--longcmd', action='store_true')
     args = parser.parse_args()
 
-    HOST_INFO = host_info()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
+    HOST_INFO = get_host_info()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
 
     SystemNumber = HOST_INFO.system_name
     HostName = HOST_INFO.hostname

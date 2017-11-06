@@ -11,8 +11,8 @@ import subprocess
 import inspect
 from log import *
 from hostconf import *
-from collections import namedtuple
 from lib.vms_hc import *
+from lib.hclib import *
 
 #logger = hcLogger('root')
 logger = HcLogger()
@@ -29,18 +29,6 @@ def PrintDashLine():
 
 def PrintEqualLine():
     print("=" * 93)
-
-def IP_address_List():
-    ''' return IP address list
-    '''
-    retlist = []
-    for nic, addrs in psutil.net_if_addrs().items():
-        for addr in addrs:
-            if addr.family == 2 :
-                retlist.append(addr.address)
-#                   print(" address   : %s" % addr.address)
-#               print(" family :  : %s" % addr.family)
-    return retlist
 
 def korean_weekday():
     DayOfTheWeek = datetime.datetime.today().weekday()
@@ -59,56 +47,6 @@ def korean_weekday():
         return "≈‰"
     elif DayOfTheWeek == 6:
         return "¿œ"
-
-def ha_status():
-    ha_status = []
-
-    IPs = IP_address_List()
-    logger.info('%s : ip address : %s', GetCurFunc(),IPs )
-
-    st_ha_operating_mode = 'STANDBY'
-    for IP in IPs:
-        for hostlist in HostConf:
-            if IP in hostlist:
-                host_class = hostlist[2]
-                if hostlist[1] == 'VIP':
-                    st_ha_operating_mode = 'ACTIVE'
-                    logger.info('%s : This host is Active', GetCurFunc())
-                    break
-    for hostlist in HostConf:
-        if host_class in hostlist:
-            if hostlist[1] == 'VIP':
-                ha_installed = 1
-                logger.info('%s : This %s is HA', GetCurFunc(), host_class)
-                break
-            else:
-                ha_installed = 0
-                
-    ha_status.append(st_ha_operating_mode)
-    ha_status.append(ha_installed)
-
-    return ha_status
-
-def host_info():
-    ATTR_HOST_INFO = 'system_name hostname hostclass ip_address ha_operating_mode ha_installed'
-    host_info_tpl = namedtuple('host_info_tpl', ATTR_HOST_INFO)
-
-    IPs = IP_address_List()
-    ha_status_list = ha_status()
-
-    for IP in IPs:
-        for hostlist in HostConf:
-            if IP in hostlist:
-                if hostlist[1] == 'VIP':
-                    continue
-                logger.info('%s : hostname is %s', GetCurFunc(), hostlist[1])
-                HOST_INFO = hostlist + ha_status_list
-                host_info = host_info_tpl._make(HOST_INFO)
-
-                return host_info   # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE,'1'],
-
-    logger.info('%s :: unknown IP address, check HostConf List',GetCurFunc())
-    sys.exit()
 
 def os_execute(OsCommand):
     try:

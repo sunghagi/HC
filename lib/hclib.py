@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 import os
 import csv
+import psutil
+from collections import namedtuple
+from hostconf import *
 from lib.log import *
 
 logger = HcLogger()
@@ -164,3 +167,67 @@ def check_bond_status(strBondName):
         bondStatus.strState = strState 
 
     return bondStatus 
+
+def get_IP_list():
+    ''' return IP address list
+    '''
+    IP_list = []
+    for nic, addrs in psutil.net_if_addrs().items():
+        for addr in addrs:
+            if addr.family == 2 :
+                IP_list.append(addr.address)
+#                   print(" address   : %s" % addr.address)
+#               print(" family :  : %s" % addr.family)
+    return IP_list
+
+def get_ha_status():
+    ha_status = []
+
+    IP_list = get_IP_list()
+    logger.info('%s : IP address : %s', GetCurFunc(), IP_list)
+
+    st_ha_operating_mode = 'STANDBY'
+    for IP in IP_list:
+        for hostlist in HostConf:
+            if IP in hostlist:
+                host_class = hostlist[2]
+                if hostlist[1] == 'VIP':
+                    st_ha_operating_mode = 'ACTIVE'
+                    logger.info('%s : This host is Active', GetCurFunc())
+                    break
+    for hostlist in HostConf:
+        if host_class in hostlist:
+            if hostlist[1] == 'VIP':
+                ha_installed = 1
+                logger.info('%s : This %s is HA', GetCurFunc(), host_class)
+                break
+            else:
+                ha_installed = 0
+                if st_ha_operating_mode == 'STANDBY' and ha_installed == 0:
+                    st_ha_operating_mode = 'ACTIVE'
+
+    ha_status.append(st_ha_operating_mode)
+    ha_status.append(ha_installed)
+
+    return ha_status, IP_list
+
+def get_host_info():
+    ATTR_HOST_INFO = 'system_name hostname hostclass ip_address ha_operating_mode ha_installed'
+    host_info_tpl = namedtuple('host_info_tpl', ATTR_HOST_INFO)
+
+#    IP_list = get_IP_list()
+    ha_status_list, IP_list = get_ha_status()
+
+    for IP in IP_list:
+        for hostlist in HostConf:
+            if IP in hostlist:
+                if hostlist[1] == 'VIP':
+                    continue
+                logger.info('%s : hostname is %s', GetCurFunc(), hostlist[1])
+                HOST_INFO = hostlist + ha_status_list
+                host_info = host_info_tpl._make(HOST_INFO)
+
+                return host_info   # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE,'1'],
+
+    logger.info('%s :: unknown IP address, check HostConf List',GetCurFunc())
+    sys.exit()

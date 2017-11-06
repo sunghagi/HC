@@ -19,7 +19,7 @@ from collections import namedtuple
 #logger = HcLogger()
 
 default_config_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-				'../config', 'hc.cfg')
+                '../config', 'hc.cfg')
 
 class ConfigLoad():
    logger.debug('%s :: config path : %s', GetCurFunc(), default_config_path)
@@ -55,10 +55,11 @@ class HcResult(object):
    Attributes:
       result: the health check result as a string
       output: the health check running status as a string
-	'''
+    '''
 
    def __init__(self):
       self.result = 'OK'
+      self.reason = ""
       self.output = ""
 #      self.width = width
 #   ResultList = [index, CheckDate, TodayCheckPeriod, SystemNumber, HostName, ItemDesc, CmdResult, ReturnString]
@@ -158,60 +159,6 @@ class HcCmdResultTalbe(object):
       self.output = string_concate(self.hc_header, self.hc_content)
       self._insert_tail()
 
-
-class HostInfo(object):
-   ''' Health check HA
-
-   Attributes:
-      system_name hostname hostclass ip_address ha_operating_mode ha_installed
-	'''
-
-   def __init__(self):
-      ips_list = ip_address_List()
-      logger.debug('%s :: ip address : %s', GetCurFunc(), ips_list )
-
-      search_flag = 0
-      self.ha_operating_mode = 'STANDBY'
-      for ip in ips_list:
-         for hostlist in HostConf:
-            if ip in hostlist:
-               search_flag = 1
-               host_class = hostlist[2]
-               if hostlist[1] == 'VIP':
-                  self.ha_operating_mode = 'ACTIVE'
-                  break
-
-      if search_flag == 0:
-         print "장비의 IP주소가 hostconf.py에 등록되어 있지 않습니다."
-         print "설정을 확인하세요."
-         sys.exit()
-
-      for hostlist in HostConf:
-         if host_class in hostlist:
-            if hostlist[1] == 'VIP':
-               self.ha_installed = 1
-               break
-            else:
-               self.ha_installed = 0
-
-   def _host_info(self):
-      ips_list = ip_address_List()
-
-      for ip in ips_list:
-#         for hostlist in lib.hostconf.HostConf:
-         for hostlist in HostConf:
-            if ip in hostlist:
-               if hostlist[1] == 'VIP':
-                  continue
-               self.system_name = hostlist[0]
-               self.hostname = hostlist[1]
-               self.hostclass = hostlist[2]
-               self.ip_address = hostlist[3]
-               logger.debug('%s : hostname is %s', GetCurFunc(), self.hostname)
-
-#      logger.info('%s :: unknown IP address, check HostConf List', GetCurFunc())
-#      sys.exit()
-
 def get_alarm_checkday():
    ''' return one month ago and today '''
    today =  datetime.datetime.today()
@@ -224,250 +171,628 @@ def get_alarm_checkday():
 
    return alarm_checkday
 
-def cpu_usage():
-   cpu_usage_result = HcResult()
+class HcItem:
+    def __init__(self):
+        logger.info('%s :: HcItem class init start', GetCurFunc())
+        self.config = ConfigLoad()
+        self.host_info = get_host_info()
 
-   config = ConfigLoad()
-   CPU_THRESHOLD = config.getint_item_from_section('threshold', 'cpu')
+    def cpu_usage(self):
+        cpu_usage_result = HcResult()
 
-   tot_percs = psutil.cpu_percent(interval=0, percpu=False)
-   percs = psutil.cpu_percent(interval=0, percpu=True) 
-   buf = ""
-   for cpu_num, perc in enumerate(percs): 
-      dashes, empty_dashes = get_dashes(perc) 
-      templ = " CPU%-2s [%s%s] %5s%%"
-      buf += templ % (cpu_num, dashes, empty_dashes, perc) + '\n'
+        CPU_THRESHOLD = self.config.getint_item_from_section('threshold', 'cpu')
 
-   if (tot_percs > CPU_THRESHOLD):
-      cpu_usage_result.result = "NOK"
-      cpu_usage_result.reason = "CPU %s usage is %s" % ( cpu_num, tot_percs )
+        tot_percs = psutil.cpu_percent(interval=0, percpu=False)
+        percs = psutil.cpu_percent(interval=0, percpu=True) 
+        buf = ""
+        for cpu_num, perc in enumerate(percs): 
+            dashes, empty_dashes = get_dashes(perc) 
+            templ = " CPU%-2s [%s%s] %5s%%"
+            buf += templ % (cpu_num, dashes, empty_dashes, perc) + '\n'
 
-   hc_result_table = HcCmdResultTalbe('CPU 사용률('+str(tot_percs)+'%)',70)
-   hc_result_table._concate(buf)
-   cpu_usage_result.output = hc_result_table.output
-   logger.debug('%s :: hc_result_table.output : %s', 
-      GetCurFunc(), hc_result_table.output)
+        if (tot_percs > CPU_THRESHOLD):
+            cpu_usage_result.result = "NOK"
+            cpu_usage_result.reason = "CPU %s usage is %s" % ( cpu_num, tot_percs )
 
-   return cpu_usage_result
+        hc_result_table = HcCmdResultTalbe('CPU 사용률('+str(tot_percs)+'%)',70)
+        hc_result_table._concate(buf)
+        cpu_usage_result.output = hc_result_table.output
+        logger.debug('%s :: hc_result_table.output : %s', 
+                     GetCurFunc(), hc_result_table.output)
 
+        return cpu_usage_result
 
-def memory_usage():
-   memory_usage_result = HcResult()
+    def memory_usage(self):
+        memory_usage_result = HcResult()
 
-   config = ConfigLoad()
-   MEM_THRESHOLD = config.getint_item_from_section('threshold', 'mem')
-   SWAP_THRESHOLD = config.getint_item_from_section('threshold', 'swap_memory')
+        MEM_THRESHOLD = self.config.getint_item_from_section('threshold', 'mem')
+        SWAP_THRESHOLD = self.config.getint_item_from_section('threshold', 'swap_memory')
 
-   mem = psutil.virtual_memory()
-   total_mem = bytes2human(mem.total)
-   avail_mem = bytes2human(mem.available)
-   '''
-   percent_mem = mem.percent
-   templ = "%10s      %10s   %10s%%"
-   buf = '     Total           Available     Use(%)\n'
-   buf += "-" * 65 + '\n'
-   buf += templ % (total_mem, avail_mem, percent_mem) + '\n'
-   '''
-   dashes, empty_dashes = get_dashes(mem.percent)
-   templ = " Mem   [%s%s] %5s%% %6s / %s \n"
-   buf = templ % (  dashes, empty_dashes, 
-            mem.percent, 
-            str(int(mem.used / 1024 / 1024)) + "M", 
-            str(int(mem.total / 1024 / 1024)) + "M" )
+        mem = psutil.virtual_memory()
+        total_mem = bytes2human(mem.total)
+        avail_mem = bytes2human(mem.available)
+        '''
+        percent_mem = mem.percent
+        templ = "%10s      %10s   %10s%%"
+        buf = '     Total           Available     Use(%)\n'
+        buf += "-" * 65 + '\n'
+        buf += templ % (total_mem, avail_mem, percent_mem) + '\n'
+        '''
+        dashes, empty_dashes = get_dashes(mem.percent)
+        templ = " Mem   [%s%s] %5s%% %6s / %s \n"
+        buf = templ % (  dashes, empty_dashes, 
+                 mem.percent, 
+                 str(int(mem.used / 1024 / 1024)) + "M", 
+                 str(int(mem.total / 1024 / 1024)) + "M" )
 
-   if (mem.percent > MEM_THRESHOLD):
-      memory_usage_result.result = "NOK"
+        if (mem.percent > MEM_THRESHOLD):
+            memory_usage_result.result = "NOK"
 
-   swap = psutil.swap_memory()
-   dashes, empty_dashes = get_dashes(swap.percent)
-   templ = " Swap  [%s%s] %5s%% %6s / %s"
-   buf += templ % ( dashes, empty_dashes, 
-            swap.percent, 
-            str(int(swap.used / 1024 / 1024)) + "M", 
-            str(int(swap.total / 1024 / 1024)) + "M") 
+        swap = psutil.swap_memory()
+        dashes, empty_dashes = get_dashes(swap.percent)
+        templ = " Swap  [%s%s] %5s%% %6s / %s"
+        buf += templ % ( dashes, empty_dashes, 
+                 swap.percent, 
+                 str(int(swap.used / 1024 / 1024)) + "M", 
+                 str(int(swap.total / 1024 / 1024)) + "M") 
 
-   if (swap.percent > SWAP_THRESHOLD):
-      memory_usage_result.result = "NOK"
+        if (swap.percent > SWAP_THRESHOLD):
+            memory_usage_result.result = "NOK"
 
-   hc_result_table = HcCmdResultTalbe('(SWAP)MEMORY 사용률(%)',70)
-   hc_result_table._concate(buf)
-   memory_usage_result.output = hc_result_table.output
+        hc_result_table = HcCmdResultTalbe('(SWAP)MEMORY 사용률(%)',70)
+        hc_result_table._concate(buf)
+        memory_usage_result.output = hc_result_table.output
 
-   return memory_usage_result
-
-
-def disk_usage():
-   disk_usage_result = HcResult()
-
-   config = ConfigLoad()
-   DISK_THRESHOLD = config.getint_item_from_section('threshold', 'disk')
-
-   list_partitions = psutil.disk_partitions(all=True)
-   buf = ' Filesystem             Size    Used   Avail    Use%     Mounted on\n'
-   NON_PHYSICAL_DEVICE = ['', 'proc', 'sysfs', 'devpts', 'tmpfs', 'sunrpc', 'nfsd']
-   for part in list_partitions:
-      if part.device in NON_PHYSICAL_DEVICE:
-         continue
-      fs = part.device
-      size = psutil.disk_usage(part.mountpoint).total
-      used = psutil.disk_usage(part.mountpoint).used
-      avail = psutil.disk_usage(part.mountpoint).free
-      usage = psutil.disk_usage(part.mountpoint).percent
-      if (usage > DISK_THRESHOLD):
-         disk_usage_result.result = "NOK"
-      mounton = part.mountpoint
-      if len(fs) > 20:
-         templ = "% -20s \n %27s %7s %7s %7s     %-20s"
-      else:
-         templ = "% -20s %7s %7s %7s %7s     %-20s"
-
-      buf += templ % (fs, bytes2human(size), bytes2human(used), \
-                      bytes2human(avail), usage, mounton) + '\n'
-
-   hc_result_table = HcCmdResultTalbe('DISK 사용률', 70)
-   hc_result_table._concate(buf)
-   disk_usage_result.output = hc_result_table.output
-
-   return disk_usage_result
-
-def disk_inode_usage():
-   disk_node_usage_result = HcResult()
-
-   config = ConfigLoad()
-   DISK_THRESHOLD = config.getint_item_from_section('threshold', 'disk')
-
-   list_partitions = psutil.disk_partitions(all=True)
-   buf = ' Filesystem           Inodes   IUsed   IFree   IUse%     Mounted on\n'
-   NON_PHYSICAL_DEVICE = ['', 'proc', 'sysfs', 'devpts', 'tmpfs', 'sunrpc', 'nfsd']
-   for part in list_partitions:
-      if part.device in NON_PHYSICAL_DEVICE:
-         continue
-      fs = part.device
-      dict_node_usage = disk_node_usage(part.mountpoint)
-      nodes = dict_node_usage['total_no_of_nodes']
-      free = dict_node_usage['total_no_of_free_nodes']
-      used = nodes - free
-      try:
-         usage = math.ceil((used/nodes)*100)
-      except Exception as e:
-         usage = 0
-
-      if (usage > DISK_THRESHOLD):
-         disk_usage_result.result = "NOK"
-      mounton = part.mountpoint
-      if len(fs) > 20:
-         templ = "% -20s \n %27s %7s %7s %7s     %-20s"
-      else:
-         templ = "% -20s %7s %7s %7s %7s     %-20s"
-
-      buf += templ % (fs, bytes2human(nodes), bytes2human(used), \
-                      bytes2human(free), usage, mounton) + '\n'
-
-   hc_result_table = HcCmdResultTalbe('DISK inode 사용률', 70)
-   hc_result_table._concate(buf)
-   disk_node_usage_result.output = hc_result_table.output
-
-   return disk_node_usage_result
+        return memory_usage_result
 
 
-def uptime_status():
-   uptime_status_result = HcResult()
-   hc_result_table = HcCmdResultTalbe('시스템 Uptime 확인', 70)
+    def disk_usage(self):
+        disk_usage_result = HcResult()
 
-   config = ConfigLoad()
-   UPTIME_THRESHOLD = config.getint_item_from_section('threshold', 'uptime')
+        DISK_THRESHOLD = self.config.getint_item_from_section('threshold', 'disk')
 
-   float_boot_time = psutil.boot_time()
-   BootTime = datetime.datetime.fromtimestamp(float_boot_time).strftime("%Y-%m-%d %H:%M:%S")
-   t = time.localtime()
-   current_time = time.mktime(t)
-   uptime = current_time - float_boot_time
-   day = uptime / 60 / 60 / 24
+        list_partitions = psutil.disk_partitions(all=True)
+        buf = ' Filesystem             Size    Used   Avail    Use%     Mounted on\n'
+        NON_PHYSICAL_DEVICE = ['', 'proc', 'sysfs', 'devpts', 'tmpfs', 'sunrpc', 'nfsd']
+        for part in list_partitions:
+            if part.device in NON_PHYSICAL_DEVICE:
+                continue
+            fs = part.device
+            size = psutil.disk_usage(part.mountpoint).total
+            used = psutil.disk_usage(part.mountpoint).used
+            avail = psutil.disk_usage(part.mountpoint).free
+            usage = psutil.disk_usage(part.mountpoint).percent
+            if (usage > DISK_THRESHOLD):
+                disk_usage_result.result = "NOK"
+                reason_text = "Disk usage over %s%% " % ( DISK_THRESHOLD )
+            mounton = part.mountpoint
+            if len(fs) > 20:
+                templ = "% -20s \n %27s %7s %7s %7s     %-20s"
+            else:
+                templ = "% -20s %7s %7s %7s %7s     %-20s"
 
-   templ = " %20s        %3s days "
+            buf += templ % (fs, bytes2human(size), bytes2human(used), \
+                          bytes2human(avail), usage, mounton) + '\n'
 
-   buf = '      Booting 일자          Uptime 일자\n'
-   buf += "-" * hc_result_table.column_width + '\n'
-   buf += templ % (BootTime, int(day)) + '\n'
+        hc_result_table = HcCmdResultTalbe('DISK 사용률', 70)
+        hc_result_table._concate(buf)
+        disk_usage_result.output = hc_result_table.output
+        try:
+            disk_usage_result.reason = reason_text
+        except:
+            pass
 
-   if (day > UPTIME_THRESHOLD):
-      uptime_status_result.result = "NOK"
-      uptime_status_result.reason = "uptime이 %를 초과" % (UPTIME_THRESHOLD)
+        return disk_usage_result
 
-   hc_result_table._concate(buf)
-   uptime_status_result.output = hc_result_table.output
 
-   return uptime_status_result
+    def disk_inode_usage(self):
+        disk_node_usage_result = HcResult()
 
-def etc_backup():
-   backup_result = HcResult()
-   hc_result_table = HcCmdResultTalbe('/etc Backup',78)
+        DISK_THRESHOLD = self.config.getint_item_from_section('threshold', 'disk')
 
-   config = ConfigLoad()
-   hc_home_path = config.get_item_from_section('main', 'path')
-   backup_shell=os.path.join(hc_home_path,'etc_backup.sh')
+        list_partitions = psutil.disk_partitions(all=True)
+        buf = ' Filesystem           Inodes   IUsed   IFree   IUse%     Mounted on\n'
+        NON_PHYSICAL_DEVICE = ['', 'proc', 'sysfs', 'devpts', 'tmpfs', 'sunrpc', 'nfsd']
+        for part in list_partitions:
+            if part.device in NON_PHYSICAL_DEVICE:
+                continue
+            fs = part.device
+            dict_node_usage = disk_node_usage(part.mountpoint)
+            nodes = dict_node_usage['total_no_of_nodes']
+            free = dict_node_usage['total_no_of_free_nodes']
+            used = nodes - free
+            try:
+                usage = math.ceil((used/nodes)*100)
+            except Exception as e:
+                usage = 0
 
-   sudo_backup_shell='sudo ' + backup_shell
-   backup_status = os_execute(sudo_backup_shell)
+            if (usage > DISK_THRESHOLD):
+                disk_usage_result.result = "NOK"
+                reason_text = " disk inode usage over %s%% " % ( DISK_THRESHOLD )
+            mounton = part.mountpoint
+            if len(fs) > 20:
+                templ = "% -20s \n %27s %7s %7s %7s     %-20s"
+            else:
+                templ = "% -20s %7s %7s %7s %7s     %-20s"
 
-   BackupDate = datetime.date.today().strftime("%Y%m%d")
-   BackupHost = socket.gethostname()
+            buf += templ % (fs, bytes2human(nodes), bytes2human(used), \
+                           bytes2human(free), usage, mounton) + '\n'
 
-   etc_backup_path = config.get_item_from_section('path', 'etc_backup')
-   BackupFileName = os.path.join(etc_backup_path, 'etc_bkup_'+BackupHost+'_'+BackupDate+'.tar.gz')
-   logger.info('%s :: BackupFileName : %s', GetCurFunc(), BackupFileName)
+        hc_result_table = HcCmdResultTalbe('DISK inode 사용률', 70)
+        hc_result_table._concate(buf)
+        disk_node_usage_result.output = hc_result_table.output
+        try:
+            disk_node_usage_result.reason = reason_text
+        except:
+            pass
+ 
+        return disk_node_usage_result
 
-   backup_file_chk_cmd = '/usr/bin/file '+BackupFileName
-   os_exec_result = os_execute(backup_file_chk_cmd)
 
-   if not os.path.exists(BackupFileName):
-      backup_result.result = "NOK"
+    def uptime_status(self):
+        uptime_status_result = HcResult()
+        hc_result_table = HcCmdResultTalbe('시스템 Uptime 확인', 70)
 
-   hc_result_table._concate(os_exec_result.output)
-   backup_result.output = hc_result_table.output
+        UPTIME_THRESHOLD = self.config.getint_item_from_section('threshold', 'uptime')
 
-   return backup_result
+        float_boot_time = psutil.boot_time()
+        BootTime = datetime.datetime.fromtimestamp(float_boot_time).strftime("%Y-%m-%d %H:%M:%S")
+        t = time.localtime()
+        current_time = time.mktime(t)
+        uptime = current_time - float_boot_time
+        day = uptime / 60 / 60 / 24
 
-def sipa_fdump_status():
-   sipa_fdump_status_result = HcResult()
-   hc_result_table = HcCmdResultTalbe('sipa full dump 설정 확인', 78)
+        templ = " %20s        %3s days "
 
-   config = ConfigLoad()
-   sipa_trace_path = config.get_item_from_section('main', 'sipa_trace')
+        buf = '      Booting 일자          Uptime 일자\n'
+        buf += "-" * hc_result_table.column_width + '\n'
+        buf += templ % (BootTime, int(day)) + '\n'
 
-   sipa_config = ConfigParser.RawConfigParser()
-   sipa_config.read(sipa_trace_path)
-   dump = sipa_config.getint('MAIN','dump')
-   full_dump = sipa_config.getint('MAIN','full_dump')
+        if (day > UPTIME_THRESHOLD):
+            uptime_status_result.result = "NOK"
+            reason_text = "uptime이 %를 초과" % (UPTIME_THRESHOLD)
 
-   sipa_fdump_status_output = "    dump : %s , full_dump : %s" % ( dump, full_dump )
-   logger.info('%s :: sipa_fdump_status_output : %s', GetCurFunc(), sipa_fdump_status_output)
+        hc_result_table._concate(buf)
+        uptime_status_result.output = hc_result_table.output
+        try:
+            uptime_status_result.reason = reason_text
+        except:
+            pass
+ 
+        return uptime_status_result
 
-   if dump:
-      if full_dump:
-         sipa_fdump_status_result.result = "NOK"
-   else:
-      sipa_fdump_status_result.result = "OK"
+    def etc_backup(self):
+        backup_result = HcResult()
+        hc_result_table = HcCmdResultTalbe('/etc Backup',78)
 
-   hc_result_table._concate(sipa_fdump_status_output)
-   sipa_fdump_status_result.output = hc_result_table.output
+        hc_home_path = self.config.get_item_from_section('main', 'path')
+        backup_shell=os.path.join(hc_home_path,'etc_backup.sh')
 
-   return sipa_fdump_status_result
+        sudo_backup_shell='sudo ' + backup_shell
+#        backup_status = os_execute(sudo_backup_shell)
 
-def process_display():
-   process_display_result = HcResult()
-   hc_result_table = HcCmdResultTalbe('PROCESS 확인', 78)
+        BackupDate = datetime.date.today().strftime("%Y%m%d")
+        BackupHost = socket.gethostname()
 
-   config = ConfigLoad()
-   hc_home_path = config.get_item_from_section('main', 'path')
+        etc_backup_path = self.config.get_item_from_section('path', 'etc_backup')
+        BackupFileName = os.path.join(etc_backup_path, 'etc_bkup_'+BackupHost+'_'+BackupDate+'.tar.gz')
+        logger.info('%s :: BackupFileName : %s', GetCurFunc(), BackupFileName)
 
-   process_display_command = os.path.join(hc_home_path,'DIS-PRCS.py')
-   os_exec_result = os_execute(process_display_command)
+        backup_file_chk_cmd = '/usr/bin/file '+BackupFileName
+        os_exec_result = os_execute(backup_file_chk_cmd)
 
-   hc_result_table._concate(os_exec_result.output)
-   process_display_result.output = hc_result_table.output
+        if not os.path.exists(BackupFileName):
+            backup_result.result = "NOK"
+            reason_text = "/etc backup file does not exits"
+ 
+        hc_result_table._concate(os_exec_result.output)
+        backup_result.output = hc_result_table.output
+        backup_result.reason = reason_text
 
-   return process_display_result
+        return backup_result
+
+
+    def sipa_fdump_status(self):
+        sipa_fdump_status_result = HcResult()
+        hc_result_table = HcCmdResultTalbe('sipa full dump 설정 확인', 78)
+
+        sipa_trace_path = self.config.get_item_from_section('main', 'sipa_trace')
+
+        sipa_config = ConfigParser.RawConfigParser()
+        sipa_config.read(sipa_trace_path)
+        dump = sipa_config.getint('MAIN','dump')
+        full_dump = sipa_config.getint('MAIN','full_dump')
+
+        sipa_fdump_status_output = "    dump : %s , full_dump : %s" % ( dump, full_dump )
+        logger.info('%s :: sipa_fdump_status_output : %s', GetCurFunc(), sipa_fdump_status_output)
+
+        if dump:
+            if full_dump:
+                sipa_fdump_status_result.result = "NOK"
+        else:
+            sipa_fdump_status_result.result = "OK"
+
+        hc_result_table._concate(sipa_fdump_status_output)
+        sipa_fdump_status_result.output = hc_result_table.output
+
+        return sipa_fdump_status_result
+
+
+    def corefile_status(self):
+        corefile_status_result = HcResult()
+        hc_result_table = HcCmdResultTalbe('CORE 파일 생성 확인 : file CORE_FILE',78)
+
+        core_file_path = self.config.get_item_from_section('path', 'core')
+        logger.info('%s :: core_file_path : %s', GetCurFunc(), core_file_path)
+
+        import fnmatch, os
+        try:
+            files = fnmatch.filter(os.listdir(core_file_path), "core.*")
+        except Exception as e:
+            logger.exception('%s :: %s', GetCurFunc(), e)
+            corefile_status_result.reason = e
+            corefile_status_result.result = "NOK"
+            buf = e
+        else:
+            buf = ''
+            for CoreFileName in files:
+                # OMA 는 root 권한 필요
+                CMD = 'sudo /usr/bin/file '+core_file_path+'/'+CoreFileName
+                os_exec_result = os_execute(CMD)
+                buf += os_exec_result.output
+            if files:
+                logger.info('%s :: core file : %s', GetCurFunc(), files)
+                corefile_status_result.result = "NOK"
+                reason_text = "Core file exists"
+
+        hc_result_table._concate(buf)
+        corefile_status_result.output = hc_result_table.output
+        try:
+            corefile_status_result.reason = reason_text
+        except:
+            pass
+
+        return corefile_status_result
+
+
+    def process_display(self):
+        process_display_result = HcResult()
+        hc_result_table = HcCmdResultTalbe('PROCESS 확인', 78)
+
+        hc_home_path = self.config.get_item_from_section('main', 'path')
+
+        process_display_command = os.path.join(hc_home_path,'DIS-PRCS.py')
+        os_exec_result = os_execute(process_display_command)
+
+        hc_result_table._concate(os_exec_result.output)
+        process_display_result.output = hc_result_table.output
+
+        return process_display_result
+
+    def ping_status(self):
+        ping_status_result = HcResult()
+        hc_result_table = HcCmdResultTalbe('Ping 확인 : ping -s 1500 -c 60 gateway_ip',78)
+
+        hc_home_path = self.config.get_item_from_section('main', 'path')
+        HC_CONFIG_PING_PATH= os.path.join(hc_home_path, 'config/ping')
+
+        ping_config_file = self.host_info.hostname + '.cfg'
+        ping_config_file_path = os.path.join(HC_CONFIG_PING_PATH, ping_config_file)
+
+        config = ConfigLoad(ping_config_file_path)
+        gateway_ip = config.get_item_from_section('default', 'GW')
+
+        ping_command='ping -s 1500 -c 6 ' + gateway_ip
+        ping_result = os_execute(ping_command)
+        ping_result_list = ping_result.output.split('\n')
+
+        for line in ping_result_list:
+            if 'packet loss' in line:
+                PingResult = line.split(',')
+        PacketLoss = re.findall(r'\d', PingResult[2])
+        logger.info('%s : parsing packet loss from ping result : %s', GetCurFunc(), PacketLoss[0])
+
+        if int(PacketLoss[0]) > 0:
+            ping_status_result.result = "NOK"
+            reason_text = "packet loss from ping result %s" % ( PacketLoss[0] )
+
+        hc_result_table._concate(ping_result.output)
+        ping_status_result.output = hc_result_table.output
+        try:
+            ping_status_result.reason = reason_text
+        except:
+            pass
+
+        return ping_status_result
+
+
+    def bond_status_check(self):
+        ''' bond interface check
+        '''
+        bond_check_result = HcResult()
+        hc_result_table = HcCmdResultTalbe('bond interface 확인',78)
+
+        hc_home_path = self.config.get_item_from_section('main', 'path')
+
+        HC_CONFIG_NETIF_PATH= os.path.join(hc_home_path, 'config/netif')
+
+        netif_config_file = self.host_info.hostname + '.cfg'
+        netif_config_file_path = os.path.join(HC_CONFIG_NETIF_PATH, netif_config_file)
+
+        config = ConfigLoad(netif_config_file_path)
+        netif = config.get_item_from_section('check nic', 'nic')
+        netif_nowhitespace = netif.replace(" ","")
+        logger.info('%s : read checking netif list from config : %s', 
+                     GetCurFunc(), netif_nowhitespace)
+
+        netif_list = netif_nowhitespace.split(',')
+
+        bondList = get_bond() 
+        logger.info('%s : get bonding interface list : %s', GetCurFunc(), bondList)
+        buf = ""
+        if bondList: 
+            for bond in bondList: 
+                if bond in netif_list:
+                    bond_status = check_bond_status(bond) 
+                    logger.info('%s : bond_status intState : %s', 
+                                 GetCurFunc(),  bond_status.intState)
+                    if bond_status: 
+                        buf += " %s :\n" % ( bond )
+                        buf += "    mode  : %s" % bond_status.mode + '\n'
+                        buf += "    stats : up=%s, slave Iface=%4s(%6s,%4s), %4s(%6s,%4s)" % \
+                               ("yes" if bond_status.intState == 0 else "no", 
+                               bond_status.slave_iface[0], 
+                               "ACTIVE" if bond_status.active in bond_status.slave_iface[0] else "STDBY", 
+                               bond_status.slave_iface_status[0],
+                               bond_status.slave_iface[1], 
+                               "ACTIVE" if bond_status.active in bond_status.slave_iface[1] else "STDBY",
+                               bond_status.slave_iface_status[1]) + '\n'
+                        if bond_status.intState == 1:
+                            buf += "Bond %s error:%s" % (bond, bond_status.strState)
+                else:
+                    continue
+            if "down" in bond_status.slave_iface_status:
+                bond_check_result.reason = "slave interface is down"
+                bond_check_result.result = "NOK"
+                buf += bond_check_result.reason
+        else: 
+            bond_check_result.reason = "bonding interface not found"
+            bond_check_result.result = "NOK"
+            buf += bond_check_result.reason
+
+        hc_result_table._concate(buf)
+        bond_check_result.output = hc_result_table.output
+
+        return bond_check_result
+
+
+    def route_status(self):
+        route_status_result = HcResult()
+        hc_result_table = HcCmdResultTalbe('route 확인',78)
+
+        hc_home_path = self.config.get_item_from_section('main', 'path')
+
+        HC_CONFIG_ROUTE_PATH= os.path.join(hc_home_path, 'config/route')
+
+        route_command='/bin/netstat -rn'
+        route_command_result = os_execute(route_command)
+        route_command_result_list = route_command_result.output.split('\n')
+
+        route_result = ''
+        route_result += "Kernel IP routing table\n"
+        route_result += "Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface "
+        route_result += "Netconf파일정보유무               비고\n"
+
+        route_config_file = self.host_info.hostname + '.cfg'
+        route_config_file_path = os.path.join(HC_CONFIG_ROUTE_PATH, route_config_file)
+        logger.info('%s :: route_config_file_path : %s', GetCurFunc(), route_config_file_path)
+
+        route_config = ConfigLoad(route_config_file_path)
+        route_dest_sections_from_config = route_config.get_sections()
+
+        for route_dest_section in route_dest_sections_from_config:
+            DEST = route_config.get_item_from_section(route_dest_section, 'DEST')
+            GW = route_config.get_item_from_section(route_dest_section, 'GW')
+            DESC = route_config.get_item_from_section(route_dest_section, 'DESC')
+
+            search_result = "NOK"
+            for route_command_result_line in route_command_result_list:
+                if DEST in route_command_result_line and GW in route_command_result_line:
+                    if DEST == '0.0.0.0':
+                        netconf_file_info = 'Default Gateway'
+                    else :
+                        Iface = route_command_result_line.split()
+                        NETMASK = Iface[2]
+                        cidr = netmask2cidr(NETMASK)
+                        NIC = Iface[7]
+                        network_scripts_file = '/etc/sysconfig/network-scripts/'+'route-'+NIC
+                        logger.info('%s :: network_scripts_file : %s', GetCurFunc(), network_scripts_file)
+                        dest_with_cidr = DEST + '/' + cidr
+                        if GW == '0.0.0.0':
+                            netconf_file_info = '자체 네트워크'
+                        else :
+                            netconf_file_info = single_grep(DEST, network_scripts_file)
+                            logger.info('%s :: %s in netconf_file_info ?: %s', \
+                                         GetCurFunc(), dest_with_cidr, netconf_file_info)
+                            if netconf_file_info == None:
+                                netconf_file_info = '미존재'
+                                route_status_result.result = "NOK"
+                    route_result += "%-78s %-33s %s\n" % \
+                                    ( route_command_result_line, netconf_file_info, DESC)
+                    search_result = "OK"
+                    break
+            if search_result != "OK":
+                route_result += " %-10s : %-s " % ( DEST, GW)
+                route_result += ' routing table에 없음\n'
+                route_status_result.result = "NOK"
+
+        hc_result_table._concate(route_result)
+        route_status_result.output = hc_result_table.output
+ 
+        return route_status_result
+
+
+    def net_io_counters(self):
+        ''' Check Net io counters 
+        '''
+        net_io_counters_result = HcResult()
+        hc_result_table = HcCmdResultTalbe('NET IO 확인',78)
+
+        hc_home_path = self.config.get_item_from_section('main', 'path')
+        HC_CONFIG_NETIF_PATH= os.path.join(hc_home_path, 'config/netif')
+
+        netif_config_file = self.host_info.hostname + '.cfg'
+        netif_config_file_path = os.path.join(HC_CONFIG_NETIF_PATH, netif_config_file)
+
+        config = ConfigLoad(netif_config_file_path)
+        netif = config.get_item_from_section('check nic', 'nic')
+        netif_nowhitespace = netif.replace(" ","")
+        logger.info('%s :: check netif list : %s', GetCurFunc(), netif_nowhitespace)
+
+        netif_list = netif_nowhitespace.split(',')
+
+
+        buf = ""
+        for nic, netio_counters in psutil.net_io_counters(pernic=True).items():
+            if nic == 'lo' or nic == 'sit0':
+                continue
+            if nic in netif_list:
+                buf += " %s :\n" % ( nic )
+                buf += "    errin : %3s, errout : %3s" % \
+                            (netio_counters.errin, netio_counters.errout)  + '\n'
+                if netio_counters.errin >= 100 or netio_counters.errout >= 100:
+                    net_io_counters_result.result = "NOK"
+            else:
+                continue
+
+        hc_result_table._concate(buf)
+        net_io_counters_result.output = hc_result_table.output
+
+        return net_io_counters_result
+
+    def net_if_stats(self):
+       ''' Check Net if stats 
+       '''
+       duplex_map = {
+          psutil.NIC_DUPLEX_FULL: "full",
+          psutil.NIC_DUPLEX_HALF: "half",
+          psutil.NIC_DUPLEX_UNKNOWN: "?",
+       }
+
+       net_if_stats_result = HcResult()
+       hc_result_table = HcCmdResultTalbe('NET interface 확인',78)
+
+       hc_home_path = self.config.get_item_from_section('main', 'path')
+       HC_CONFIG_NETIF_PATH= os.path.join(hc_home_path, 'config/netif')
+
+       netif_config_file = self.host_info.hostname + '.cfg'
+       netif_config_file_path = os.path.join(HC_CONFIG_NETIF_PATH, netif_config_file)
+
+       config = ConfigLoad(netif_config_file_path)
+       netif = config.get_item_from_section('check nic', 'nic')
+       netif_nowhitespace = netif.replace(" ","")
+       logger.info('%s :: check netif list : %s', GetCurFunc(), netif_nowhitespace)
+
+       netif_list = netif_nowhitespace.split(',')
+
+       buf = ""
+       for nic, nic_stats in psutil.net_if_stats().items():
+          if nic in netif_list:
+             if nic == 'lo' or nic == 'sit0':
+                continue
+          
+             if type(nic) == unicode:
+                nic = nic.encode("utf-8")
+
+             try:
+                if nic_stats.isup != True or nic_stats.duplex != 2:
+                   net_if_stats_result.result = "NOK"
+                buf += " %s :\n" % ( nic )
+                buf += "    stats : up=%s, duplex=%s, speed=%s" % \
+                       ("yes" if nic_stats.isup else "no", duplex_map[nic_stats.duplex], nic_stats.speed)  + '\n'
+             except Exception as e:
+                pass
+          else:
+             continue
+
+       hc_result_table._concate(buf)
+       net_if_stats_result.output = hc_result_table.output
+
+       return net_if_stats_result
+
+    def net_if_address(self):
+       ''' Check Net if address 
+       '''
+       net_if_addrs_result = HcResult()
+       hc_result_table = HcCmdResultTalbe('Net interface address 확인',78)
+
+       ipa_dic = {}
+       for nic_name, addrs in psutil.net_if_addrs().items():
+          if nic_name == 'lo' or nic_name == 'sit0':
+             continue
+          for addr in addrs:
+             if addr.family == socket.AF_INET:
+                ip_addrs = addr.address
+                ipa_dic[nic_name] = ip_addrs
+
+       hc_home_path = self.config.get_item_from_section('main', 'path')
+       HC_CONFIG_IPADDR_PATH= os.path.join(hc_home_path, 'config/ipaddr')
+
+       ipaddr_config_file = self.host_info.hostname + '.cfg'
+       ipaddr_config_file_path = os.path.join(HC_CONFIG_IPADDR_PATH, ipaddr_config_file)
+
+       config = ConfigLoad(ipaddr_config_file_path)
+       net_if_addrs_from_config = config.get_items_from_section('ipaddr')
+
+       buf = ""
+       for nic_name_conf, ip_addrs_conf in net_if_addrs_from_config:
+          search_result = "OK"
+          ip_addrs_sys = ipa_dic.get(nic_name_conf)
+          if ip_addrs_sys != ip_addrs_conf:
+             net_if_addrs_result.result = "NOK"
+             search_result = "NOK"
+
+          buf += "  %5s : %15s                                 [ %3s ]" \
+               % (nic_name_conf, ip_addrs_conf, search_result  )  + '\n'
+
+       hc_result_table._concate(buf)
+       net_if_addrs_result.output = hc_result_table.output
+
+       return net_if_addrs_result
+
+
+    def crontab_status(self):
+        crontab_status_result = HcResult()
+        hc_result_table = HcCmdResultTalbe('crontab 확인 : crontab -l',78)
+
+        crontab_from_config = self.config.get_items_from_section('crontab')
+        logger.info('%s :: crontab_from_config  : %s', GetCurFunc(), crontab_from_config)
+
+        crontab_command='sudo crontab -l'
+        crontab_command_result = os_execute(crontab_command)
+        crontab_command_result_list = crontab_command_result.output.split('\n')
+
+        crontab_result = ''
+        for crontab_entry,crontab_command in crontab_from_config:
+            search_result = "NOK"
+            for crontab_command_result_line in crontab_command_result_list:
+                if crontab_command in crontab_command_result_line:
+                    crontab_result += " %-10s : " % ( crontab_entry )
+                    crontab_result += crontab_command_result_line + '\n'
+                    search_result = "OK"            
+                    break
+            if search_result != "OK":
+                crontab_result += crontab_entry + ' : ' + crontab_command
+                crontab_result += ' crontab 목록에 없음\n'
+                crontab_status_result.result = "NOK"
+                crontab_status_result.reason = "crontab 목록에 없음"
+
+        hc_result_table._concate(crontab_result)
+        crontab_status_result.output = hc_result_table.output
+     
+        return crontab_status_result
+
+
 
 def ntp_status():
    ntp_status_result = HcResult()
@@ -518,36 +843,6 @@ def process_status():
 
    return process_status_result
 
-def corefile_status():
-   corefile_status_result = HcResult()
-   hc_result_table = HcCmdResultTalbe('CORE 파일 생성 확인 : file CORE_FILE',78)
-
-   config = ConfigLoad()
-   core_file_path = config.get_item_from_section('path', 'core')
-   logger.info('%s :: core_file_path : %s', GetCurFunc(), core_file_path)
-
-   import fnmatch, os
-   try:
-      files = fnmatch.filter(os.listdir(core_file_path), "core.*")
-   except Exception as e:
-      logger.exception('%s :: %s', GetCurFunc(), e)
-      corefile_status_result.reason = e
-      corefile_status_result.result = "NOK"
-      buf = e
-   else:
-      buf = ''
-      for CoreFileName in files:
-         # OMA 는 root 권한 필요
-         CMD = 'sudo /usr/bin/file '+core_file_path+'/'+CoreFileName
-         os_exec_result = os_execute(CMD)
-         buf += os_exec_result.output
-      if files:
-         corefile_status_result.result = "NOK"
-
-   hc_result_table._concate(buf)
-   corefile_status_result.output = hc_result_table.output
-
-   return corefile_status_result
 
 def disk_mirror_status():
    disk_mirror_status_result = HcResult()
@@ -580,7 +875,7 @@ def disk_mirror_status():
       hptool_run_cmd='sudo /usr/sbin/'+ os_command + '| /bin/egrep "logicaldrive"'
       hptool_run_cmd_result = os_execute(hptool_run_cmd)
       logger.info('%s :: %s ctrl slot=0 show config result : \n%s', \
-		            GetCurFunc(), hp_storage_admin_tool, hptool_run_cmd_result.output)
+                    GetCurFunc(), hp_storage_admin_tool, hptool_run_cmd_result.output)
       buf = hptool_run_cmd_result.output
       OK = re.findall("OK", hptool_run_cmd_result.output)
    elif SYS_MANUF == 'Advantech':
@@ -667,7 +962,7 @@ def tars_subscribers():
 #   tars_subscribers = "자동연결 : %10s 명 \n착신전환 : %10s 명\n합    계 : %10s" % \
 #                      (ac_subscribers.split("\n")[0].strip(" "), cf_subscribers.split("\n")[0].strip(" "), )
    tars_subscribers = "자동연결 : %10s 명 \n착신전환 : %10s 명\n합    계 : %10s 명\n" % \
-								(ac_subscribers_cnt, cf_subscribers_cnt, total_cnt )
+                                (ac_subscribers_cnt, cf_subscribers_cnt, total_cnt )
    vms_subscribers_result.output = string_concate(output_buf, tars_subscribers)
 
    if result.result == "OK":
@@ -974,7 +1269,7 @@ def odbc_query_execute_fetchall(DSN, db_query, db_param, column_name, column_wid
    if direction == "vertical":
       max_column_name_width = len(max(column_name, key=len))
       logger.info('%s : initializing variable : max_column_name_width to %s', 
-							GetCurFunc(), max_column_name_width)
+                            GetCurFunc(), max_column_name_width)
       for row in rows:
          str_row = unicode2str(row)
          t = zip(column_name, str_row)
@@ -1035,290 +1330,7 @@ def os_execute(OS_COMMAND):
 
    return result_exec
 
-def ip_address_List():
-   ''' return IP address list
-   '''
-   retlist = []
-   for nic, addrs in psutil.net_if_addrs().items():
-      for addr in addrs:
-         if addr.family == 2 :
-            retlist.append(addr.address)
-#              print(" address   : %s" % addr.address)
-#              print(" family :  : %s" % addr.family)
-   return retlist
 
-def net_io_counters():
-    ''' Check Net io counters 
-    '''
-    net_io_counters_result = HcResult()
-    hc_result_table = HcCmdResultTalbe('NET IO 확인',78)
-
-    config = ConfigLoad()
-    hc_home_path = config.get_item_from_section('main', 'path')
-
-    HC_CONFIG_NETIF_PATH= os.path.join(hc_home_path, 'config/netif')
-#    HostInfo = lib.vms_hc.HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
-    host_info = HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
-    host_info._host_info()
-    netif_config_file = host_info.hostname + '.cfg'
-    netif_config_file_path = os.path.join(HC_CONFIG_NETIF_PATH, netif_config_file)
-
-    config = ConfigLoad(netif_config_file_path)
-    netif = config.get_item_from_section('check nic', 'nic')
-    netif_nowhitespace = netif.replace(" ","")
-    logger.info('%s :: check netif list : %s', GetCurFunc(), netif_nowhitespace)
-
-    netif_list = netif_nowhitespace.split(',')
-
-
-    buf = ""
-    for nic, netio_counters in psutil.net_io_counters(pernic=True).items():
-        if nic == 'lo' or nic == 'sit0':
-            continue
-        if nic in netif_list:
-            buf += " %s :\n" % ( nic )
-            buf += "    errin : %3s, errout : %3s" % \
- 	        	        (netio_counters.errin, netio_counters.errout)  + '\n'
-            if netio_counters.errin >= 100 or netio_counters.errout >= 100:
-                net_io_counters_result.result = "NOK"
-        else:
-            continue
-
-    hc_result_table._concate(buf)
-    net_io_counters_result.output = hc_result_table.output
-
-    return net_io_counters_result
-
-def net_if_stats():
-   ''' Check Net if stats 
-   '''
-   duplex_map = {
-      psutil.NIC_DUPLEX_FULL: "full",
-      psutil.NIC_DUPLEX_HALF: "half",
-      psutil.NIC_DUPLEX_UNKNOWN: "?",
-   }
-
-   net_if_stats_result = HcResult()
-   hc_result_table = HcCmdResultTalbe('NET interface 확인',78)
-
-   config = ConfigLoad()
-   hc_home_path = config.get_item_from_section('main', 'path')
-
-   HC_CONFIG_NETIF_PATH= os.path.join(hc_home_path, 'config/netif')
-#   HostInfo = lib.vms_hc.HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
-   host_info = HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
-   host_info._host_info()
-   netif_config_file = host_info.hostname + '.cfg'
-   netif_config_file_path = os.path.join(HC_CONFIG_NETIF_PATH, netif_config_file)
-
-   config = ConfigLoad(netif_config_file_path)
-   netif = config.get_item_from_section('check nic', 'nic')
-   netif_nowhitespace = netif.replace(" ","")
-   logger.info('%s :: check netif list : %s', GetCurFunc(), netif_nowhitespace)
-
-   netif_list = netif_nowhitespace.split(',')
-
-   buf = ""
-   for nic, nic_stats in psutil.net_if_stats().items():
-      if nic in netif_list:
-         if nic == 'lo' or nic == 'sit0':
-            continue
-      
-         if type(nic) == unicode:
-            nic = nic.encode("utf-8")
-
-         try:
-            if nic_stats.isup != True or nic_stats.duplex != 2:
-               net_if_stats_result.result = "NOK"
-            buf += " %s :\n" % ( nic )
-            buf += "    stats : up=%s, duplex=%s, speed=%s" % \
-                   ("yes" if nic_stats.isup else "no", duplex_map[nic_stats.duplex], nic_stats.speed)  + '\n'
-         except Exception as e:
-            pass
-      else:
-         continue
-
-   hc_result_table._concate(buf)
-   net_if_stats_result.output = hc_result_table.output
-
-   return net_if_stats_result
-
-def net_if_address():
-   ''' Check Net if address 
-   '''
-   net_if_addrs_result = HcResult()
-   hc_result_table = HcCmdResultTalbe('Net interface address 확인',78)
-
-   ipa_dic = {}
-   for nic_name, addrs in psutil.net_if_addrs().items():
-      if nic_name == 'lo' or nic_name == 'sit0':
-         continue
-      for addr in addrs:
-         if addr.family == socket.AF_INET:
-            ip_addrs = addr.address
-            ipa_dic[nic_name] = ip_addrs
-
-   config = ConfigLoad()
-   hc_home_path = config.get_item_from_section('main', 'path')
-   HC_CONFIG_IPADDR_PATH= os.path.join(hc_home_path, 'config/ipaddr')
-   host_info = HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
-   host_info._host_info()
-   ipaddr_config_file = host_info.hostname + '.cfg'
-   ipaddr_config_file_path = os.path.join(HC_CONFIG_IPADDR_PATH, ipaddr_config_file)
-
-   config = ConfigLoad(ipaddr_config_file_path)
-   net_if_addrs_from_config = config.get_items_from_section('ipaddr')
-
-   buf = ""
-   for nic_name_conf, ip_addrs_conf in net_if_addrs_from_config:
-      search_result = "OK"
-      ip_addrs_sys = ipa_dic.get(nic_name_conf)
-      if ip_addrs_sys != ip_addrs_conf:
-         net_if_addrs_result.result = "NOK"
-         search_result = "NOK"
-
-      buf += "  %5s : %15s                                 [ %3s ]" \
-		   % (nic_name_conf, ip_addrs_conf, search_result  )  + '\n'
-
-   hc_result_table._concate(buf)
-   net_if_addrs_result.output = hc_result_table.output
-
-   return net_if_addrs_result
-
-def ping_status():
-   ping_status_result = HcResult()
-   hc_result_table = HcCmdResultTalbe('Ping 확인 : ping -s 1500 -c 60 gateway_ip',78)
-
-   config = ConfigLoad()
-   hc_home_path = config.get_item_from_section('main', 'path')
-
-   HC_CONFIG_PING_PATH= os.path.join(hc_home_path, 'config/ping')
-#   HostInfo = lib.vms_hc.HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
-   host_info = HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
-   host_info._host_info()
-   ping_config_file = host_info.hostname + '.cfg'
-   ping_config_file_path = os.path.join(HC_CONFIG_PING_PATH, ping_config_file)
-
-   config = ConfigLoad(ping_config_file_path)
-   gateway_ip = config.get_item_from_section('default', 'GW')
-
-   ping_command='ping -s 1500 -c 6 ' + gateway_ip
-   ping_result = os_execute(ping_command)
-   ping_result_list = ping_result.output.split('\n')
-
-   for line in ping_result_list:
-      if 'packet loss' in line:
-         PingResult = line.split(',')
-   PacketLoss = re.findall(r'\d', PingResult[2])
-   logger.info('%s : parsing packet loss from ping result : %s', GetCurFunc(), PacketLoss[0])
-
-   if int(PacketLoss[0]) > 0:
-      ping_status_result.result = "NOK"
-
-   hc_result_table._concate(ping_result.output)
-   ping_status_result.output = hc_result_table.output
-
-   return ping_status_result
-
-def route_status():
-   route_status_result = HcResult()
-   hc_result_table = HcCmdResultTalbe('route 확인',78)
-
-   config = ConfigLoad()
-   hc_home_path = config.get_item_from_section('main', 'path')
-
-   HC_CONFIG_ROUTE_PATH= os.path.join(hc_home_path, 'config/route')
-
-   route_command='/bin/netstat -rn'
-   route_command_result = os_execute(route_command)
-   route_command_result_list = route_command_result.output.split('\n')
-
-   route_result = ''
-   route_result += "Kernel IP routing table\n"
-   route_result += "Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface "
-   route_result += "Netconf파일정보유무               비고\n"
-
-   host_info = HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
-   host_info._host_info()
-   route_config_file = host_info.hostname + '.cfg'
-   route_config_file_path = os.path.join(HC_CONFIG_ROUTE_PATH, route_config_file)
-   logger.info('%s :: route_config_file_path : %s', GetCurFunc(), route_config_file_path)
-
-   route_config = ConfigLoad(route_config_file_path)
-   route_dest_sections_from_config = route_config.get_sections()
-
-   for route_dest_section in route_dest_sections_from_config:
-      DEST = route_config.get_item_from_section(route_dest_section, 'DEST')
-      GW = route_config.get_item_from_section(route_dest_section, 'GW')
-      DESC = route_config.get_item_from_section(route_dest_section, 'DESC')
-
-      search_result = "NOK"
-      for route_command_result_line in route_command_result_list:
-         if DEST in route_command_result_line and GW in route_command_result_line:
-            if DEST == '0.0.0.0':
-               netconf_file_info = 'Default Gateway'
-            else :
-               Iface = route_command_result_line.split()
-               NETMASK = Iface[2]
-               cidr = netmask2cidr(NETMASK)
-               NIC = Iface[7]
-               network_scripts_file = '/etc/sysconfig/network-scripts/'+'route-'+NIC
-               logger.info('%s :: network_scripts_file : %s', GetCurFunc(), network_scripts_file)
-               dest_with_cidr = DEST + '/' + cidr
-               if GW == '0.0.0.0':
-                  netconf_file_info = '자체 네트워크'
-               else :
-                  netconf_file_info = single_grep(DEST, network_scripts_file)
-                  logger.info('%s :: %s in netconf_file_info ?: %s', \
-                               GetCurFunc(), dest_with_cidr, netconf_file_info)
-                  if netconf_file_info == None:
-                     netconf_file_info = '미존재'
-                     route_status_result.result = "NOK"
-            route_result += "%-78s %-33s %s\n" % \
-                            ( route_command_result_line, netconf_file_info, DESC)
-            search_result = "OK"
-            break
-      if search_result != "OK":
-         route_result += " %-10s : %-s " % ( DEST, GW)
-         route_result += ' routing table에 없음\n'
-         route_status_result.result = "NOK"
-
-   hc_result_table._concate(route_result)
-   route_status_result.output = hc_result_table.output
-
-   return route_status_result
-
-
-def crontab_status():
-   crontab_status_result = HcResult()
-   hc_result_table = HcCmdResultTalbe('crontab 확인 : crontab -l',78)
-
-   config = ConfigLoad()
-   crontab_from_config = config.get_items_from_section('crontab')
-   logger.info('%s :: crontab_from_config  : %s', GetCurFunc(), crontab_from_config)
-
-   crontab_command='sudo crontab -l'
-   crontab_command_result = os_execute(crontab_command)
-   crontab_command_result_list = crontab_command_result.output.split('\n')
-
-   crontab_result = ''
-   for crontab_entry,crontab_command in crontab_from_config:
-      search_result = "NOK"
-      for crontab_command_result_line in crontab_command_result_list:
-         if crontab_command in crontab_command_result_line:
-            crontab_result += " %-10s : " % ( crontab_entry )
-            crontab_result += crontab_command_result_line + '\n'
-            search_result = "OK"			
-            break
-      if search_result != "OK":
-         crontab_result += crontab_entry + ' : ' + crontab_command
-         crontab_result += ' crontab 목록에 없음\n'
-         crontab_status_result.result = "NOK"
-
-   hc_result_table._concate(crontab_result)
-   crontab_status_result.output = hc_result_table.output
-
-   return crontab_status_result
 
 def sshd_status():
    ''' Check sshd status
@@ -1408,59 +1420,3 @@ def messages_check():
 
    return messages_check_result
 
-def bond_status_check():
-    ''' bond interface check
-    '''
-    bond_check_result = HcResult()
-    hc_result_table = HcCmdResultTalbe('bond interface 확인',78)
-
-    config = ConfigLoad()
-    hc_home_path = config.get_item_from_section('main', 'path')
-
-    HC_CONFIG_NETIF_PATH= os.path.join(hc_home_path, 'config/netif')
-#    HostInfo = lib.vms_hc.HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
-    host_info = HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
-    host_info._host_info()
-    netif_config_file = host_info.hostname + '.cfg'
-    netif_config_file_path = os.path.join(HC_CONFIG_NETIF_PATH, netif_config_file)
-
-    config = ConfigLoad(netif_config_file_path)
-    netif = config.get_item_from_section('check nic', 'nic')
-    netif_nowhitespace = netif.replace(" ","")
-    logger.info('%s :: check netif list : %s', GetCurFunc(), netif_nowhitespace)
-
-    netif_list = netif_nowhitespace.split(',')
-
-    bondList = get_bond() 
-    logger.info('%s :: bonding interface list  : %s', GetCurFunc(), bondList)
-    buf = ""
-    if bondList: 
-        for bond in bondList: 
-            if bond in netif_list:
-                bond_status = check_bond_status(bond) 
-                logger.info('%s :: bond_status intState : %s', GetCurFunc(),  bond_status.intState)
-                if bond_status: 
-                    buf += " %s :\n" % ( bond )
-                    buf += "    mode  : %s" % bond_status.mode + '\n'
-                    buf += "    stats : up=%s, slave Iface=%4s(%6s,%4s), %4s(%6s,%4s)" % \
-                           ("yes" if bond_status.intState == 0 else "no", 
-                           bond_status.slave_iface[0], 
-                           "ACTIVE" if bond_status.active in bond_status.slave_iface[0] else "STDBY", 
-                           bond_status.slave_iface_status[0],
-                           bond_status.slave_iface[1], 
-                           "ACTIVE" if bond_status.active in bond_status.slave_iface[1] else "STDBY",
-                           bond_status.slave_iface_status[1]) + '\n'
-                    if bond_status.intState == 1:
-                        buf += "Bond %s error:%s" % (bond, bond_status.strState)
-            else:
-                continue
-        if "down" in bond_status.slave_iface_status:
-            bond_check_result.result = "NOK"
-    else: 
-        buf += "no bond found"
-        bond_check_result.result = "NOK"
-
-    hc_result_table._concate(buf)
-    bond_check_result.output = hc_result_table.output
-
-    return bond_check_result

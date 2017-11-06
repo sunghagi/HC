@@ -27,13 +27,13 @@ def AltibaseInsertQueryExecute(db_query,db_param):
    db.cnxn.commit()
 
 def gen_sms_text():
-   HostInfo = lib.vms_hc.HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
-   HostInfo._host_info()
+   host_info = HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
+   host_info._host_info()
 
    config = ConfigLoad()
    hc_home_path = config.get_item_from_section('main', 'path')
    check_date = datetime.date.today().strftime("%Y-%m-%d")
-   csv_file_name = os.path.join(hc_home_path, check_date.replace('-','')+'_'+HostInfo.system_name+'.csv')
+   csv_file_name = os.path.join(hc_home_path, check_date.replace('-','')+'_'+host_info.system_name+'.csv')
 
    RESULT='OK'
    reason_text = ''
@@ -52,12 +52,12 @@ def gen_sms_text():
       RESULT='NOK'
 
    if RESULT == 'OK':
-      sms_text_hcresult = HostInfo.system_name + ': ' + RESULT
+      sms_text_hcresult = host_info.system_name + ': ' + RESULT
    else:
-      sms_text_hcresult = HostInfo.system_name + ': ' + RESULT +'\n'
+      sms_text_hcresult = host_info.system_name + ': ' + RESULT +'\n'
       sms_text_hcresult += reason_text
 
-   HcPeriodCsv = GetHcPeriod(csv_file_name, HostInfo.system_name)
+   HcPeriodCsv = GetHcPeriod(csv_file_name, host_info.system_name)
    if HcPeriodCsv == 'DAILY':
       HcPeriod = "¿œ¿œ"
    elif HcPeriodCsv == 'WEEKLY':
