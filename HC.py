@@ -90,8 +90,15 @@ def run_method(host_info, health_check_items, current_check_mode):
       except Exception as e:
          logger.exception('%s : error : %s', GetCurFunc(), e)
          result = "NOK"
-      
-      ResultList = [index, alarm_checkday[1], current_check_mode, host_info.system_name, host_info.hostname, ItemDesc, result, output]
+     
+      if current_check_mode == MONTHLY:
+         str_check_mode = "월간"
+      elif current_check_mode == WEEKLY:
+         str_check_mode = "주간"
+      elif current_check_mode == DAILY:
+         str_check_mode = "일간"
+
+      ResultList = [index, alarm_checkday[1], str_check_mode, host_info.system_name, host_info.hostname, ItemDesc, result, output]
       _append(ResultList)
       if result == "OK":
           print("%2s. %-30s : [ %3s ]" % (index, ItemDesc, result))

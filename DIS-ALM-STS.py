@@ -3,7 +3,7 @@
 import sys
 import argparse
 import re
-from lib.vms_hc import OdbcQuery, HostInfo
+from lib.vms_hc import OdbcQuery, get_host_info
 
 
 def dis_alm_sts(direction):
@@ -81,8 +81,7 @@ def main():
 #   parser.add_argument('-p', '--phoneid', action='store', required=True, type=is_phone_number, help="phoneid, ex) 01090874208")
    args = parser.parse_args()
 
-   HOST_INFO = HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
-   HOST_INFO._host_info()
+   HOST_INFO = get_host_info()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
 
    if HOST_INFO.hostclass != 'OMP':
       print("OMP에서 실행해주세요..")

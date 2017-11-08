@@ -16,13 +16,12 @@ from lib.hostconf import *
 from lib.hclib import *
 from collections import namedtuple
 
-#logger = HcLogger()
 
 default_config_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),
                 '../config', 'hc.cfg')
 
 class ConfigLoad():
-   logger.debug('%s :: config path : %s', GetCurFunc(), default_config_path)
+   logger.info('%s :: config path : %s', GetCurFunc(), default_config_path)
 
    def __init__(self, config_file=default_config_path):
       self.load_config(config_file)
@@ -98,7 +97,7 @@ class OdbcQuery(object):
       else:
          column_width = sum(abs(int(CW)) for CW in self.db_column_width)
 
-      hc_result_table = HcCmdResultTalbe(self.hc_item_name, column_width)
+      hc_result_table = HcCmdResultTable(self.hc_item_name, column_width)
       if self.set_vertical == "on":
          output_buf = hc_result_table.hc_header
          direction = "vertical"
@@ -124,7 +123,7 @@ class OdbcQuery(object):
       return hc_result
 
 
-class HcCmdResultTalbe(object):
+class HcCmdResultTable(object):
    ''' Health check contents
 
    Attributes:
@@ -194,7 +193,7 @@ class HcItem:
             cpu_usage_result.result = "NOK"
             cpu_usage_result.reason = "CPU %s usage is %s" % ( cpu_num, tot_percs )
 
-        hc_result_table = HcCmdResultTalbe('CPU ªÁøÎ∑¸('+str(tot_percs)+'%)',70)
+        hc_result_table = HcCmdResultTable('CPU ªÁøÎ∑¸('+str(tot_percs)+'%)',70)
         hc_result_table._concate(buf)
         cpu_usage_result.output = hc_result_table.output
         logger.debug('%s :: hc_result_table.output : %s', 
@@ -239,7 +238,7 @@ class HcItem:
         if (swap.percent > SWAP_THRESHOLD):
             memory_usage_result.result = "NOK"
 
-        hc_result_table = HcCmdResultTalbe('(SWAP)MEMORY ªÁøÎ∑¸(%)',70)
+        hc_result_table = HcCmdResultTable('(SWAP)MEMORY ªÁøÎ∑¸(%)',70)
         hc_result_table._concate(buf)
         memory_usage_result.output = hc_result_table.output
 
@@ -262,10 +261,10 @@ class HcItem:
             used = psutil.disk_usage(part.mountpoint).used
             avail = psutil.disk_usage(part.mountpoint).free
             usage = psutil.disk_usage(part.mountpoint).percent
+            mounton = part.mountpoint
             if (usage > DISK_THRESHOLD):
                 disk_usage_result.result = "NOK"
-                reason_text = "Disk usage over %s%% " % ( DISK_THRESHOLD )
-            mounton = part.mountpoint
+                reason_text = "Disk(%s) usage over %s%% " % (mounton, DISK_THRESHOLD)
             if len(fs) > 20:
                 templ = "% -20s \n %27s %7s %7s %7s     %-20s"
             else:
@@ -274,7 +273,7 @@ class HcItem:
             buf += templ % (fs, bytes2human(size), bytes2human(used), \
                           bytes2human(avail), usage, mounton) + '\n'
 
-        hc_result_table = HcCmdResultTalbe('DISK ªÁøÎ∑¸', 70)
+        hc_result_table = HcCmdResultTable('DISK ªÁøÎ∑¸', 70)
         hc_result_table._concate(buf)
         disk_usage_result.output = hc_result_table.output
         try:
@@ -305,11 +304,11 @@ class HcItem:
                 usage = math.ceil((used/nodes)*100)
             except Exception as e:
                 usage = 0
+            mounton = part.mountpoint
 
             if (usage > DISK_THRESHOLD):
                 disk_usage_result.result = "NOK"
-                reason_text = " disk inode usage over %s%% " % ( DISK_THRESHOLD )
-            mounton = part.mountpoint
+                reason_text = " Disk(%s) inode usage over %s%% " % (mounton, DISK_THRESHOLD )
             if len(fs) > 20:
                 templ = "% -20s \n %27s %7s %7s %7s     %-20s"
             else:
@@ -318,7 +317,7 @@ class HcItem:
             buf += templ % (fs, bytes2human(nodes), bytes2human(used), \
                            bytes2human(free), usage, mounton) + '\n'
 
-        hc_result_table = HcCmdResultTalbe('DISK inode ªÁøÎ∑¸', 70)
+        hc_result_table = HcCmdResultTable('DISK inode ªÁøÎ∑¸', 70)
         hc_result_table._concate(buf)
         disk_node_usage_result.output = hc_result_table.output
         try:
@@ -331,7 +330,7 @@ class HcItem:
 
     def uptime_status(self):
         uptime_status_result = HcResult()
-        hc_result_table = HcCmdResultTalbe('Ω√Ω∫≈€ Uptime »Æ¿Œ', 70)
+        hc_result_table = HcCmdResultTable('Ω√Ω∫≈€ Uptime »Æ¿Œ', 70)
 
         UPTIME_THRESHOLD = self.config.getint_item_from_section('threshold', 'uptime')
 
@@ -350,7 +349,7 @@ class HcItem:
 
         if (day > UPTIME_THRESHOLD):
             uptime_status_result.result = "NOK"
-            reason_text = "uptime¿Ã %∏¶ √ ∞˙" % (UPTIME_THRESHOLD)
+            reason_text = "uptime(%s)¿Ã %∏¶ √ ∞˙" % (day, UPTIME_THRESHOLD)
 
         hc_result_table._concate(buf)
         uptime_status_result.output = hc_result_table.output
@@ -363,7 +362,7 @@ class HcItem:
 
     def etc_backup(self):
         backup_result = HcResult()
-        hc_result_table = HcCmdResultTalbe('/etc Backup',78)
+        hc_result_table = HcCmdResultTable('/etc Backup',78)
 
         hc_home_path = self.config.get_item_from_section('main', 'path')
         backup_shell=os.path.join(hc_home_path,'etc_backup.sh')
@@ -394,7 +393,7 @@ class HcItem:
 
     def sipa_fdump_status(self):
         sipa_fdump_status_result = HcResult()
-        hc_result_table = HcCmdResultTalbe('sipa full dump º≥¡§ »Æ¿Œ', 78)
+        hc_result_table = HcCmdResultTable('sipa full dump º≥¡§ »Æ¿Œ', 78)
 
         sipa_trace_path = self.config.get_item_from_section('main', 'sipa_trace')
 
@@ -420,7 +419,7 @@ class HcItem:
 
     def corefile_status(self):
         corefile_status_result = HcResult()
-        hc_result_table = HcCmdResultTalbe('CORE ∆ƒ¿œ ª˝º∫ »Æ¿Œ : file CORE_FILE',78)
+        hc_result_table = HcCmdResultTable('CORE ∆ƒ¿œ ª˝º∫ »Æ¿Œ : file CORE_FILE',78)
 
         core_file_path = self.config.get_item_from_section('path', 'core')
         logger.info('%s :: core_file_path : %s', GetCurFunc(), core_file_path)
@@ -457,7 +456,7 @@ class HcItem:
 
     def process_display(self):
         process_display_result = HcResult()
-        hc_result_table = HcCmdResultTalbe('PROCESS »Æ¿Œ', 78)
+        hc_result_table = HcCmdResultTable('PROCESS »Æ¿Œ', 78)
 
         hc_home_path = self.config.get_item_from_section('main', 'path')
 
@@ -471,7 +470,7 @@ class HcItem:
 
     def ping_status(self):
         ping_status_result = HcResult()
-        hc_result_table = HcCmdResultTalbe('Ping »Æ¿Œ : ping -s 1500 -c 60 gateway_ip',78)
+        hc_result_table = HcCmdResultTable('Ping »Æ¿Œ : ping -s 1500 -c 60 gateway_ip',78)
 
         hc_home_path = self.config.get_item_from_section('main', 'path')
         HC_CONFIG_PING_PATH= os.path.join(hc_home_path, 'config/ping')
@@ -510,7 +509,7 @@ class HcItem:
         ''' bond interface check
         '''
         bond_check_result = HcResult()
-        hc_result_table = HcCmdResultTalbe('bond interface »Æ¿Œ',78)
+        hc_result_table = HcCmdResultTable('bond interface »Æ¿Œ',78)
 
         hc_home_path = self.config.get_item_from_section('main', 'path')
 
@@ -568,7 +567,7 @@ class HcItem:
 
     def route_status(self):
         route_status_result = HcResult()
-        hc_result_table = HcCmdResultTalbe('route »Æ¿Œ',78)
+        hc_result_table = HcCmdResultTable('route »Æ¿Œ',78)
 
         hc_home_path = self.config.get_item_from_section('main', 'path')
 
@@ -636,7 +635,7 @@ class HcItem:
         ''' Check Net io counters 
         '''
         net_io_counters_result = HcResult()
-        hc_result_table = HcCmdResultTalbe('NET IO »Æ¿Œ',78)
+        hc_result_table = HcCmdResultTable('NET IO »Æ¿Œ',78)
 
         hc_home_path = self.config.get_item_from_section('main', 'path')
         HC_CONFIG_NETIF_PATH= os.path.join(hc_home_path, 'config/netif')
@@ -680,7 +679,7 @@ class HcItem:
        }
 
        net_if_stats_result = HcResult()
-       hc_result_table = HcCmdResultTalbe('NET interface »Æ¿Œ',78)
+       hc_result_table = HcCmdResultTable('NET interface »Æ¿Œ',78)
 
        hc_home_path = self.config.get_item_from_section('main', 'path')
        HC_CONFIG_NETIF_PATH= os.path.join(hc_home_path, 'config/netif')
@@ -724,7 +723,7 @@ class HcItem:
        ''' Check Net if address 
        '''
        net_if_addrs_result = HcResult()
-       hc_result_table = HcCmdResultTalbe('Net interface address »Æ¿Œ',78)
+       hc_result_table = HcCmdResultTable('Net interface address »Æ¿Œ',78)
 
        ipa_dic = {}
        for nic_name, addrs in psutil.net_if_addrs().items():
@@ -763,7 +762,7 @@ class HcItem:
 
     def crontab_status(self):
         crontab_status_result = HcResult()
-        hc_result_table = HcCmdResultTalbe('crontab »Æ¿Œ : crontab -l',78)
+        hc_result_table = HcCmdResultTable('crontab »Æ¿Œ : crontab -l',78)
 
         crontab_from_config = self.config.get_items_from_section('crontab')
         logger.info('%s :: crontab_from_config  : %s', GetCurFunc(), crontab_from_config)
@@ -796,7 +795,7 @@ class HcItem:
 
 def ntp_status():
    ntp_status_result = HcResult()
-   hc_result_table = HcCmdResultTalbe('NTP ø¨µø»Æ¿Œ Ïù∏ : ntpq -p',78)
+   hc_result_table = HcCmdResultTable('NTP ø¨µø»Æ¿Œ Ïù∏ : ntpq -p',78)
 
    os_exec_result = os_execute("/usr/sbin/ntpq -p")
 
@@ -813,7 +812,7 @@ def ntp_status():
 
 def process_status():
    process_status_result = HcResult()
-   hc_result_table = HcCmdResultTalbe('¡ª∫Ò«¡∑ŒººΩ∫ »Æ¿Œ', 78)
+   hc_result_table = HcCmdResultTable('¡ª∫Ò«¡∑ŒººΩ∫ »Æ¿Œ', 78)
 
    buf = 'Process Name     PID   PPID   USER  %MEM    PATH                      CREATE TIME\n'
    buf += "-" * hc_result_table.column_width + '\n'
@@ -861,7 +860,7 @@ def disk_mirror_status():
    else :
       os_command = 'mpt-status -i SCSI_ID'
 
-   hc_result_table = HcCmdResultTalbe('µΩ∫≈© ¿Ã¡ﬂ»≠ ªÛ≈¬ »Æ¿Œ : '+os_command, 78)
+   hc_result_table = HcCmdResultTable('µΩ∫≈© ¿Ã¡ﬂ»≠ ªÛ≈¬ »Æ¿Œ : '+os_command, 78)
 
    if SYS_MANUF == 'HP':
       ps_cmd = 'ps -ef | /bin/grep ' + hp_storage_admin_tool + ' | /bin/grep -v grep | cat'
@@ -935,7 +934,7 @@ def tars_subscribers():
    db_column_name = ['SUBSCRIBERS']
    db_column_width = ['78']
    column_width = sum(int(CW) for CW in db_column_width)
-   hc_result_table = HcCmdResultTalbe(column_name, column_width)
+   hc_result_table = HcCmdResultTable(column_name, column_width)
 
    vms_subscribers_result = HcResult()
 
@@ -1336,7 +1335,7 @@ def sshd_status():
    ''' Check sshd status
    '''
    sshd_status_result = HcResult()
-   hc_result_table = HcCmdResultTalbe('sshd running »Æ¿Œ',78)
+   hc_result_table = HcCmdResultTable('sshd running »Æ¿Œ',78)
 
    SSHD_PID = "/var/run/sshd.pid"
    try:
@@ -1370,7 +1369,7 @@ def nas_status():
    ''' Check NAS status
    '''
    nas_status_result = HcResult()
-   hc_result_table = HcCmdResultTalbe('NAS Fault »Æ¿Œ',78)
+   hc_result_table = HcCmdResultTable('NAS Fault »Æ¿Œ',78)
 
    NAS_CLI = "/opt/Navisphere/bin/naviseccli"
 
@@ -1400,7 +1399,7 @@ def messages_check():
    ''' /var/log/messages check
    '''
    messages_check_result = HcResult()
-   hc_result_table = HcCmdResultTalbe('/var/log/messages »Æ¿Œ',78)
+   hc_result_table = HcCmdResultTable('/var/log/messages »Æ¿Œ',78)
 
    search_pattern = '"erro|down|fault|fail"'
    logger.info('%s : assign search pattern : %s', GetCurFunc(), search_pattern)

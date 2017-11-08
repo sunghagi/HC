@@ -27,8 +27,7 @@ def AltibaseInsertQueryExecute(db_query,db_param):
    db.cnxn.commit()
 
 def gen_sms_text():
-   host_info = HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
-   host_info._host_info()
+   host_info = get_host_info()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
 
    config = ConfigLoad()
    hc_home_path = config.get_item_from_section('main', 'path')
