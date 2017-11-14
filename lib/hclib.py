@@ -174,6 +174,8 @@ def get_IP_list():
     IP_list = []
     for nic, addrs in psutil.net_if_addrs().items():
         for addr in addrs:
+            if addr.address == '127.0.0.1':
+                continue
             if addr.family == 2 :
                 IP_list.append(addr.address)
 #                   print(" address   : %s" % addr.address)

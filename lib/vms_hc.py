@@ -247,6 +247,7 @@ class HcItem:
 
     def disk_usage(self):
         disk_usage_result = HcResult()
+        usageover_mountpoint = []
 
         DISK_THRESHOLD = self.config.getint_item_from_section('threshold', 'disk')
 
@@ -257,14 +258,16 @@ class HcItem:
             if part.device in NON_PHYSICAL_DEVICE:
                 continue
             fs = part.device
+            fstype = part.fstype
+            if fstype == 'iso9660':
+                continue
             size = psutil.disk_usage(part.mountpoint).total
             used = psutil.disk_usage(part.mountpoint).used
             avail = psutil.disk_usage(part.mountpoint).free
             usage = psutil.disk_usage(part.mountpoint).percent
             mounton = part.mountpoint
             if (usage > DISK_THRESHOLD):
-                disk_usage_result.result = "NOK"
-                reason_text = "Disk(%s) usage over %s%% " % (mounton, DISK_THRESHOLD)
+                usageover_mountpoint.append(mounton)
             if len(fs) > 20:
                 templ = "% -20s \n %27s %7s %7s %7s     %-20s"
             else:
@@ -272,6 +275,11 @@ class HcItem:
 
             buf += templ % (fs, bytes2human(size), bytes2human(used), \
                           bytes2human(avail), usage, mounton) + '\n'
+
+        if len(usageover_mountpoint) > 0:
+            disk_usage_result.result = "NOK"
+            reason_text = "Disk(%s) usage over %s%% " % \
+				             (', '.join(usageover_mountpoint), DISK_THRESHOLD)
 
         hc_result_table = HcCmdResultTable('DISK ªÁøÎ∑¸', 70)
         hc_result_table._concate(buf)
@@ -795,7 +803,7 @@ class HcItem:
 
 def ntp_status():
    ntp_status_result = HcResult()
-   hc_result_table = HcCmdResultTable('NTP ø¨µø»Æ¿Œ Ïù∏ : ntpq -p',78)
+   hc_result_table = HcCmdResultTable('NTP ø¨µø»Æ¿Œ ∏ : ntpq -p',78)
 
    os_exec_result = os_execute("/usr/sbin/ntpq -p")
 
@@ -803,6 +811,7 @@ def ntp_status():
 
    if not sync_char:
       ntp_status_result.result = "NOK"
+      ntp_status_result.reason = os_exec_result.output
 
    hc_result_table._concate(os_exec_result.output)
    ntp_status_result.output = hc_result_table.output
@@ -1326,6 +1335,7 @@ def os_execute(OS_COMMAND):
       exit_code = 1
    logger.debug('%s :: std_out : \n%s', GetCurFunc(), std_out)
    result_exec = result_exec_tpl._make([std_out, exit_code])
+   logger.info('%s : result from os command : %s', GetCurFunc(), result_exec)
 
    return result_exec
 
@@ -1406,7 +1416,6 @@ def messages_check():
 
    messages_check_command = "/bin/egrep -i "+search_pattern+" /var/log/messages | cat"
    messages_check_command_result = os_execute(messages_check_command)
-   logger.info('%s : result from os command : %s', GetCurFunc(), messages_check_command_result)
        
 #   messages_check_command_result_list = messages_check_command_result.output.split('\n')
 #   fault_msg = re.findall("Faulted", messages_check_result.output)
