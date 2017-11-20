@@ -799,6 +799,45 @@ class HcItem:
      
         return crontab_status_result
 
+    def sip_env_status(self):
+        '''MAX_SES|CHK_SES|MAX_MSG|CHK_MSG|MAX_CPS|CHK_CPS|MAX_CPU|CHK_CPU|MAX_MEM|CHK_MEM|MAX_TPS|CHK_TPS|EMER|AUDIO|VIDEO|CLASS'''
+        sip_env_status_result = HcResult()
+        hc_result_table = HcCmdResultTable('SIP ENV 확인',78)
+
+        sip_env_from_config = self.config.get_item_from_section('main', 'sip_env')
+        logger.info('%s :: sip_env_from_config  : %s', GetCurFunc(), sip_env_from_config)
+
+        with open(sip_env_from_config, "r") as f:
+            sip_env_list = []
+            for line in f:
+                if "db - environment" in line:
+                    continue
+                if "#" in line:
+                    line = line.lstrip('#')
+                sip_env_list.append(line)
+
+        ENV = sip_env_list[0].split("|")
+        VALUE = sip_env_list[1].split("|")
+        SIP_ENV = dict(zip(ENV, VALUE))
+
+        MAX_CPS = SIP_ENV["MAX_CPS"]
+        if SIP_ENV["CHK_CPS"] == '1':
+            CHK_CPS = "ON"
+        else:
+            CHK_CPS = "OFF"
+            reason_text = "CHK_CPS OFF"
+            sip_env_status_result.result = "NOK"
+
+        cps_result = " 정책적용 : %-3s, CPS 설정값 : %-5s " % (CHK_CPS, MAX_CPS)
+
+        hc_result_table._concate(cps_result)
+        sip_env_status_result.output = hc_result_table.output
+        try:
+            sip_env_status_result.reason = reason_text
+        except:
+            pass
+
+        return sip_env_status_result
 
 
 def ntp_status():
