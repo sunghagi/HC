@@ -61,7 +61,7 @@ def run_method(host_info, health_check_items, current_check_mode):
 
    alarm_checkday = lib.vms_hc.get_alarm_checkday()
 
-   VmsHc = lib.vms_hc.HcItem() 
+   VmsHc = lib.vms_hc.HcItem(host_info) 
 
    index = 1
    for item in health_check_items:

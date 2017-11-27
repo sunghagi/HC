@@ -27,6 +27,8 @@ class ConfigLoad():
          sys.exit()
 
       self.hc_config = ConfigParser.RawConfigParser(allow_no_value=True)
+      # Preserver case
+      self.hc_config.optionxform=str
       self.hc_config.read(config_file)
 
 
@@ -262,7 +264,11 @@ def get_ha_status():
         for option_server in option_server_list:
             option_server.insert(0, system)
         server_list += option_server_list
-    logger.info('%s : server list from hostconf.cfg : %s', GetCurFunc(), server_list)
+
+    # logging server list on a separate line
+    logger.info('%s : server list from hostconf.cfg', GetCurFunc())
+    for server in server_list:
+        logger.info(' %s', server)
  
     st_ha_operating_mode = 'STANDBY'
     for IP in IP_list:

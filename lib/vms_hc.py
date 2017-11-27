@@ -12,7 +12,7 @@ import os.path
 import ConfigParser
 import math
 from lib.log import *
-from lib.hostconf import *
+#from lib.hostconf import *
 from lib.hclib import *
 from collections import namedtuple
 
@@ -140,10 +140,10 @@ def get_alarm_checkday():
    return alarm_checkday
 
 class HcItem:
-    def __init__(self):
+    def __init__(self, host_info):
         logger.info('%s :: HcItem class init start', GetCurFunc())
         self.config = ConfigLoad()
-        self.host_info = get_host_info()
+        self.host_info = host_info
 
     def cpu_usage(self):
         cpu_usage_result = HcResult()
@@ -1351,7 +1351,12 @@ def os_execute(OS_COMMAND):
       exit_code = 1
    logger.debug('%s :: std_out : \n%s', GetCurFunc(), std_out)
    result_exec = result_exec_tpl._make([std_out, exit_code])
-   logger.info('%s : result from os command : %s', GetCurFunc(), result_exec)
+   
+	# logging result from os command
+   logger.info('%s : result from os command : %s', GetCurFunc(), OS_COMMAND)
+   output = result_exec.output.split('\n')
+   for line in output:	
+       logger.info('%s',  line)
 
    return result_exec
 

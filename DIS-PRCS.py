@@ -47,11 +47,11 @@ def main():
     logger.debug("%s :: omc_process : %s" , GetCurFunc(), omc_process)
     ha_process = ha_process_name(HOST_INFO)
 
-    if HostClass == 'sps':
+    if HostClass == 'SPS':
         etc_process = ['--','altibase','--','DELLOG_CRON']
-    elif HostClass == "sip":
+    elif HostClass == "SIP":
         etc_process = ['--','DELLOG_CRON']
-    elif HostClass == "omp":
+    elif HostClass == "OMP":
         etc_process = ['--','DELLOG_CRON_TOMCAT']
     else :
         etc_process = []
