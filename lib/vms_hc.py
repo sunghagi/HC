@@ -17,37 +17,6 @@ from lib.hclib import *
 from collections import namedtuple
 
 
-default_config_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-                '../config', 'hc.cfg')
-
-class ConfigLoad():
-   logger.info('%s :: config path : %s', GetCurFunc(), default_config_path)
-
-   def __init__(self, config_file=default_config_path):
-      self.load_config(config_file)
-      self.flag = True
-
-   def load_config(self, config_file):
-      if os.path.exists(config_file)==False:
-#         raise Exception("%s file does not exist.\n" % config_file)
-         print("%s file does not exist.\n" % config_file)
-         sys.exit()
-
-      self.hc_config = ConfigParser.RawConfigParser()
-      self.hc_config.read(config_file)
-
-   def get_item_from_section(self, section, item):
-      return self.hc_config.get(section, item)
-
-   def getint_item_from_section(self, section, item):
-      return self.hc_config.getint(section, item)
-
-   def get_items_from_section(self, section):
-      return self.hc_config.items(section)
-
-   def get_sections(self):
-      return self.hc_config.sections()
-
 class HcResult(object):
    ''' Health check status
 
@@ -178,7 +147,7 @@ class HcItem:
 
     def cpu_usage(self):
         cpu_usage_result = HcResult()
-
+        
         CPU_THRESHOLD = self.config.getint_item_from_section('threshold', 'cpu')
 
         tot_percs = psutil.cpu_percent(interval=0, percpu=False)
@@ -191,7 +160,7 @@ class HcItem:
 
         if (tot_percs > CPU_THRESHOLD):
             cpu_usage_result.result = "NOK"
-            cpu_usage_result.reason = "CPU %s usage is %s" % ( cpu_num, tot_percs )
+            cpu_usage_result.reason = "CPU usage(%s) over THRESHOLD(%s)" % ( tot_percs, CPU_THRESHOLD )
 
         hc_result_table = HcCmdResultTable('CPU »ç¿ë·ü('+str(tot_percs)+'%)',70)
         hc_result_table._concate(buf)
@@ -805,16 +774,24 @@ class HcItem:
         hc_result_table = HcCmdResultTable('SIP ENV È®ÀÎ',78)
 
         sip_env_from_config = self.config.get_item_from_section('main', 'sip_env')
-        logger.info('%s :: sip_env_from_config  : %s', GetCurFunc(), sip_env_from_config)
+        logger.info('%s :: sip_env config path : %s', GetCurFunc(), sip_env_from_config)
 
-        with open(sip_env_from_config, "r") as f:
-            sip_env_list = []
-            for line in f:
-                if "db - environment" in line:
-                    continue
-                if "#" in line:
-                    line = line.lstrip('#')
-                sip_env_list.append(line)
+        try:
+            with open(sip_env_from_config, "r") as f:
+                sip_env_list = []
+                for line in f:
+                    if "db - environment" in line:
+                        continue
+                    if "#" in line:
+                        line = line.lstrip('#')
+                    sip_env_list.append(line)
+        except Exception as e:
+            if os.path.exists(sip_env_from_config)==False:
+                logger.info('No such sip_env config file in hc.cfg : %s', sip_env_from_config)
+            logger.info('Read sip_env config error : %s', e)
+            sip_env_status_result.result = "NOK"
+            sip_env_status_result.reason = e
+            return sip_env_status_result 
 
         ENV = sip_env_list[0].split("|")
         VALUE = sip_env_list[1].split("|")

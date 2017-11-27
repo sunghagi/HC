@@ -208,7 +208,7 @@ def omc_process_name(HOST_INFO):
     AppendProcessNameList = []
 
     if omc_type == '1':
-        if HOST_INFO.hostclass == 'OMP':
+        if HOST_INFO.hostclass == 'omp':
             if HOST_INFO.ha_operating_mode == 'ACTIVE' or HOST_INFO.ha_installed == 0:
                 AppendProcessNameList = ['WEB','COLLECTOR','snmpd','--','mysqld']
             else:
@@ -216,13 +216,13 @@ def omc_process_name(HOST_INFO):
         else:
             AppendProcessNameList = ['snmpd']
     elif omc_type == '2':
-        if HOST_INFO.hostclass == 'OMP':
+        if HOST_INFO.hostclass == 'omp':
             if HOST_INFO.ha_operating_mode == 'ACTIVE' or HOST_INFO.ha_installed == 0:
                 AppendProcessNameList = ['snmpd','--','mysqld']
         else:
             AppendProcessNameList = ['snmpd']
     elif omc_type == '3':  # delphi version
-        if HOST_INFO.hostclass == 'OMP':
+        if HOST_INFO.hostclass == 'omp':
             AppendProcessNameList = ['OMA','--','mysqld']
         else:
             AppendProcessNameList = ['OMA']
@@ -231,9 +231,6 @@ def omc_process_name(HOST_INFO):
     return AppendProcessNameList
 
 def pnr_process_name(HOST_INFO, PNR_CONFIG_PATH):
-#   if HOST_INFO.system_name == 'tmr01' and HOST_INFO.hostclass == 'OMP':
-#       AppendProcessNameList = []
-#       return AppendProcessNameList
     ConfigFileCheck(PNR_CONFIG_PATH)
 
     PnrConfig = ConfigParser.RawConfigParser()
@@ -331,9 +328,6 @@ def pnr_process_name(HOST_INFO, PNR_CONFIG_PATH):
     return AppendProcessNameList
 
 def omppnr_process_name(HOST_INFO, PNR_CONFIG_PATH):
-#   if HOST_INFO.system_name == 'tmr01' and HOST_INFO.hostclass == 'OMP':
-#       AppendProcessNameList = []
-#       return AppendProcessNameList
     ConfigFileCheck(PNR_CONFIG_PATH)
 
     PnrConfig = ConfigParser.RawConfigParser()
@@ -410,9 +404,6 @@ def omppnr_process_name(HOST_INFO, PNR_CONFIG_PATH):
     return AppendProcessNameList
 
 def mpspnr_process_name(HOST_INFO, PNR_CONFIG_PATH):
-#   if HOST_INFO.system_name == 'tmr01' and HOST_INFO.hostclass == 'OMP':
-#       AppendProcessNameList = []
-#       return AppendProcessNameList
     ConfigFileCheck(PNR_CONFIG_PATH)
 
     PnrConfig = ConfigParser.RawConfigParser()
@@ -486,9 +477,6 @@ def mpspnr_process_name(HOST_INFO, PNR_CONFIG_PATH):
     return AppendProcessNameList
 
 def dbsvrpm_process_name(HOST_INFO, PNR_CONFIG_PATH):
-#   if HOST_INFO.system_name == 'tmr01' and HOST_INFO.hostclass == 'OMP':
-#       AppendProcessNameList = []
-#       return AppendProcessNameList
     ConfigFileCheck(PNR_CONFIG_PATH)
 
     PnrConfig = ConfigParser.RawConfigParser()

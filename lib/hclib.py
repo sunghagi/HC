@@ -1,13 +1,73 @@
 #!/nas/HC/PYTHON2.7/bin/python -tt
 # -*- coding: utf-8 -*-
 import os
+import sys
 import csv
 import psutil
+import ConfigParser
 from collections import namedtuple
-from hostconf import *
+#from hostconf import *
 from lib.log import *
 
 logger = HcLogger()
+
+default_config_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                      '../config', 'hc.cfg')
+class ConfigLoad():
+   logger.info('%s : config(hc.cfg) path is %s', GetCurFunc(), default_config_path)
+
+   def __init__(self, config_file=default_config_path):
+      self.load_config(config_file)
+      self.flag = True
+
+   def load_config(self, config_file):
+      if os.path.exists(config_file)==False:
+#         raise Exception("%s file does not exist.\n" % config_file)
+         print("%s file does not exist.\n" % config_file)
+         sys.exit()
+
+      self.hc_config = ConfigParser.RawConfigParser(allow_no_value=True)
+      self.hc_config.read(config_file)
+
+
+   def get_item_from_section(self, section, item):
+      try:
+         return self.hc_config.get(section, item)
+      except Exception as e:
+         logger.info('Read config error : %s', e)
+
+   def getint_item_from_section(self, section, item):
+      try:
+         return self.hc_config.getint(section, item)
+      except Exception as e:
+         logger.info('Read config error : %s', e)
+
+   def get_items_from_section(self, section):
+      try:
+         return self.hc_config.items(section)
+      except Exception as e:
+         logger.info('Read config error : %s', e)
+
+   def get_sections(self):
+      try:
+         return self.hc_config.sections()
+      except Exception as e:
+         logger.info('Read config error : %s', e)
+
+   def get_options(self, section):
+      try:
+         return remove_whitespace(self.hc_config.options(section))
+      except Exception as e:
+         logger.info('Read config error : %s', e)
+
+def remove_whitespace(list_options, sep=',', chars=None):
+    """Return a list from a ConfigParser option. By default, 
+    split on a comma and strip whitespaces."""
+    return_list = []
+    for option in list_options:
+        list_removed_whitespace = [chunk.strip(chars) for chunk in option.split(sep)]
+        return_list.append(list_removed_whitespace)
+    return return_list
 
 def bytes2human(n):
     # http://code.activestate.com/recipes/578019 
@@ -188,7 +248,55 @@ def get_ha_status():
     IP_list = get_IP_list()
     logger.info('%s : IP address : %s', GetCurFunc(), IP_list)
 
+    hc_config = ConfigLoad()
+    hc_home_path = hc_config.get_item_from_section('main', 'path')
+    hostconf_config_file_path= os.path.join(hc_home_path, 'config/hostconf.cfg')
+
+    hostconf_config = ConfigLoad(hostconf_config_file_path)
+    system_list = hostconf_config.get_sections()
+    logger.info('%s : system list from hostconf.cfg : %s', GetCurFunc(), system_list)
+
+    server_list=[]
+    for system in system_list:
+        option_server_list = hostconf_config.get_options(system)
+        for option_server in option_server_list:
+            option_server.insert(0, system)
+        server_list += option_server_list
+    logger.info('%s : server list from hostconf.cfg : %s', GetCurFunc(), server_list)
+ 
     st_ha_operating_mode = 'STANDBY'
+    for IP in IP_list:
+        for hostlist in server_list:
+            if IP in hostlist:
+                host_class = hostlist[2]
+                if hostlist[1] == 'VIP':
+                    st_ha_operating_mode = 'ACTIVE'
+                    logger.info('%s : This host is Active', GetCurFunc())
+                    break
+    for hostlist in server_list:
+        if host_class in hostlist:
+            if hostlist[1] == 'VIP':
+                ha_installed = 1
+                logger.info('%s : This %s is HA', GetCurFunc(), host_class)
+                break
+            else:
+                ha_installed = 0
+                if st_ha_operating_mode == 'STANDBY' and ha_installed == 0:
+                    st_ha_operating_mode = 'ACTIVE'
+
+    ha_status.append(st_ha_operating_mode)
+    ha_status.append(ha_installed)
+
+    return ha_status, IP_list, server_list
+
+def get_ha_status2():
+    ha_status = []
+
+    IP_list = get_IP_list()
+    logger.info('%s : IP address : %s', GetCurFunc(), IP_list)
+
+    st_ha_operating_mode = 'STANDBY'
+
     for IP in IP_list:
         for hostlist in HostConf:
             if IP in hostlist:
@@ -218,10 +326,10 @@ def get_host_info():
     host_info_tpl = namedtuple('host_info_tpl', ATTR_HOST_INFO)
 
 #    IP_list = get_IP_list()
-    ha_status_list, IP_list = get_ha_status()
+    ha_status_list, IP_list, server_list = get_ha_status()
 
     for IP in IP_list:
-        for hostlist in HostConf:
+        for hostlist in server_list:
             if IP in hostlist:
                 if hostlist[1] == 'VIP':
                     continue
