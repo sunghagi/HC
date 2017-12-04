@@ -162,7 +162,7 @@ class HcItem:
             cpu_usage_result.result = "NOK"
             cpu_usage_result.reason = "CPU usage(%s) over THRESHOLD(%s)" % ( tot_percs, CPU_THRESHOLD )
 
-        hc_result_table = HcCmdResultTable('CPU 사용률('+str(tot_percs)+'%)',70)
+        hc_result_table = HcCmdResultTable('CPU 사용률('+str(tot_percs)+'%)',78)
         hc_result_table._concate(buf)
         cpu_usage_result.output = hc_result_table.output
         logger.debug('%s :: hc_result_table.output : %s', 
@@ -207,7 +207,7 @@ class HcItem:
         if (swap.percent > SWAP_THRESHOLD):
             memory_usage_result.result = "NOK"
 
-        hc_result_table = HcCmdResultTable('(SWAP)MEMORY 사용률(%)',70)
+        hc_result_table = HcCmdResultTable('(SWAP)MEMORY 사용률(%)',78)
         hc_result_table._concate(buf)
         memory_usage_result.output = hc_result_table.output
 
@@ -250,7 +250,7 @@ class HcItem:
             reason_text = "Disk(%s) usage over %s%% " % \
 				             (', '.join(usageover_mountpoint), DISK_THRESHOLD)
 
-        hc_result_table = HcCmdResultTable('DISK 사용률', 70)
+        hc_result_table = HcCmdResultTable('DISK 사용률', 78)
         hc_result_table._concate(buf)
         disk_usage_result.output = hc_result_table.output
         try:
@@ -294,7 +294,7 @@ class HcItem:
             buf += templ % (fs, bytes2human(nodes), bytes2human(used), \
                            bytes2human(free), usage, mounton) + '\n'
 
-        hc_result_table = HcCmdResultTable('DISK inode 사용률', 70)
+        hc_result_table = HcCmdResultTable('DISK inode 사용률', 78)
         hc_result_table._concate(buf)
         disk_node_usage_result.output = hc_result_table.output
         try:
@@ -307,7 +307,7 @@ class HcItem:
 
     def uptime_status(self):
         uptime_status_result = HcResult()
-        hc_result_table = HcCmdResultTable('시스템 Uptime 확인', 70)
+        hc_result_table = HcCmdResultTable('시스템 Uptime 확인', 78)
 
         UPTIME_THRESHOLD = self.config.getint_item_from_section('threshold', 'uptime')
 
@@ -1078,6 +1078,25 @@ def cpu_stat():
    cpu_stat_result = cpu_stat_omp.make_output()
    return cpu_stat_result
 
+def vic_sip_stat():
+   sip_stat_omp = OdbcQuery('SIP 통계 확인','mysql')
+   sip_stat_omp.db_column_name=['통계수집시간','TOTAL','CPS','USAGE']
+   sip_stat_omp.db_column_width=['-25','-15','-15', '-15']
+   sip_stat_omp.db_query = """
+   SELECT *
+   FROM (
+      SELECT index5Min AS STATTIME,
+          SUM(total) AS TOTAL,
+          ROUND(SUM(total)/300, 1) AS CPS,
+          ROUND(ROUND(SUM(total)/300, 1)/30,3)*100 AS USAGEPET
+      FROM VIC_ST_SIPCALL_MIN
+      GROUP BY STATTIME
+      ORDER BY TOTAL DESC
+   )A
+   """
+   sip_stat_omp.db_param = ""
+   sip_stat_result = sip_stat_omp.make_output()
+   return sip_stat_result
 
 def tars_sip_stat():
    sip_stat_omp = OdbcQuery('SIP 통계 확인','mysql')

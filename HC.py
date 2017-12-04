@@ -139,11 +139,10 @@ def main():
    ['좀비 프로세스 확인', 'lib.vms_hc.process_status()',DAILY,'ALL'],
    ['/var/log/messages 확인','lib.vms_hc.messages_check()',DAILY,'ALL'],
    ['총 가입자수 확인','lib.vms_hc.vic_subscribers()',DAILY,'SPS'],
-#   ['altibase tablespace 확인','lib.vms_hc.altibase_tablespace()', DAILY,'SPS'],
+   ['SIP 통계 확인','lib.vms_hc.vic_sip_stat()',DAILY,'OMP'],
+   ['알티베이스 메모리 사용률','lib.vms_hc.altibase_tablespace()',DAILY,'SPS'],
 #   ['월간 CPU 통계 확인', 'lib.vms_hc.cpu_stat()',MONTHLY,'OMP'],
-#   ['알티베이스 메모리 사용률','lib.vms_hc.altibase_tablespace("DSN=odbc_local")',DAILY,'SPS'],
 #   ['월간 alarm', 'lib.vms_hc.dis_alarm()',MONTHLY,'OMP'],
-#   ['SIP 통계 확인','lib.vms_hc.tars_sip_stat()',DAILY,'OMP'],
 #   ['NAS Fault 확인','lib.vms_hc.nas_status()',DAILY,'OMP'],
    ]
 
@@ -152,8 +151,8 @@ def main():
    host_info = lib.hclib.get_host_info()
    logger.info('%s : get host information completed', GetCurFunc())
 
-   logger.info('%s : get current check mode', GetCurFunc())
    current_check_mode = get_current_check_mode(args.monthly)
+   logger.info('%s : get current check mode', GetCurFunc())
 
    hc_result = run_method(host_info, health_check_items, current_check_mode)
 

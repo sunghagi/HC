@@ -6,7 +6,6 @@ import csv
 import psutil
 import ConfigParser
 from collections import namedtuple
-#from hostconf import *
 from lib.log import *
 
 logger = HcLogger()
@@ -244,31 +243,36 @@ def get_IP_list():
 #               print(" family :  : %s" % addr.family)
     return IP_list
 
-def get_ha_status():
-    ha_status = []
-
-    IP_list = get_IP_list()
-    logger.info('%s : IP address : %s', GetCurFunc(), IP_list)
-
+def get_server_list():
     hc_config = ConfigLoad()
     hc_home_path = hc_config.get_item_from_section('main', 'path')
     hostconf_config_file_path= os.path.join(hc_home_path, 'config/hostconf.cfg')
-
+    
     hostconf_config = ConfigLoad(hostconf_config_file_path)
     system_list = hostconf_config.get_sections()
     logger.info('%s : system list from hostconf.cfg : %s', GetCurFunc(), system_list)
-
+    
     server_list=[]
     for system in system_list:
         option_server_list = hostconf_config.get_options(system)
         for option_server in option_server_list:
             option_server.insert(0, system)
         server_list += option_server_list
-
+     
     # logging server list on a separate line
     logger.info('%s : server list from hostconf.cfg', GetCurFunc())
     for server in server_list:
         logger.info(' %s', server)
+   
+    return server_list
+
+def get_ha_status():
+    ha_status = []
+
+    IP_list = get_IP_list()
+    logger.info('%s : IP address : %s', GetCurFunc(), IP_list)
+
+    server_list = get_server_list()
  
     st_ha_operating_mode = 'STANDBY'
     for IP in IP_list:
@@ -294,38 +298,6 @@ def get_ha_status():
     ha_status.append(ha_installed)
 
     return ha_status, IP_list, server_list
-
-def get_ha_status2():
-    ha_status = []
-
-    IP_list = get_IP_list()
-    logger.info('%s : IP address : %s', GetCurFunc(), IP_list)
-
-    st_ha_operating_mode = 'STANDBY'
-
-    for IP in IP_list:
-        for hostlist in HostConf:
-            if IP in hostlist:
-                host_class = hostlist[2]
-                if hostlist[1] == 'VIP':
-                    st_ha_operating_mode = 'ACTIVE'
-                    logger.info('%s : This host is Active', GetCurFunc())
-                    break
-    for hostlist in HostConf:
-        if host_class in hostlist:
-            if hostlist[1] == 'VIP':
-                ha_installed = 1
-                logger.info('%s : This %s is HA', GetCurFunc(), host_class)
-                break
-            else:
-                ha_installed = 0
-                if st_ha_operating_mode == 'STANDBY' and ha_installed == 0:
-                    st_ha_operating_mode = 'ACTIVE'
-
-    ha_status.append(st_ha_operating_mode)
-    ha_status.append(ha_installed)
-
-    return ha_status, IP_list
 
 def get_host_info():
     ATTR_HOST_INFO = 'system_name hostname hostclass ip_address ha_operating_mode ha_installed'

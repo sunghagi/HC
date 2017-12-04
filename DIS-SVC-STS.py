@@ -43,7 +43,6 @@ def dis_svc_sts():
    print ""
 
 def is_phone_number(phoneid):
-#   rule = re.compile('01[0-9]{1}[0-9]{8}')
    rule = re.compile(r'(01[0-9]{1}[0-9]{8})')
 
    if not rule.search(phoneid):
@@ -53,19 +52,8 @@ def is_phone_number(phoneid):
 
 def main():
    parser = argparse.ArgumentParser(description="POINT-I Health Check Tool. This tool check a alarm.")
-#   parser.add_argument('-p', '--phoneid', action='store', required=True, type=is_phone_number, help="phoneid, ex) 01090874208")
    args = parser.parse_args()
 
-#   HOST_INFO = lib.vms_hc.HostInfo()  # ['EVMS01','SPS01', 'SPS', '121.134.202.163','ACTIVE','1'],
-#   HOST_INFO._host_info()
-
-#   SystemNumber = HOST_INFO.system_name
-#   HostName = HOST_INFO.hostname
-#   HostClass = HOST_INFO.hostclass
-#   HaStatus = HOST_INFO.ha_operating_mode
-#   HaInstalled = HOST_INFO.ha_installed
-
-#   dis_svc_sts(args.phoneid)
    dis_svc_sts()
 
 if __name__ == "__main__":
