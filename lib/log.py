@@ -1,13 +1,14 @@
 #!/nas/HC/PYTHON2.7/bin/python -tt
 from os import path
+import sys
 import inspect
 import logging
 from logging.handlers import RotatingFileHandler
 from logging.handlers import TimedRotatingFileHandler
 
 #LOG_FILE_PATH='/nas/HC/log/hc.log'
-LOG_FILE_PATH = path.join(path.abspath(path.dirname(__file__)), \
-												'../log', 'hc.log')
+LOG_FILE_PATH = path.join(path.abspath(path.dirname(sys.argv[0])),
+												'log', 'hc.log')
 
 def HcLogger():
     FORMAT = logging.Formatter('%(asctime)s.%(msecs)03d [%(levelname)-5s] %(message)s', \
