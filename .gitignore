@@ -5,3 +5,4 @@ PYTHON3.6
 *.csv
 *.xlsx
 *.pyc
+flask/

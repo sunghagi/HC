@@ -10,8 +10,8 @@ from lib.log import *
 
 logger = HcLogger()
 
-default_config_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-                      '../config', 'hc.cfg')
+default_config_path = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])),
+                      'config', 'hc.cfg')
 class ConfigLoad():
    logger.info('%s : config(hc.cfg) path is %s', GetCurFunc(), default_config_path)
 
@@ -284,15 +284,19 @@ def get_ha_status():
                     logger.info('%s : This host is Active', GetCurFunc())
                     break
     for hostlist in server_list:
-        if host_class in hostlist:
-            if hostlist[1] == 'VIP':
-                ha_installed = 1
-                logger.info('%s : This %s is HA', GetCurFunc(), host_class)
-                break
-            else:
-                ha_installed = 0
-                if st_ha_operating_mode == 'STANDBY' and ha_installed == 0:
-                    st_ha_operating_mode = 'ACTIVE'
+        try:
+            if host_class in hostlist:
+                if hostlist[1] == 'VIP':
+                    ha_installed = 1
+                    logger.info('%s : This %s is HA', GetCurFunc(), host_class)
+                    break
+                else:
+                    ha_installed = 0
+                    if st_ha_operating_mode == 'STANDBY' and ha_installed == 0:
+                        st_ha_operating_mode = 'ACTIVE'
+        except Exception as e:
+            logger.info('%s : host IP address not include hostconf.cfg', GetCurFunc())
+            sys.exit()
 
     ha_status.append(st_ha_operating_mode)
     ha_status.append(ha_installed)
